@@ -66,7 +66,7 @@ Floating IP | Unlimited
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
 Peering | Unlimited 
-
+NAT gateway | 3
 
 
 > [Note]
@@ -155,6 +155,35 @@ Go to the project where your Internet gateway specified as maintenance target is
 
 The Internet gateway becomes inoperable while restarting is underway.
 Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by TOAST.  
+
+
+## NAT gateway
+
+This feature is available only in the Pyeongchon region, Korea.
+NAT gateway can be set as a gateway from the route setting of a routing table. If NAT gateway is set as the gateway for the routing table, the floating IP of NAT gateway can be switched to source IP to access the Internet.
+
+| Item      | Description                                                         |
+| --------|------------------------------------------------------------ |
+| Name      | Can specify the name of NAT gateway. |
+| VPC      | Specifies the VPC to create NAT gateway. |
+| Subnet     | Specifies the subnets connected to a routing table that is connected to the Internet gateway among the subnets of the selected VPC. NAT gateway cannot be created with a subnet that does not satisfy the conditions. |
+| Floating IP  | Specifies the floating IP to be assigned to NAT gateway. This IP is converted to the source IP when connecting to the Internet. |
+| Description      | Can add the description for NAT gateway. |
+
+* The VPC, subnet, and floating IP of an NAT gateway cannot be changed.
+
+* The floating IP configured by NAT gateway cannot be disconnected. It is automatically disconnected when the NAT gateway is deleted.
+
+* Instances cannot be accessed with the NAT gateway address.
+
+* The inbound traffic to the NAT gateway address is entirely blocked.
+
+* A single NAT gateway can be specified as a gateway in multiple routing tables in the same VPC.
+
+* Subnets specified when NAT gateway is configured and routing tables connected to a different subnet can specify NAT gateway as its gateway.
+
+* Network ACL is applied.
+
 
 ## Floating IP 
 
@@ -330,19 +359,18 @@ Peering refers to connecting two different VPCs. In general, VPCs cannot communi
 
 * Cannot use overlapped IP address areas of two VPCs.<br>When IP address areas of two VPCs to create peering are redundant, peering fails. 
 * Size of an IP address area does not matter and communication with unlinked subnets to "default routing table" is unavailable. 
-  * 한국(평촌) 리전은 피어링을 생성한 후, 피어링한 양쪽 VPC의 라우팅 테이블에 별도의 라우트를 설정해야 통신이 가능합니다.
-    * 라우트의 "대상 CIDR"에 상대 VPC의 IP 주소 영역을 입력하고, "게이트웨이" 목록에서 피어링의 이름을 갖는 "PEERING" 항목을 선택하여 라우트를 추가합니다.
-    * 라우트를 추가한 라우팅 테이블에 연결된 서브넷으로만 통신이 가능합니다.
+  * [Pyeongchon region, Korea] Communications become available only when a separate route is configured from the routing table of both VPCs after peering is created.
+    * Route can be added by entering the IP address of the other side in the "Target CIDR" of a route and selecting the item named "PEERING" from the "Gateway" list.
+    * Communications are available only through the subnet connected to the routing table that added a route.
 * Peering is charged from the moment it is created. 
 * There's no quota limits for a peering, but a subnet quota is required. 
-  * 한국(평촌) 리전은 서브넷 쿼터를 사용하지 않고 피어링된 두 VPC 내에서 IP 1개씩을 사용합니다.
+  * [Pyeongchon region, Korea] It now uses each IP from two peered VPCs instead of subnet quota.
 
 
 
-## 코로케이션 게이트웨이
+## Co-location gateway
 
-코로케이션 게이트웨이는 TOAST에서 하이브리드로 제공하는 고객의 네트워크를 연결하기 위한 기능이며 한국(평촌) 리전에만 제공됩니다. TOAST에서 하이브리드 서비스를 사용하는 경우에 한정하여 TOAST Zone이 제공되고, 코로케이션 게이트웨이를 이용하여 구성한 VPC에 TOAST Zone을 직접 연결할 수 있습니다.
-
-* 한 개의 VPC는 한 개의 TOAST Zone과 1:1로 연결됩니다.
-* 연결과 동시에 과금됩니다.
+The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by TOAST. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in TOAST, TOAST Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
+* A single VPC is connected to a single TOAST Zone one-on-one.
+* The fee is charged the moment the VPC is connected.
 
