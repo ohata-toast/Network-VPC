@@ -115,7 +115,7 @@ To delete a subnet, it should be empty with no instances or load balancers inclu
 
 ## Internet Gateway
 
-An internet gateway can be connected to a routing table. VPCs comprised of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and TOAST does the job automatically. To create an internet gateway, an external network is required and TOAST is operating only one "public_network" as of now.  
+An internet gateway can be connected to a routing table. VPCs comprised of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and NHN Cloud does the job automatically. To create an internet gateway, an external network is required and NHN Cloud is operating only one "public_network" as of now.  
 
 * An internet gateway address is automatically assigned when an instance is created or VPC requires an internet access, and it cannot be modified. 
 
@@ -129,7 +129,7 @@ An internet gateway can be connected to a routing table. VPCs comprised of priva
 
 ### Guide for Restarting Internet Gateways for Server Maintenance 
 
-TOAST updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
+NHN Cloud updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
 
 Internet gateways that are running on a target server for maintenance must be restarted and migrated to the server which is completed with maintenance.  
 
@@ -154,11 +154,11 @@ Go to the project where your Internet gateway specified as maintenance target is
     ![ig-004](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-004.png)
 
 The Internet gateway becomes inoperable while restarting is underway.
-Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by TOAST.  
+Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.  
 
 ## Floating IP 
 
-When an instance is created, an IP address is assigned from a designated subnet. The IP address is certainly included to VPC, as it is the subnet address, and we call it Fixed IP. As it is a private network address, an access from the internet is not available. Therefore, to access the internet directly from outside, an accessible IP address from outside is required. Floating IP allows direct access to an instance from the internet, by linking the address to the instance 1:1. For more details, refer to [Overview]. To create a floating IP, an external network must be selected and TOAST currently operates only one "public network".   
+When an instance is created, an IP address is assigned from a designated subnet. The IP address is certainly included to VPC, as it is the subnet address, and we call it Fixed IP. As it is a private network address, an access from the internet is not available. Therefore, to access the internet directly from outside, an accessible IP address from outside is required. Floating IP allows direct access to an instance from the internet, by linking the address to the instance 1:1. For more details, refer to [Overview]. To create a floating IP, an external network must be selected and NHN Cloud currently operates only one "public network".   
 
 > [Note] To connect a floating IP to an instance, a subnet including the instance must be connected to a routing table,  <br>
 > and the routing table must be connected to the internet through an internet gateway, so as to perform "connection". 
@@ -177,7 +177,7 @@ When an instance is created, an IP address is assigned from a designated subnet.
 
 An instance with a multiple number of network interfaces can have each of its network interface associated with floating IP. However, in order to access the instance with a floating IP which is associated to other network interfaces, except the first one, the routing rule setting must be set for the instance.  
 
- An instance which is created with **`Dec.27,2018` or later version of TOAST Common Linux Image Deployment ** can be accessed via all floating IPs associated with each network interface, by configuring the auto routing rule for a booting. 
+ An instance which is created with **`Dec.27,2018` or later version of NHN Cloud Common Linux Image Deployment ** can be accessed via all floating IPs associated with each network interface, by configuring the auto routing rule for a booting. 
 
 *Access an instance, and check if routing rule is set, as below: 
 ```
@@ -341,8 +341,8 @@ Peering refers to connecting two different VPCs. In general, VPCs cannot communi
 
 ## 코로케이션 게이트웨이
 
-코로케이션 게이트웨이는 TOAST에서 하이브리드로 제공하는 고객의 네트워크를 연결하기 위한 기능이며 한국(평촌) 리전에만 제공됩니다. TOAST에서 하이브리드 서비스를 사용하는 경우에 한정하여 TOAST Zone이 제공되고, 코로케이션 게이트웨이를 이용하여 구성한 VPC에 TOAST Zone을 직접 연결할 수 있습니다.
+코로케이션 게이트웨이는 NHN Cloud에서 하이브리드로 제공하는 고객의 네트워크를 연결하기 위한 기능이며 한국(평촌) 리전에만 제공됩니다. NHN Cloud에서 하이브리드 서비스를 사용하는 경우에 한정하여 NHN Cloud Zone이 제공되고, 코로케이션 게이트웨이를 이용하여 구성한 VPC에 NHN Cloud Zone을 직접 연결할 수 있습니다.
 
-* 한 개의 VPC는 한 개의 TOAST Zone과 1:1로 연결됩니다.
+* 한 개의 VPC는 한 개의 NHN Cloud Zone과 1:1로 연결됩니다.
 * 연결과 동시에 과금됩니다.
 
