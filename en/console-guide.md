@@ -342,8 +342,8 @@ Peering refers to connecting two different VPCs. In general, VPCs cannot communi
 
 ## Co-location gateway
 
-The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by TOAST. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in TOAST, TOAST Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
-* A single VPC is connected to a single TOAST Zone one-on-one.
+The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by NHN Cloud. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in NHN Cloud, NHN Cloud Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
+* A single VPC is connected to a single NHN Cloud Zone one-on-one.
 * The fee is charged the moment the VPC is connected.
 
 
