@@ -25,6 +25,8 @@ TOAST VPC는 퍼블릭 네트워크나 데이터 센터 내 호스팅 연결 혹
 
 * 플로팅 IP를 이용하여 인스턴스를 인터넷에서 직접 액세스할 수 있습니다.
 
+* NAT 게이트웨이를 이용하여 고정된 소스 IP 로 인터넷을 액세스할 수 있습니다.
+
 * 보안 그룹을 이용하여 인스턴스에 대한 접근 제어를 할 수 있습니다.
 
 * 피어링 연결을 사용하여 서로 다른 VPC간 연결을 제공합니다. 완전 격리가 필요한 경우에는 복수개의 VPC를 사용하여
@@ -41,6 +43,7 @@ TOAST VPC는 퍼블릭 네트워크나 데이터 센터 내 호스팅 연결 혹
 ------------- | ------------- | -------------------
 Subnet  | 서브넷 | Subnetwork를 의미하며 IP 네트워크의 중 더 작은 단위로 세분화 된 IP 주소 영역입니다.<br><https://en.wikipedia.org/wiki/Subnetwork>
 Internet Gateway| 인터넷 게이트웨이 | 통상적으로 게이트웨이(gateway)로 알려져 있으며 Subnet에 의해 구성된 네트워크가 외부와 연결되는 통로를 의미합니다.<br><https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway>
+NAT Gateway | NAT 게이트웨이 | 인터넷 게이트웨이와 유사하게 외부와 연결되는 통로입니다. 소스 IP가 고정된 IP로 변환되어 통신됩니다.
 Routing Table | 라우팅 테이블 | CIDR notation에 의해 정의되는 전달 경로를 기술하는 테이블로 목적지 주소에 의해 전달되는 장비를 지정하거나 우회 시킬 수 있습니다.<br><https://en.wikipedia.org/wiki/Routing_table>
 Private Network| 프라이빗 네트워크 | 인터넷 주소 구조에서 사설 네트워크를 정의하는 IP 영역으로 표기된 네트워크를 의미하며 퍼블릭 망에서 이들 트래픽은 전달되지 않습니다.<br><https://en.wikipedia.org/wiki/Private_network>
 Peering | 피어링 | 서로 다른 두 VPC를 연결하는 것을 피어링이라고 하며 이는 내부적으로 숨겨진 방식을 이용하여 두 VPC를 연결합니다.
