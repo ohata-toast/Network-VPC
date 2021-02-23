@@ -154,7 +154,8 @@ TOASTは周期的にインターネットゲートウェイサーバーのソフ
     ![image-004](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-jp-004.png)
 
 インターネットゲートウェイの再起動中は、該当インターネットゲートウェイを操作できません。
-インターネットゲートウェイが正常に再起動しなかった場合は、自動的に管理者に報告され、TOASTから別途連絡いたします。
+インターネットゲートウェイが正常に再起動しなかった場合は、自動的に管理者に報告され、NHN Cloudから別途連絡いたします。
+
 
 ## Floating IP
 

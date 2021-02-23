@@ -40,6 +40,7 @@ Refers to a subnetwork, which is a subdivided IP address area within the IP netw
 
 Generally known as Gateway, it refers to a pathway of a network configured by a subnet to outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
 
+
 #### Routing Table
 
 A table describing a transfer path as defined by CIDR notation: transferred devices may be designated or bypassed by destination address.<br>https://en.wikipedia.org/wiki/Routing_table
