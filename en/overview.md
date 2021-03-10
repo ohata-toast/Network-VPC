@@ -1,6 +1,6 @@
 ## Network > VPC > Overview
 
-Virtual Private Cloud (VPC) supports functions to operate TOAST recourses in a logically isolated virtual network. Each VPC can configure completely standalone subnets, routing tables, and gateways, and control each of them. 
+Virtual Private Cloud (VPC) supports functions to operate NHN Cloud recourses in a logically isolated virtual network. Each VPC can configure completely standalone subnets, routing tables, and gateways, and control each of them. 
 
 User can simply define VPC configuration in a console: connect services allowing internet access, or run database or application from a closed subnet. Each element can be protected by using security group. 
 
@@ -11,7 +11,7 @@ In addition, as connection with TCC1 hosting is available, VPC can enjoy advanta
 
 ### Main Features 
 
-TOAST VPC supports hosting connection within a public network or a data center, or external connection through an internet gateway. 
+NHN Cloud VPC supports hosting connection within a public network or a data center, or external connection through an internet gateway. 
 
 * Designate the range of a whole private IP address. Each subnet of VPC can be freely created within its range of IP address.   
 
@@ -29,7 +29,7 @@ TOAST VPC supports hosting connection within a public network or a data center, 
 
 * Apply a number of interfaces for a particular instance. To provide services for many subnets, depending on the purpose of an instance, the instance can be applied with an interface of many subnets.  
 
-* VPC is provided while connection with other TOAST services is hidden.  
+* VPC is provided while connection with other NHN Cloud services is hidden.  
 
 <br>
 ### Glossary
