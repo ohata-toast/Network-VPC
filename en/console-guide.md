@@ -66,6 +66,7 @@ Floating IP | Unlimited
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
 Peering | Unlimited 
+NAT gateway | 3
 
 
 > [Note]
@@ -154,6 +155,34 @@ Go to the project where your Internet gateway specified as maintenance target is
 
 The Internet gateway becomes inoperable while restarting is underway.
 Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.  
+
+
+## NAT gateway
+
+This feature is available only in the Pyeongchon region, Korea.
+NAT gateway can be set as a gateway from the route setting of a routing table. If NAT gateway is set as the gateway for the routing table, the floating IP of NAT gateway can be switched to source IP to access the Internet.
+
+| Item      | Description                                                         |
+| --------|------------------------------------------------------------ |
+| Name      | Can specify the name of NAT gateway. |
+| VPC      | Specifies the VPC to create NAT gateway. |
+| Subnet     | Specifies the subnets connected to a routing table that is connected to the Internet gateway among the subnets of the selected VPC. NAT gateway cannot be created with a subnet that does not satisfy the conditions. |
+| Floating IP  | Specifies the floating IP to be assigned to NAT gateway. This IP is converted to the source IP when connecting to the Internet. |
+| Description      | Can add the description for NAT gateway. |
+
+* The VPC, subnet, and floating IP of an NAT gateway cannot be changed.
+
+* The floating IP configured by NAT gateway cannot be disconnected. It is automatically disconnected when the NAT gateway is deleted.
+
+* Instances cannot be accessed with the NAT gateway address.
+
+* The inbound traffic to the NAT gateway address is entirely blocked.
+
+* A single NAT gateway can be specified as a gateway in multiple routing tables in the same VPC.
+
+* Subnets specified when NAT gateway is configured and routing tables connected to a different subnet can specify NAT gateway as its gateway.
+
+* Network ACL is applied.
 
 
 
@@ -342,8 +371,8 @@ Peering refers to connecting two different VPCs. In general, VPCs cannot communi
 
 ## Co-location gateway
 
-The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by TOAST. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in TOAST, TOAST Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
-* A single VPC is connected to a single TOAST Zone one-on-one.
+The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by NHN Cloud. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in NHN Cloud, NHN Cloud Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
+* A single VPC is connected to a single NHN Cloud Zone one-on-one.
 * The fee is charged the moment the VPC is connected.
 
 
