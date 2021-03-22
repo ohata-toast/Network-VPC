@@ -21,6 +21,8 @@ TOAST VPC supports hosting connection within a public network or a data center, 
 
 * Directly access instances from the internet, via floating IP. 
 
+* The Internet can be accessed with a fixed source IP using an NAT gateway.
+
 * Control access to instances by using security group. 
 
 * Connect different VPCs via peering. To allow complete isolation, use multiple VPCs and provide peering for designated connection. 
@@ -40,6 +42,9 @@ Refers to a subnetwork, which is a subdivided IP address area within the IP netw
 
 Generally known as Gateway, it refers to a pathway of a network configured by a subnet to outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
 
+#### NAT Gateway
+
+A passage connected to the outside, similar to the Internet gateway. The source IP is converted to a fixed IP for communication.
 
 #### Routing Table
 
