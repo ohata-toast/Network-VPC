@@ -184,6 +184,8 @@ NAT gateway can be set as a gateway from the route setting of a routing table. I
 
 * Network ACL is applied.
 
+* If the gateway is set to 'NAT gateway’ for the target CIDR to route without IP Prefix 0 (/0) in the Route Settings, 'NAT Gateway' will be used to communicate even if floating IP is set for the instance.
+
 
 
 ## Floating IP 
