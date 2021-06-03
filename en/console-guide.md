@@ -294,45 +294,6 @@ default via 10.254.0.1 dev eth2
 
 Since the routing rule setting returns to default along with instance rebooting, it is recommended to set auto routing rule when an instance is rebooted. 
 
-## Security Group 
-
-Security group is used to protect instances from other traffic. In general, "Positive Security Model" is applied to allow specified traffic, while blocking the others. 
-
-With a service initiated, a default security group is created, blocking all inbound traffic. As a result, services like 'ping' or 'ssh' become available only by setting rules that are required. Same can be applied both to external access using floating IP and internal access using private IP. 
-
-Many security groups can be set for an instance. When additional security group is created, with many rules added and set for an instance, all rules set for security groups shall be applied to the instance.   
-
-For instance, if a security group called 'CONN' has rules named 'Ingress TCP PORT 22' and 'Ingress TCP PORT 23', while a security group called 'WEB' has rules named 'Ingress TCP PORT 80' and 'Ingress TCP PORT 8080', the two security groups, 'CONN' and 'WEB', can be assigned to an instance and make the four rules all available.    
-
-
-| Item        | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| Flow        | Ingress refers to an inbound flow to an instance. Egress refers to an outbound flow from an instance. |
-| Ether Type  | Version of EtherType IP. IPv4 or IPv6 can be specified.      |
-| IP Protocol | A particular protocol or all protocols can be specified. Other protocol '0' means 'Random', which allows all IP protocols.            |
-| Port Range  | For L4 protocol, the port range can be specified.            |
-| Remote      | Range of a security group or IP address can be specified. If the flow of a rule is 'Egress', the destination is remote. <br>If it is 'Ingress', the departure is remote. Traffic departure and destination is compared depending on the flow of a rule. <br>When a security group is specified, see if the IP belongs to instances of the specified security group. <br>When IP address or range is specified by selecting CIDR, see if the IP address or range is set. |
-| Description | You may add description on the rule of security group.       |
-
-Since a security group runs by 'stateful', sessions that are once connected with a rule are allowed even without rule of the opposite flow. 
-
-For example, if the first packet of TCP 80 which directs toward an instance, has passed by the 'Ingress TCP PORT 80' rule, the transfer packet which starts from TCP 80 port of an instance shall not be blocked.  
-
-Nevertheless, if a session is closed due to failure of incoming packet which is appropriate for a particular period rule, packets of the opposite direction are also blocked.   
-
-Default security group has rules for all outbound traffic from an instance. Unless the rules are removed, all sessions starting from instances are allowed. 
-
-* Specifying a range is more effective than adding rules one by one.
-
-* Adding more rules may degrade performance. 
-
-* Traffic under inappropriate session status may be blocked. 
-
-* Asymmetric traffic that has different inflow from outflow may be blocked. 
-
-* Rules not on the list may be defined to use. For more details, refer to [Well-known port](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers). 
-
-
 
 
 ## Routing Table 
