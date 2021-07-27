@@ -1,6 +1,6 @@
 ## Network > VPC > API v2 Guide 
 
-To enable APIs, API endpoint and token are required. Prepare information required to enable an API, in reference of  [Preparing for APIs](/Compute/Compute/ko/identity-api/)
+To enable APIs, API endpoint and token are required. Prepare information required to enable an API, in reference of  [Preparing for APIs](/Compute/Compute/en/identity-api/)
 
 Use  `network`- type endpoint for VPC API. For more details, see `serviceCatalog` from response of token issuance. 
 
