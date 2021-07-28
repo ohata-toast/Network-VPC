@@ -115,7 +115,7 @@ To delete a subnet, it should be empty with no instances or load balancers inclu
 
 ## Internet Gateway
 
-An internet gateway can be connected to a routing table. VPCs comprised of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and TOAST does the job automatically. To create an internet gateway, an external network is required and TOAST is operating only one "public_network" as of now.  
+An internet gateway can be connected to a routing table. VPCs comprised of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and NHN Cloud does the job automatically. To create an internet gateway, an external network is required and NHN Cloud is operating only one "public_network" as of now.  
 
 * An internet gateway address is automatically assigned when an instance is created or VPC requires an internet access, and it cannot be modified. 
 
@@ -129,7 +129,7 @@ An internet gateway can be connected to a routing table. VPCs comprised of priva
 
 ### Guide for Restarting Internet Gateways for Server Maintenance 
 
-TOAST updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
+NHN Cloud updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
 
 Internet gateways that are running on a target server for maintenance must be restarted and migrated to the server which is completed with maintenance.  
 
@@ -154,7 +154,7 @@ Go to the project where your Internet gateway specified as maintenance target is
     ![ig-004](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-004.png)
 
 The Internet gateway becomes inoperable while restarting is underway.
-Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by TOAST.  
+Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.  
 
 
 ## NAT gateway
