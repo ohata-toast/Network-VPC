@@ -240,7 +240,6 @@ Each IP address area must not be a subset of the other. Otherwise, peering creat
         * Communication is possible only with subnets associated with the routing table to which the route has been added.
         * For a routing table that is not the "default routing table", if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
         * If you specify a VPC without a subnet when creating a peering, the peering is created, but the peering is not actually connected, so you cannot set routes in the routing table. You can set routes after creating at least one subnet in the VPC.
-    * Charges for peering are incurred as soon as the connection is made.
 
 
 ## Co-location gateway
