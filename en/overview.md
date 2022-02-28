@@ -36,11 +36,11 @@ NHN Cloud VPC supports hosting connection within a public network or a data cent
 
 #### Subnet
 
-Refers to a subnetwork, which is a subdivided IP address area within the IP network.<br>https://en.wikipedia.org/wiki/Subnetwork
+Refers to a subnetwork, which is a subdivided IP address range within the IP network.<br>https://en.wikipedia.org/wiki/Subnetwork
 
 #### Internet Gateway
 
-Generally known as Gateway, it refers to a pathway of a network configured by a subnet to outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
+Generally known as a gateway, it refers to a pathway of a network configured by a subnet to the outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
 
 #### NAT Gateway
 
@@ -48,17 +48,25 @@ A passage connected to the outside, similar to the Internet gateway. The source 
 
 #### Routing Table
 
-A table describing a transfer path as defined by CIDR notation: transferred devices may be designated or bypassed by destination address.<br>https://en.wikipedia.org/wiki/Routing_table
+A table describing a transfer path defined by CIDR notation. By using destination addresses, you can specify the devices which the traffic is forwarded to or bypass.<br>https://en.wikipedia.org/wiki/Routing_table
 
 #### Private Network
 
-Refers to a network marked as an IP area which defines a private network in the structure of an internet address: the traffic is not delivered in a public network. <br>https://en.wikipedia.org/wiki/Private_network>
+Refers to a network configured with an IP address range that defines a private network in the structure of an internet address. The traffic is not delivered in a public network. <br>https://en.wikipedia.org/wiki/Private_network>
 
 #### Peering
 
 Peering refers to connecting two different VPCs. 
 
+#### Inter-Region Peering 
+
+Inter-region peering refers to connecting two VPCs located in different regions.
+
 #### Interface
 
-A device to connect an instance to a network.
+A network interface refers to a device to connect an instance to a network.
+
+#### Service Gateway
+
+Securely connects selectable services without going through the internet. The IP assigned to the VPC and the selected service are connected one-to-one.
 
