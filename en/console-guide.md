@@ -4,11 +4,11 @@ This document describes what you need to do when working with VPCs in the consol
 
 ## VPC
 
-Since a VPC can have multiple subnets, a sufficiently large network must be configured when divided subnets are used. A VPC network can be described by using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing). All VPCs must be located in the three address areas shown below, where a [private network](https://en.wikipedia.org/wiki/Private_network) can be configured, and link-local addresses cannot be used. In addition, you must specify a network area that is larger than 24bit-256.
+Since a VPC can have multiple subnets, a sufficiently large network must be configured when divided subnets are used. A VPC network can be described by using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing). All VPCs must be located in the three address ranges shown below, where a [private network](https://en.wikipedia.org/wiki/Private_network) can be configured, and link-local addresses cannot be used. In addition, you must specify a network area that is larger than 24bit-256.
 
 ### Private Network 
 
-RFC1918 | IP Address Area | Available Number of Addresses 
+RFC1918 | IP Address Range | Number of Available Addresses 
 -------- | ---------- | -----------------
 24bit block | 10.0.0.0/8 | 16,777,216
 20bit block | 172.16.0.0/12 | 1,047,576
@@ -16,7 +16,7 @@ RFC1918 | IP Address Area | Available Number of Addresses
 
 ### Link-Local Addresses 
 
-Cannot use 65,536 IP addresses that are included to 169.254.0.0/16. 
+You cannot use 65,536 IP addresses that are included in 169.254.0.0/16. 
 
 ### Examples 
 
@@ -25,17 +25,17 @@ Example | Availability
 10.0.0.0/8 | Available. 
 10.0.0.0/16 | Available. 
 10.0.0.0/24 | Available. 
-10.0.0.0/28 | Unavailable. Range is too short. 
+10.0.0.0/28 | Unavailable. Range is too small. 
 172.16.0.0/16 | Available. 
 172.16.0.0/8 | Unavailable. Out of available range. 
-192.168.0.0/16 | Available. Specified as default range. 
+192.168.0.0/16 | Available. Specified as the default range. 
 192.168.0.0/24 | Available. 
 192.253.0.0/24 | Unavailable. Out of available range. 
 
 <br>
 
 
-By using initial compute and network products, items as below are to be automatically configured. 
+When you use Compute and Network products for the first time, the following items are automatically configured.
 
 Item | Name | Summary 
 -------- | ---------- | --------------
@@ -45,14 +45,14 @@ Routing Table | vpc-[id] | Creates one routing table named after a part of VPC I
 Internet Gateway | ig-[id] | Creates one internet gateway named after a part of routing table ID. 
 Security Group | default | Creates a security group named default. 
 
-To add VPC, not as an initial configuration, configure items as below: 
+When adding a VPC rather than performing the initial configuration, the following items are configured.
 
 Item | Name | Summary 
 -------- | ---------- | --------------
-VPC | As specified | Creates one VPC within the specified range. 
+VPC | Specified name | Creates one VPC within the specified range. 
 Subnet | - | Not created. 
 Routing Table | vpc-[id] | Creates one routing table named after a part of VPC ID. 
-Internet Gateway | - | Not created: create additionally and connect. 
+Internet Gateway | - | Not created, so it must be created and connected separately.
 Security Group | - | Not created additionally. 
 
 Here is the quota for VPC and each item.  
@@ -66,7 +66,9 @@ Floating IP | Unlimited
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
 Peering | Unlimited 
-NAT gateway | 3
+Inter-region Peering | 10
+NAT Gateway | 3
+Service Gateway | 3
 
 
 > [Note]
@@ -119,6 +121,7 @@ By using a subnet's "Static Route" setting, it is possible to pass the routing r
 * The method of reflecting the "classless-static-routes" option varies depending on the OS type, distribution, or DHCP client version running on the instance. However, it is generally reflected when the DHCP client is first started, such as instance booting, and is not reflected when renewing the DHCP lease. Therefore, when you edit a subnet's "Static Route", the change may not take effect immediately on the running instances, so it is recommended to reboot the running target instances if possible.
 
 * A "Static Route" consists of the destination CIDR of the packet to be routed and the gateway information to forward the target packet to.<br>If you create a static route with a CIDR of "0.0.0.0/0", you can change the default gateway of the instance to an IP other than the gateway of the subnet.<br>The gateway is entered as text as opposed to a "Route" in the routing table, and you can also specify an IP that is not yet assigned within the subnet.
+
 
 ## Internet Gateway
 
@@ -228,19 +231,35 @@ It is also possible to change the routing table method. Please note that, when c
 
 ## Peering 
 
-Peering refers to connecting two different VPCs. In general, VPCs cannot communicate with each other because they are in different network areas, and may be linked via floating IPs but it incurs extra charges depending on the network usage. Therefore, the capability to connect two VPCs is provided, which is called peering.
+Peering refers to connecting two different VPCs. In general, VPCs cannot communicate with each other because they are in different network areas, and may be linked via floating IPs but it incurs extra charges depending on the network usage. So a feature to connect two VPCs is provided, which is called peering.
 
-> [Note] Peering connects two different VPCs. It does not support a connection to another VPC through a VPC. For example, in A <-> B <-> C, A and C cannot be linked.
+> [Note] Peering connects two different VPCs. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
 
-* IP address areas of two VPCs cannot overlap.<br>
-Each IP address area must not be a subset of the other. Otherwise, peering creation will fail.
+* IP address ranges of two VPCs cannot overlap.<br>
+Each IP address range must not be a subset of the other. Otherwise, peering creation will fail.
 * Except for the Korea (Pyeongchon) region, communication with subnets not associated with the "default routing table" is not possible.
     * In the Korea (Pyeongchon) region, after creating a peering, separate routes must be set in the routing tables of both peered VPCs to enable communication.
-        * Add the route by entering the IP address area of the target VPC in the "Target CIDR" of the route, and selecting the "PEERING" entry with the name of the peering in the "Gateway" list.
+        * Add the route by entering the IP address range of the target VPC in the "Target CIDR" of the route, and selecting the "PEERING" item with the name of the peering in the "Gateway" list.
         * Communication is possible only with subnets associated with the routing table to which the route has been added.
         * For a routing table that is not the "default routing table", if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
         * If you specify a VPC without a subnet when creating a peering, the peering is created, but the peering is not actually connected, so you cannot set routes in the routing table. You can set routes after creating at least one subnet in the VPC.
 
+## Inter-region Peering
+
+Inter-region peering is a feature that connects two VPCs created in different regions. Peering can be used to connect VPCs in the same region, but it cannot be used to connect VPCs in different regions. So a feature to connect two VPCs in different regions is provided, which is called inter-region peering.
+
+> [Note] Inter-region peering connects two VPCs in different regions. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
+
+* Inter-region peering is only available for some VPCs in the Korea (Pyeongchon) region and the Korea (Pangyo) region.
+* Only two VPCs of the same account and the same project can be connected.
+* When you create inter-region peering, it is automatically created in the other connected region.
+* When you delete inter-region peering, it is automatically deleted in the other connected region.
+* IP address ranges of two VPCs cannot overlap.
+* Communication becomes available after setting additional routes in the routing tables of two peered VPCs.
+    * Add the route by entering the IP address range of the target VPC in the Target CIDR of the route, and selecting the INTER_REGION_PEERING item with the name of the inter-region peering in the Gateway list.
+    * Communication is possible only with subnets associated with the routing table to which the route has been added.
+    * For a routing table that is not the ‘default routing table’, if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
+    * If you specify a VPC without a subnet when creating a peering, the peering creation fails.
 
 ## Co-location gateway
 
@@ -249,5 +268,10 @@ The co-location gateway is a feature used to connect customer network, which is 
 * A single VPC is connected to a single NHN Cloud Zone one-on-one.
 * The fee is charged the moment the VPC is connected.
 
+## Service Gateway
 
+A service gateway allows you to use services outside of the VPC without using floating IPs and having the traffic going through the internet. The service selected when creating a service gateway and the automatically assigned IP address maintain a one-to-one relationship. In the VPC, you can use the service gateway IP address to use the target service safely via the internal network. 
 
+* You can use only the services provided in the service list when creating a service gateway.
+* One service gateway is connected one-to-one with one service.
+* If you connect to the service gateway IP address, you will be connected to the service selected when creating the service gateway.
