@@ -213,7 +213,9 @@ Adding more routes is available, only when available areas within VPC are design
 
 * Gateways of subnets and internet cannot be deleted from the list of routers. 
 
-* Disconnecting a routing table from the internet gateway will disconnect the internet. 
+* Disconnecting a routing table from the internet gateway will result in a loss of internet connection.
+
+* You can set a gateway for a specific CIDR by creating a route in the routing table. Note that communication may be cut off if the wrong route is set.
 
 A routing table can be created in either a "distributed virtual routing (DVR)" or a "centralized virtual routing (CVR)" method, depending on where it is created.
 
@@ -227,7 +229,7 @@ A routing table can be created in either a "distributed virtual routing (DVR)" o
 
 The DVR method is the default method provided by NHN Cloud. It is recommended to use the DVR method except for special circumstances because the method offers advantages of reliability, high availability, and traffic distribution.
 
-It is also possible to change the routing table method. Please note that, when changing the routing table method, external communication and inter-subnet communication will be cut off for about 1 minute until the reconfiguration of routing table is completed.
+It is also possible to change the routing table method. Note that, when changing the routing table method, external communication and inter-subnet communication will be cut off for about 1 minute until the reconfiguration of routing table is completed.
 
 ## Peering 
 
