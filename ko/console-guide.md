@@ -2,11 +2,6 @@
 
 본 문서에서는 콘솔에서 VPC를 다룰 때 필요한 내용을 기술합니다.
 
-## 동영상 가이드
-<iframe width="560" height="315" src="https://www.youtube.com/embed/faX5L2XA_78" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qLjzBebDaqE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## VPC
 
 VPC는 여러 서브넷을 가질 수 있기 때문에 서브넷을 분할하여 사용하는 경우 충분히 큰 네트워크를 설정해야 합니다. VPC 네트워크를 기술하는 방법은 [CIDR Notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)을 사용하여 기술 할 수 있습니다. 모든 VPC는 [프라이빗 네트워크](https://en.wikipedia.org/wiki/Private_network)를 구성할 수 있는 아래 3개의 주소 영역에 있어야 하며 링크 로컬 주소는 사용할 수 없습니다. 또한 적어도 24bit-256개 보다 큰 네트워크 영역을 지정해야 합니다.
