@@ -283,6 +283,6 @@ IP 주소 영역이 한쪽이 다른 한쪽과 포함관계가 되어서는 안�
     * 예시) Object Storage 사용
         * wget http://{SERVICE_GW_IP}/v1/
 * 서비스 게이트웨이는 서비스 게이트웨이가 생성된 VPC 내에서만 사용이 가능합니다.
-* URL 접근을 지원하지 않습니다. URL접근이 필요한 경우 아래 예시와 같이 /etc/hosts 파일에 URL을 추가해야합니다.
+* URL 접근을 지원하지 않습니다. URL 접근이 필요한 경우 아래 예시와 같이 /etc/hosts 파일에 URL을 추가해야 합니다.
     * 예시) /etc/hosts 파일
         * {SERVICE_GW_IP}    test.url.com
