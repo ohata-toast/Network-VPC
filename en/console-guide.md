@@ -68,7 +68,7 @@ Route | 10 per Routing Table
 Peering | Unlimited 
 Inter-region Peering | 10
 NAT Gateway | 3
-Service Gateway | 3
+Service Gateway | 10
 
 
 > [Note]
@@ -276,4 +276,10 @@ A service gateway allows you to use services outside of the VPC without using fl
 
 * You can use only the services provided in the service list when creating a service gateway.
 * One service gateway is connected one-to-one with one service.
-* If you connect to the service gateway IP address, you will be connected to the service selected when creating the service gateway.
+* If you connect to the service gateway IP, you can connect to the service selected when creating the service gateway and use the service.
+    * Example: Using Object Storage
+        * wget http://{SERVICE_GW_IP}/v1/
+* Service gateway can be used only within the VPC in which the service gateway has been created.
+* URL access is not supported. If you need URL access, you must add the URL to the /etc/hosts file as in the example below.
+    * Example: /etc/hosts file
+        * {SERVICE_GW_IP}    test.url.com
