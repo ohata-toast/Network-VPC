@@ -42,8 +42,5 @@ Internet Gateway| 인터넷 게이트웨이 | 통상적으로 게이트웨이(ga
 NAT Gateway | NAT 게이트웨이 | 인터넷 게이트웨이와 유사하게 외부와 연결되는 통로입니다. 소스 IP가 고정된 IP로 변환되어 통신됩니다.
 Routing Table | 라우팅 테이블 | CIDR notation에 의해 정의되는 전달 경로를 기술하는 테이블로 목적지 주소에 의해 전달되는 장비를 지정하거나 우회 시킬 수 있습니다.<br><https://en.wikipedia.org/wiki/Routing_table>
 Private Network| 프라이빗 네트워크 | 인터넷 주소 구조에서 사설 네트워크를 정의하는 IP 영역으로 표기된 네트워크를 의미하며 퍼블릭 망에서 이들 트래픽은 전달되지 않습니다.<br><https://en.wikipedia.org/wiki/Private_network>
-Peering | 피어링 | 서로 다른 두 VPC를 연결하는 것을 피어링이라고 하며 이는 내부적으로 숨겨진 방식을 이용하여 두 VPC를 연결합니다.
-Inter-Region Peering | 리전 간 피어링 | 서로 다른 리전에 위치한 두 VPC를 연결하는 것을 리전 간 피어링이라고 하며 이는 다른 리전에 위치한 두 VPC를 연결합니다.
 Interface | 인터페이스 | 인스턴스를 네트워크에 연결하기 위한 장치를 네트워크 인터페이스라고 합니다.
-Service Gateway | 서비스 게이트웨이 | 선택 가능한 서비스를 인터넷 경유 없이 안전하게 연결합니다. VPC에 할당된 IP와 선택된 서비스가 1:1로 연결됩니다.
 
