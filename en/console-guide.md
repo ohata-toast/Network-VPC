@@ -65,7 +65,6 @@ Internet Gateway | 3
 Floating IP | Unlimited 
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
-Peering | Unlimited 
 Inter-region Peering | 10
 Service Gateway | 10
 
@@ -198,56 +197,3 @@ A routing table can be created in either a "distributed virtual routing (DVR)" o
 The DVR method is the default method provided by NHN Cloud. It is recommended to use the DVR method except for special circumstances because the method offers advantages of reliability, high availability, and traffic distribution.
 
 It is also possible to change the routing table method. Note that, when changing the routing table method, external communication and inter-subnet communication will be cut off for about 1 minute until the reconfiguration of routing table is completed.
-
-## Peering 
-
-Peering refers to connecting two different VPCs. In general, VPCs cannot communicate with each other because they are in different network areas, and may be linked via floating IPs but it incurs extra charges depending on the network usage. So a feature to connect two VPCs is provided, which is called peering.
-
-> [Note] Peering connects two different VPCs. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
-
-* IP address ranges of two VPCs cannot overlap.<br>
-Each IP address range must not be a subset of the other. Otherwise, peering creation will fail.
-* Except for the Korea (Pyeongchon) region, communication with subnets not associated with the "default routing table" is not possible.
-    * In the Korea (Pyeongchon) region, after creating a peering, separate routes must be set in the routing tables of both peered VPCs to enable communication.
-        * Add the route by entering the IP address range of the target VPC in the "Target CIDR" of the route, and selecting the "PEERING" item with the name of the peering in the "Gateway" list.
-        * Communication is possible only with subnets associated with the routing table to which the route has been added.
-        * For a routing table that is not the "default routing table", if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
-        * If you specify a VPC without a subnet when creating a peering, the peering is created, but the peering is not actually connected, so you cannot set routes in the routing table. You can set routes after creating at least one subnet in the VPC.
-
-## Inter-region Peering
-
-Inter-region peering is a feature that connects two VPCs created in different regions. Peering can be used to connect VPCs in the same region, but it cannot be used to connect VPCs in different regions. So a feature to connect two VPCs in different regions is provided, which is called inter-region peering.
-
-> [Note] Inter-region peering connects two VPCs in different regions. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
-
-* Inter-region peering is only available for some VPCs in the Korea (Pyeongchon) region and the Korea (Pangyo) region.
-* Only two VPCs of the same account and the same project can be connected.
-* When you create inter-region peering, it is automatically created in the other connected region.
-* When you delete inter-region peering, it is automatically deleted in the other connected region.
-* IP address ranges of two VPCs cannot overlap.
-* Communication becomes available after setting additional routes in the routing tables of two peered VPCs.
-    * Add the route by entering the IP address range of the target VPC in the Target CIDR of the route, and selecting the INTER_REGION_PEERING item with the name of the inter-region peering in the Gateway list.
-    * Communication is possible only with subnets associated with the routing table to which the route has been added.
-    * For a routing table that is not the ‘default routing table’, if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
-    * If you specify a VPC without a subnet when creating a peering, the peering creation fails.
-
-## Co-location gateway
-
-The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by NHN Cloud. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in NHN Cloud, NHN Cloud Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
-
-* A single VPC is connected to a single NHN Cloud Zone one-on-one.
-* The fee is charged the moment the VPC is connected.
-
-## Service Gateway
-
-A service gateway allows you to use services outside of the VPC without using floating IPs and having the traffic going through the internet. The service selected when creating a service gateway and the automatically assigned IP address maintain a one-to-one relationship. In the VPC, you can use the service gateway IP address to use the target service safely via the internal network. 
-
-* You can use only the services provided in the service list when creating a service gateway.
-* One service gateway is connected one-to-one with one service.
-* If you connect to the service gateway IP, you can connect to the service selected when creating the service gateway and use the service.
-    * Example: Using Object Storage
-        * wget http://{SERVICE_GW_IP}/v1/
-* Service gateway can be used only within the VPC in which the service gateway has been created.
-* URL access is not supported. If you need URL access, you must add the URL to the /etc/hosts file as in the example below.
-    * Example: /etc/hosts file
-        * {SERVICE_GW_IP}    test.url.com
