@@ -23,8 +23,6 @@ NHN Cloud VPC supports hosting connection within a public network or a data cent
 
 * Control access to instances by using security group. 
 
-* Connect different VPCs via peering. To allow complete isolation, use multiple VPCs and provide peering for designated connection. 
-
 * Apply a number of interfaces for a particular instance. To provide services for many subnets, depending on the purpose of an instance, the instance can be applied with an interface of many subnets.  
 
 * VPC is provided while connection with other NHN Cloud services is hidden.  
@@ -48,19 +46,6 @@ A table describing a transfer path defined by CIDR notation. By using destinatio
 
 Refers to a network configured with an IP address range that defines a private network in the structure of an internet address. The traffic is not delivered in a public network. <br>https://en.wikipedia.org/wiki/Private_network>
 
-#### Peering
-
-Peering refers to connecting two different VPCs. 
-
-#### Inter-Region Peering 
-
-Inter-region peering refers to connecting two VPCs located in different regions.
-
 #### Interface
 
 A network interface refers to a device to connect an instance to a network.
-
-#### Service Gateway
-
-Securely connects selectable services without going through the internet. The IP assigned to the VPC and the selected service are connected one-to-one.
-
