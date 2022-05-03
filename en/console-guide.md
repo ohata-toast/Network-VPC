@@ -65,8 +65,6 @@ Internet Gateway | 3
 Floating IP | Unlimited 
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
-Inter-region Peering | 10
-Service Gateway | 10
 
 
 > [Note]
