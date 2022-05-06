@@ -34,10 +34,6 @@ NHN Cloud VPC supports hosting connection within a public network or a data cent
 
 Refers to a subnetwork, which is a subdivided IP address range within the IP network.<br>https://en.wikipedia.org/wiki/Subnetwork
 
-#### Internet Gateway
-
-Generally known as a gateway, it refers to a pathway of a network configured by a subnet to the outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
-
 #### Routing Table
 
 A table describing a transfer path defined by CIDR notation. By using destination addresses, you can specify the devices which the traffic is forwarded to or bypass.<br>https://en.wikipedia.org/wiki/Routing_table

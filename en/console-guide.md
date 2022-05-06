@@ -119,50 +119,6 @@ By using a subnet's "Static Route" setting, it is possible to pass the routing r
 * A "Static Route" consists of the destination CIDR of the packet to be routed and the gateway information to forward the target packet to.<br>If you create a static route with a CIDR of "0.0.0.0/0", you can change the default gateway of the instance to an IP other than the gateway of the subnet.<br>The gateway is entered as text as opposed to a "Route" in the routing table, and you can also specify an IP that is not yet assigned within the subnet.
 
 
-## Internet Gateway
-
-An internet gateway can be associated with a routing table. VPCs consisting of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and NHN Cloud does the job automatically. To create an internet gateway, an external network is required and NHN Cloud is operating only one "public_network" as of now.  
-
-* An internet gateway address is automatically assigned when an instance is created or VPC requires an internet access, and it cannot be modified. 
-
-* Cannot access an instance with an internet gateway address. 
-
-* Blocks all traffic inflow via internet gateway address.
-
-* Charges by usage, when an instance connected to the internet triggers traffic to the internet direction.
-
-* Do not charge for local communication between instances. 
-
-### Guide for Restarting Internet Gateways for Server Maintenance 
-
-NHN Cloud updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
-
-Internet gateways that are running on a target server for maintenance must be restarted and migrated to the server which is completed with maintenance.  
-
-To restart Internet gateways, use the **! Restart** button which is created next to each Internet gateway name. 
-
-Go to the project where your Internet gateway specified as maintenance target is located. 
-
-1. Any Internet gateway that has the **! Restart** button before its name requires maintenance. 
-    ![ig-001](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-001.png)
-    Put the mouse cursor on the **! Restart** button to find maintenance schedule details. 
-    ![ig-002](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-002.png)
-
-2. Select a target Internet gateway and click the **! Restart** button next to its name. 
-    It is advised to perform maintenance during time when impact on service is limited, since instances of the Internet gateway are disconnected from the Internet until restarting is completed. 
-    However, instances that are associated with floating IPs are not influenced by restarting of Internet gateways. 
-
-3. Click **OK** onto the window asking of restarting Internet gateway. 
-    ![ig-003](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-003.png)
-
-4. Wait until the Internet gateway status turns green and the **! Restart** button disappears.
-    If the status does not change or the **! Restart** button remains, press 'Refresh'.  
-    ![ig-004](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-004.png)
-
-The Internet gateway becomes inoperable while restarting is underway.
-Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.  
-
-
 ## Routing Table 
 
 A routing table is created along with VPC, and is also deleted along with a deletion of VPC. Multiple routing tables can be created within a VPC, and can be deleted explicitly if they are not the default routing table. Subnets must be associated with at least one routing table, and multiple routing tables cannot share an internet gateway.   

@@ -33,7 +33,6 @@ NHN Cloud VPCはウェブコンソール上でネットワークの構築がで�
 用語 | 表記 | 説明
 ------------- | ------------- | -------------------
 Subnet  | サブネット | サブネットワーク、つまり下位のネットワークを意味し、IPネットワークのうち、より小さな単位に細分化されたIPアドレス領域です。。<br><https://en.wikipedia.org/wiki/Subnetwork>
-Internet Gateway| インターネットゲートウェイ | 通常ゲートウェイ(gateway)と呼ばれ、サブネットによって構成されたネットワークが外部と接続される通路を意味します。<br><https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway>
 Routing Table | ルーティングテーブル | IPアドレスの所在、転送経路を記述するテーブルのことです。宛先アドレスによって伝達させる機器を指定したり、迂回経路を指定したりすることができます。<br><https://en.wikipedia.org/wiki/Routing_table>
 Private Network| プライベートネットワーク | パブリックネットワークから隔離されたプライベートなIPアドレスで構成されたネットワークのことです。<br><https://en.wikipedia.org/wiki/Private_network>
 Interface | インターフェイス | インスタンスをネットワークに接続するための装置をネットワークインターフェイスと呼びます。
