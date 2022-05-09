@@ -38,10 +38,6 @@ NHN Cloud VPC支持公共网络或数据中心的内部托管连接，或通过�
 Subnetwork，是在IP网络中细分为更小单位的IP地址区域。<br>
 参考：https://en.wikipedia.org/wiki/Subnetwork
 
-#### Internet Gateway（NAT网关）
-通常被称为网关（gateway）,意思是由子网配置的网络连接到外部网络的路径。<br>
-参考: https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
-
 #### Routing Table（路由表）
 由CIDR notation所定义的路由，可以指定到达目标地址的下一跳设备。<br>
 参考：https://en.wikipedia.org/wiki/Routing_table
@@ -49,9 +45,6 @@ Subnetwork，是在IP网络中细分为更小单位的IP地址区域。<br>
 #### Private Network（私有网络）
 根据网络地址分类，私有网络是使用在内部网络的地址，无法在公网上通讯。<br>
 参考：https://en.wikipedia.org/wiki/Private_network
-
-#### Peering
-用于连接两个不同的VPC网络。
 
 #### Interface（接口）
 用于将实例连接到网络的设备成为接口。
