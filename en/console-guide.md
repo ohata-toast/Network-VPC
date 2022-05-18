@@ -65,10 +65,6 @@ Internet Gateway | 3
 Floating IP | Unlimited 
 Routing Table | 10 per VPC 
 Route | 10 per Routing Table 
-Peering | Unlimited 
-Inter-region Peering | 10
-NAT Gateway | 3
-Service Gateway | 10
 
 
 > [Note]
@@ -123,81 +119,6 @@ By using a subnet's "Static Route" setting, it is possible to pass the routing r
 * A "Static Route" consists of the destination CIDR of the packet to be routed and the gateway information to forward the target packet to.<br>If you create a static route with a CIDR of "0.0.0.0/0", you can change the default gateway of the instance to an IP other than the gateway of the subnet.<br>The gateway is entered as text as opposed to a "Route" in the routing table, and you can also specify an IP that is not yet assigned within the subnet.
 
 
-## Internet Gateway
-
-An internet gateway can be associated with a routing table. VPCs consisting of private networks cannot be connected externally, and may access the internet through internet gateway. Each instance, to be connected to an internet, must set "default gateway" as the gateway address of the subnet, and NHN Cloud does the job automatically. To create an internet gateway, an external network is required and NHN Cloud is operating only one "public_network" as of now.  
-
-* An internet gateway address is automatically assigned when an instance is created or VPC requires an internet access, and it cannot be modified. 
-
-* Cannot access an instance with an internet gateway address. 
-
-* Blocks all traffic inflow via internet gateway address.
-
-* Charges by usage, when an instance connected to the internet triggers traffic to the internet direction.
-
-* Do not charge for local communication between instances. 
-
-### Guide for Restarting Internet Gateways for Server Maintenance 
-
-NHN Cloud updates software of the Internet gateway server on a regular basis to enhance security and stability of its infrastructure services. 
-
-Internet gateways that are running on a target server for maintenance must be restarted and migrated to the server which is completed with maintenance.  
-
-To restart Internet gateways, use the **! Restart** button which is created next to each Internet gateway name. 
-
-Go to the project where your Internet gateway specified as maintenance target is located. 
-
-1. Any Internet gateway that has the **! Restart** button before its name requires maintenance. 
-    ![ig-001](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-001.png)
-    Put the mouse cursor on the **! Restart** button to find maintenance schedule details. 
-    ![ig-002](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-002.png)
-
-2. Select a target Internet gateway and click the **! Restart** button next to its name. 
-    It is advised to perform maintenance during time when impact on service is limited, since instances of the Internet gateway are disconnected from the Internet until restarting is completed. 
-    However, instances that are associated with floating IPs are not influenced by restarting of Internet gateways. 
-
-3. Click **OK** onto the window asking of restarting Internet gateway. 
-    ![ig-003](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-003.png)
-
-4. Wait until the Internet gateway status turns green and the **! Restart** button disappears.
-    If the status does not change or the **! Restart** button remains, press 'Refresh'.  
-    ![ig-004](http://static.toastoven.net/prod_vpc/ConsoleGuide/ig_planned_migration_guide-en-004.png)
-
-The Internet gateway becomes inoperable while restarting is underway.
-Unless restarting Internet gateway is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.  
-
-
-## NAT gateway
-
-This feature is available only in the Pyeongchon region, Korea.
-NAT gateway can be set as a gateway from the route setting of a routing table. If NAT gateway is set as the gateway for the routing table, the floating IP of NAT gateway can be switched to source IP to access the Internet.
-
-| Item      | Description                                                         |
-| --------|------------------------------------------------------------ |
-| Name      | Can specify the name of NAT gateway. |
-| VPC      | Specifies the VPC to create NAT gateway. |
-| Subnet     | Specifies the subnets associated with a routing table that is associated with the Internet gateway among the subnets of the selected VPC. NAT gateway cannot be created with a subnet that does not satisfy the conditions. |
-| Floating IP  | Specifies the floating IP to be assigned to NAT gateway. This IP is converted to the source IP when connecting to the Internet. |
-| Description      | Can add the description for NAT gateway. |
-
-* The VPC, subnet, and floating IP of an NAT gateway cannot be changed.
-
-* The floating IP configured by NAT gateway cannot be disconnected. It is automatically disconnected when the NAT gateway is deleted.
-
-* Instances cannot be accessed with the NAT gateway address.
-
-* The inbound traffic to the NAT gateway address is entirely blocked.
-
-* A single NAT gateway can be specified as a gateway in multiple routing tables in the same VPC.
-
-* Subnets specified when NAT gateway is configured and routing tables associated with a different subnet can specify NAT gateway as its gateway.
-
-* Network ACL is applied.
-
-* If the gateway is set to 'NAT gateway’ for the target CIDR to route without IP Prefix 0 (/0) in the Route Settings, 'NAT Gateway' will be used to communicate even if floating IP is set for the instance.
-
-
-
 ## Routing Table 
 
 A routing table is created along with VPC, and is also deleted along with a deletion of VPC. Multiple routing tables can be created within a VPC, and can be deleted explicitly if they are not the default routing table. Subnets must be associated with at least one routing table, and multiple routing tables cannot share an internet gateway.   
@@ -230,56 +151,3 @@ A routing table can be created in either a "distributed virtual routing (DVR)" o
 The DVR method is the default method provided by NHN Cloud. It is recommended to use the DVR method except for special circumstances because the method offers advantages of reliability, high availability, and traffic distribution.
 
 It is also possible to change the routing table method. Note that, when changing the routing table method, external communication and inter-subnet communication will be cut off for about 1 minute until the reconfiguration of routing table is completed.
-
-## Peering 
-
-Peering refers to connecting two different VPCs. In general, VPCs cannot communicate with each other because they are in different network areas, and may be linked via floating IPs but it incurs extra charges depending on the network usage. So a feature to connect two VPCs is provided, which is called peering.
-
-> [Note] Peering connects two different VPCs. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
-
-* IP address ranges of two VPCs cannot overlap.<br>
-Each IP address range must not be a subset of the other. Otherwise, peering creation will fail.
-* Except for the Korea (Pyeongchon) region, communication with subnets not associated with the "default routing table" is not possible.
-    * In the Korea (Pyeongchon) region, after creating a peering, separate routes must be set in the routing tables of both peered VPCs to enable communication.
-        * Add the route by entering the IP address range of the target VPC in the "Target CIDR" of the route, and selecting the "PEERING" item with the name of the peering in the "Gateway" list.
-        * Communication is possible only with subnets associated with the routing table to which the route has been added.
-        * For a routing table that is not the "default routing table", if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
-        * If you specify a VPC without a subnet when creating a peering, the peering is created, but the peering is not actually connected, so you cannot set routes in the routing table. You can set routes after creating at least one subnet in the VPC.
-
-## Inter-region Peering
-
-Inter-region peering is a feature that connects two VPCs created in different regions. Peering can be used to connect VPCs in the same region, but it cannot be used to connect VPCs in different regions. So a feature to connect two VPCs in different regions is provided, which is called inter-region peering.
-
-> [Note] Inter-region peering connects two VPCs in different regions. Connecting to another VPC across a VPC is not supported. For example, in connection A <-> B <-> C, A and C cannot be connected.
-
-* Inter-region peering is only available for some VPCs in the Korea (Pyeongchon) region and the Korea (Pangyo) region.
-* Only two VPCs of the same account and the same project can be connected.
-* When you create inter-region peering, it is automatically created in the other connected region.
-* When you delete inter-region peering, it is automatically deleted in the other connected region.
-* IP address ranges of two VPCs cannot overlap.
-* Communication becomes available after setting additional routes in the routing tables of two peered VPCs.
-    * Add the route by entering the IP address range of the target VPC in the Target CIDR of the route, and selecting the INTER_REGION_PEERING item with the name of the inter-region peering in the Gateway list.
-    * Communication is possible only with subnets associated with the routing table to which the route has been added.
-    * For a routing table that is not the ‘default routing table’, if the routes are added to the routing table, peering communication becomes available on the subnets associated with the routing table.
-    * If you specify a VPC without a subnet when creating a peering, the peering creation fails.
-
-## Co-location gateway
-
-The co-location gateway is a feature used to connect customer network, which is provided as a hybrid service by NHN Cloud. This feature is available only in the Pyeongchon region, Korea. If a hybrid service is used in NHN Cloud, NHN Cloud Zone is provided. It can be used to directly connect to VPC by configuring the co-location gateway.
-
-* A single VPC is connected to a single NHN Cloud Zone one-on-one.
-* The fee is charged the moment the VPC is connected.
-
-## Service Gateway
-
-A service gateway allows you to use services outside of the VPC without using floating IPs and having the traffic going through the internet. The service selected when creating a service gateway and the automatically assigned IP address maintain a one-to-one relationship. In the VPC, you can use the service gateway IP address to use the target service safely via the internal network. 
-
-* You can use only the services provided in the service list when creating a service gateway.
-* One service gateway is connected one-to-one with one service.
-* If you connect to the service gateway IP, you can connect to the service selected when creating the service gateway and use the service.
-    * Example: Using Object Storage
-        * wget http://{SERVICE_GW_IP}/v1/
-* Service gateway can be used only within the VPC in which the service gateway has been created.
-* URL access is not supported. If you need URL access, you must add the URL to the /etc/hosts file as in the example below.
-    * Example: /etc/hosts file
-        * {SERVICE_GW_IP}    test.url.com

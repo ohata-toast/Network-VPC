@@ -21,11 +21,7 @@ NHN Cloud VPC supports hosting connection within a public network or a data cent
 
 * Directly access instances from the internet, via floating IP. 
 
-* The Internet can be accessed with a fixed source IP using an NAT gateway.
-
 * Control access to instances by using security group. 
-
-* Connect different VPCs via peering. To allow complete isolation, use multiple VPCs and provide peering for designated connection. 
 
 * Apply a number of interfaces for a particular instance. To provide services for many subnets, depending on the purpose of an instance, the instance can be applied with an interface of many subnets.  
 
@@ -38,14 +34,6 @@ NHN Cloud VPC supports hosting connection within a public network or a data cent
 
 Refers to a subnetwork, which is a subdivided IP address range within the IP network.<br>https://en.wikipedia.org/wiki/Subnetwork
 
-#### Internet Gateway
-
-Generally known as a gateway, it refers to a pathway of a network configured by a subnet to the outside.<br>https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway
-
-#### NAT Gateway
-
-A passage connected to the outside, similar to the Internet gateway. The source IP is converted to a fixed IP for communication.
-
 #### Routing Table
 
 A table describing a transfer path defined by CIDR notation. By using destination addresses, you can specify the devices which the traffic is forwarded to or bypass.<br>https://en.wikipedia.org/wiki/Routing_table
@@ -54,19 +42,6 @@ A table describing a transfer path defined by CIDR notation. By using destinatio
 
 Refers to a network configured with an IP address range that defines a private network in the structure of an internet address. The traffic is not delivered in a public network. <br>https://en.wikipedia.org/wiki/Private_network>
 
-#### Peering
-
-Peering refers to connecting two different VPCs. 
-
-#### Inter-Region Peering 
-
-Inter-region peering refers to connecting two VPCs located in different regions.
-
 #### Interface
 
 A network interface refers to a device to connect an instance to a network.
-
-#### Service Gateway
-
-Securely connects selectable services without going through the internet. The IP assigned to the VPC and the selected service are connected one-to-one.
-
