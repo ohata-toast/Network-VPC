@@ -33,7 +33,6 @@ NHN Cloud VPC는 퍼블릭 네트워크나 데이터 센터 내 호스팅 연결
 용어  | 표기 | 설명
 ------------- | ------------- | -------------------
 Subnet  | 서브넷 | Subnetwork를 의미하며 IP 네트워크의 중 더 작은 단위로 세분화 된 IP 주소 영역입니다.<br><https://en.wikipedia.org/wiki/Subnetwork>
-Internet Gateway| 인터넷 게이트웨이 | 통상적으로 게이트웨이(gateway)로 알려져 있으며 Subnet에 의해 구성된 네트워크가 외부와 연결되는 통로를 의미합니다.<br><https://en.wikipedia.org/wiki/Gateway_(telecommunications)#Internet_gateway>
 Routing Table | 라우팅 테이블 | CIDR notation에 의해 정의되는 전달 경로를 기술하는 테이블로 목적지 주소에 의해 전달되는 장비를 지정하거나 우회 시킬 수 있습니다.<br><https://en.wikipedia.org/wiki/Routing_table>
 Private Network| 프라이빗 네트워크 | 인터넷 주소 구조에서 사설 네트워크를 정의하는 IP 영역으로 표기된 네트워크를 의미하며 퍼블릭 망에서 이들 트래픽은 전달되지 않습니다.<br><https://en.wikipedia.org/wiki/Private_network>
 Interface | 인터페이스 | 인스턴스를 네트워크에 연결하기 위한 장치를 네트워크 인터페이스라고 합니다.
