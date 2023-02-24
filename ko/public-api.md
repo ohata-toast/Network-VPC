@@ -879,7 +879,7 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### 서브넷 삭제하기
+### `VPC` 서브넷 삭제하기
 
 지정한 서브넷을 삭제합니다.
 
