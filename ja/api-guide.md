@@ -8,7 +8,7 @@ APIは現在、韓国リージョンでのみ使用できます。
 
 例えば、セキュリティーグループリスト照会は次のURでリクエストする必要があります。
 
-	GET https://api-compute.cloud.toast.com/compute/v1.0/appkeys/{appkey}/security-groups?id={securityGroupId}
+	GET https://api-compute.nhncloudservice.com/compute/v1.0/appkeys/{appkey}/security-groups?id={securityGroupId}
 
 
 ## セキュリティーグループAPI

@@ -8,7 +8,7 @@ Using a network VPC API requires an appkey and a token. Get an appkey and a toke
 
 For example, List Security Groups must be requested to the following URL:  
 
-	GET https://api-compute.cloud.toast.com/compute/v1.0/appkeys/{appkey}/security-groups?id={securityGroupId}
+	GET https://api-compute.nhncloudservice.com/compute/v1.0/appkeys/{appkey}/security-groups?id={securityGroupId}
 
 
 ## Security Group API
