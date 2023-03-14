@@ -92,7 +92,7 @@ X-Auth-Token: {tokenId}
 |----------------------------------------|------|----------|-----------------------------------|
 | vpc                                    | Body | Array    | VPC 정보 객체                         |
 | vpc.router:external                    | Body | Boolean  | 조회할 VPC의 외부 연결 여부                 |
-| vpc.routingtables                      | Body | Array    | 조회할 VPC의                          |
+| vpc.routingtables                      | Body | Array    | 조회할 VPC의 라우팅 테이블 배열                |
 | vpc.name                               | Body | String   | 조회할 VPC 이름                        |
 | vpc.subnets                            | Body | Array    | 조회할 VPC의 서브넷 목록                   | 
 | vpc.subnets.router:external            | Body | Boolean  | 서브넷의 외부 연결 여부                     |
