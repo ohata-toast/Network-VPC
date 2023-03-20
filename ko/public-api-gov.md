@@ -693,6 +693,19 @@ X-Auth-Token: {tokenId}
 | subnetId | URL    | UUID   | O   | 서브넷 ID |
 | tokenId  | Header | String | O   | 토큰 ID  |
 | routingtable_id | Body | UUID | O   | 연결할 라우팅 테이블 ID
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+   "routingtable_id": "c577a618-1acb-444d-a82e-aeb4c6fce01e"
+}
+```
+
+</p>
+</details>
+
 #### 응답
 
 | 이름                                   | 종류   | 형식      | 설명                        |
