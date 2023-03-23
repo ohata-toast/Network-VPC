@@ -785,7 +785,7 @@ X-Auth-Token: {tokenId}
 </details>
 
 ### VPC 서브넷과 라우팅 테이블의 연결을 해제하기
-서브넷과 명시적으로 연결되어 있는 라우팅 테이블의 연결을 해제합니다.
+서브넷과 라우팅 테이블의 명시적 연결을 해제합니다.
 
 ```
 PUT /v2.0/vpcsubnets/{subnetId}/detach_routingtable
