@@ -42,7 +42,7 @@ X-Auth-Token: {tokenId}
 | vpcs.router:external | Body | Boolean | 조회할 VPC의 외부 연결 여부  |
 | vpcs.name            | Body | String  | 조회할 VPC 이름         |
 | vpcs.tenant_id       | Body | UUID    | 조회할 VPC가 속한 테넌트 ID |
-| vpcs.state           | Body | String  | 조회활 VPC의 상태        |
+| vpcs.state           | Body | String  | 조회할 VPC의 상태        |
 | vpcs.create_time     | Body | Date    | 조회할 VPC의 생성 시간     |
 | vpcs.cidrv4          | Body | String  | 조회할 VPC의 IP 대역     |
 | vpcs.shared          | Body | Boolean | 조회할 VPC의 공유 여부     |
@@ -127,7 +127,7 @@ X-Auth-Token: {tokenId}
 | vpc.subnets.vpc_id                     | Body | UUID     | 서브넷의 VPC ID                    |
 | vpc.subnets.cidr                       | Body | String   | 서브넷의 CIDR IP                   |
 | vpc.tenant_id                          | Body | UUID     | 조회할 VPC가 속한 테넌트 ID             |
-| vpc.state                              | Body | String   | 조회활 VPC의 상태                    |
+| vpc.state                              | Body | String   | 조회할 VPC의 상태                    |
 | vpc.create_time                        | Body | Date     | 조회할 VPC의 생성 시간                 |
 | vpc.cidrv4                             | Body | String   | 조회할 VPC의 IPv4                  |
 | vpc.shared                             | Body | Boolean  | 조회할 VPC의 공유 여부                 |
