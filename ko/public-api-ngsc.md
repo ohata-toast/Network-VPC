@@ -42,7 +42,7 @@ X-Auth-Token: {tokenId}
 | vpcs.router:external | Body | Boolean | 조회할 VPC의 외부 연결 여부  |
 | vpcs.name            | Body | String  | 조회할 VPC 이름         |
 | vpcs.tenant_id       | Body | UUID    | 조회할 VPC가 속한 테넌트 ID |
-| vpcs.state           | Body | String  | 조회활 VPC의 상태        |
+| vpcs.state           | Body | String  | 조회할 VPC의 상태        |
 | vpcs.create_time     | Body | Date    | 조회할 VPC의 생성 시간     |
 | vpcs.cidrv4          | Body | String  | 조회할 VPC의 IP 대역     |
 | vpcs.shared          | Body | Boolean | 조회할 VPC의 공유 여부     |
@@ -88,50 +88,50 @@ X-Auth-Token: {tokenId}
 
 #### 응답
 
-| 이름                                     | 종류   | 형식       | 설명                                |
-|----------------------------------------|------|----------|-----------------------------------|
-| vpc                                    | Body | Array    | VPC 정보 객체                         |
-| vpc.router:external                    | Body | Boolean  | 조회할 VPC의 외부 연결 여부                 |
-| vpc.routingtables                      | Body | Array    | 조회할 VPC의                          |
-| vpc.name                               | Body | String   | 조회할 VPC 이름                        |
-| vpc.subnets                            | Body | Array    | 조회할 VPC의 서브넷 목록                   | 
-| vpc.subnets.router:external            | Body | Boolean  | 서브넷의 외부 연결 여부                     |
-| vpc.subnets.name                       | Body | String   | 서브넷의 이름                           |
-| vpc.subnets.enable_dhcp                | Body | Boolean  | 서브넷의 DHCP 활성화 여부                  |
-| vpc.subnets.tenant_id                  | Body | UUID     | 서브넷의 테넨트 ID                       |
-| vpc.subnets.gateway                    | Body | String   | 서브넷의 게이트웨이 IP 정보                  |
-| vpc.subnets.routingtable               | Body | Object   | 서브넷의 라우팅 테이블 정보                   |
-| vpc.subnets.routingtable.gateway_id    | Body | UUID     | 라우팅 테이블의 게이트 웨이 ID                |
+| 이름                                     | 종류   | 형식       | 설명                             |
+|----------------------------------------|------|----------|--------------------------------|
+| vpc                                    | Body | Array    | VPC 정보 객체                      |
+| vpc.router:external                    | Body | Boolean  | 조회할 VPC의 외부 연결 여부              |
+| vpc.routingtables                      | Body | Array    | 조회할 VPC의 라우팅 테이블 배열            |
+| vpc.name                               | Body | String   | 조회할 VPC 이름                     |
+| vpc.subnets                            | Body | Array    | 조회할 VPC의 서브넷 목록                | 
+| vpc.subnets.router:external            | Body | Boolean  | 서브넷의 외부 연결 여부                  |
+| vpc.subnets.name                       | Body | String   | 서브넷의 이름                        |
+| vpc.subnets.enable_dhcp                | Body | Boolean  | 서브넷의 DHCP 활성화 여부               |
+| vpc.subnets.tenant_id                  | Body | UUID     | 서브넷의 테넌트 ID                     |
+| vpc.subnets.gateway                    | Body | String   | 서브넷의 게이트웨이 IP 정보               |
+| vpc.subnets.routingtable               | Body | Object   | 서브넷의 라우팅 테이블 정보                |
+| vpc.subnets.routingtable.gateway_id    | Body | UUID     | 라우팅 테이블의 게이트웨이 ID              |
 | vpc.subnets.routingtable.default_table | Body | Boolean  | 라우팅 테이블의 Default Routing Table 여부 |
-| vpc.subnets.routingtable.explicit      | Body | Boolean  | 라우팅 테이블의 명시적 연결 여부                |
-| vpc.subnets.routingtable.id            | Body | UUID     | 라우팅 테이블의 ID                       |
-| vpc.subnets.routingtable.name          | Body | String   | 라우팅 테이블의 이름                       |
-| vpc.subnets.routes                     | Body | Array    | 서브넷의 추가 경로                        |
-| vpc.subnets.routes.subnet_id           | Body | UUID     | 추가 경로의 서브넷 ID                     |
-| vpc.subnets.routes.tenant_id           | Body | UUID     | 추가 경로의 테넨트 ID                     |
-| vpc.subnets.routes.mask                | Body | Integer  | 추가 경로의 마스크                        |
-| vpc.subnets.routes.gateway             | Body | String   | 추가 경로의 게이트 웨이 IP                  |
-| vpc.subnets.routes.cidr                | Body | String   | 추가 경로의 IP 대역                      |
-| vpc.subnets.routes.id                  | Body | UUID     | 추가 경로의  ID                        |
-| vpc.subnets.state                      | Body | String   | 서브넷의 상태                           |
-| vpc.subnets.create_time                | Body | Date     | 서브넷의 생성 시각                        |
-| vpc.subnets.available_ip_count         | Body | Interger | 서브넷의 할당 가능한 IP 개수                 | 
-| vpc.subnets.vpc                        | Body | Object   | 서브넷의 VPC 정보                       |
-| vpc.subnets.vpc.shared                 | Body | Boolean  | VPC의 공유 여부                        |
-| vpc.subnets.vpc.state                  | Body | String   | VPC의 상태                           |
-| vpc.subnets.vpc.id                     | Body | UUID     | VPC의 ID                           |
-| vpc.subnets.vpc.cidrv4                 | Body | String   | 조회할 VPC의 IP 대역                    |
-| vpc.subnets.vpc.name                   | Body | String   | VPC의 이름                           |
-| vpc.subnets.shared                     | Body | Boolean  | 서브넷의 공유 여부                        |
-| vpc.subnets.id                         | Body | UUID     | 서브넷의 ID                           |
-| vpc.subnets.vpc_id                     | Body | UUID     | 서브넷의 VPC ID                       |
-| vpc.subnets.cidr                       | Body | String   | 서브넷의 CIDR IP                      |
-| vpc.tenant_id                          | Body | UUID     | 조회할 VPC가 속한 테넌트 ID                |
-| vpc.state                              | Body | String   | 조회활 VPC의 상태                       |
-| vpc.create_time                        | Body | Date     | 조회할 VPC의 생성 시간                    |
-| vpc.cidrv4                             | Body | String   | 조회할 VPC의 IPv4                     |
-| vpc.shared                             | Body | Boolean  | 조회할 VPC의 공유 여부                    |
-| vpc.id                                 | Body | UUID     | 조회할 VPC의 ID                       |
+| vpc.subnets.routingtable.explicit      | Body | Boolean  | 라우팅 테이블의 명시적 연결 여부             |
+| vpc.subnets.routingtable.id            | Body | UUID     | 라우팅 테이블의 ID                    |
+| vpc.subnets.routingtable.name          | Body | String   | 라우팅 테이블의 이름                    |
+| vpc.subnets.routes                     | Body | Array    | 서브넷의 정적 경로                     |
+| vpc.subnets.routes.subnet_id           | Body | UUID     | 정적 경로의 서브넷 ID                  |
+| vpc.subnets.routes.tenant_id           | Body | UUID     | 정적 경로의 테넌트 ID                  |
+| vpc.subnets.routes.mask                | Body | Integer  | 정적 경로의 마스크                     |
+| vpc.subnets.routes.gateway             | Body | String   | 정적 경로의 게이트웨이 IP                |
+| vpc.subnets.routes.cidr                | Body | String   | 정적 경로의 IP 대역                   |
+| vpc.subnets.routes.id                  | Body | UUID     | 정적 경로의 ID                      |
+| vpc.subnets.state                      | Body | String   | 서브넷의 상태                        |
+| vpc.subnets.create_time                | Body | Date     | 서브넷의 생성 시각                     |
+| vpc.subnets.available_ip_count         | Body | Interger | 서브넷의 할당 가능한 IP 개수              | 
+| vpc.subnets.vpc                        | Body | Object   | 서브넷의 VPC 정보                    |
+| vpc.subnets.vpc.shared                 | Body | Boolean  | VPC의 공유 여부                     |
+| vpc.subnets.vpc.state                  | Body | String   | VPC의 상태                        |
+| vpc.subnets.vpc.id                     | Body | UUID     | VPC의 ID                        |
+| vpc.subnets.vpc.cidrv4                 | Body | String   | 조회할 VPC의 IP 대역                 |
+| vpc.subnets.vpc.name                   | Body | String   | VPC의 이름                        |
+| vpc.subnets.shared                     | Body | Boolean  | 서브넷의 공유 여부                     |
+| vpc.subnets.id                         | Body | UUID     | 서브넷의 ID                        |
+| vpc.subnets.vpc_id                     | Body | UUID     | 서브넷의 VPC ID                    |
+| vpc.subnets.cidr                       | Body | String   | 서브넷의 CIDR IP                   |
+| vpc.tenant_id                          | Body | UUID     | 조회할 VPC가 속한 테넌트 ID             |
+| vpc.state                              | Body | String   | 조회할 VPC의 상태                    |
+| vpc.create_time                        | Body | Date     | 조회할 VPC의 생성 시간                 |
+| vpc.cidrv4                             | Body | String   | 조회할 VPC의 IPv4                  |
+| vpc.shared                             | Body | Boolean  | 조회할 VPC의 공유 여부                 |
+| vpc.id                                 | Body | UUID     | 조회할 VPC의 ID                    |
 
 <details><summary>예시</summary>
 <p>
@@ -367,10 +367,10 @@ X-Auth-Token: {tokenId}
 | vpcsubnets.name                       | Body | String  | 서브넷의 이름                   |
 | vpcsubnets.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
 | vpcsubnets.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnets.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnets.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
+| vpcsubnets.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블          |
+| vpcsubnets.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID         |
 | vpcsubnets.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnets.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
+| vpcsubnets.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부       |
 | vpcsubnets.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
 | vpcsubnets.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
 | vpcsubnets.state                      | Body | String  | 서브넷의 상태                   |
@@ -385,14 +385,14 @@ X-Auth-Token: {tokenId}
 | vpcsubnets.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
 | vpcsubnets.routes                     | Body | Array   | 서브넷의 정적 경로                |
 | vpcsubnets.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnets.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
+| vpcsubnets.routes.tenant_id           | Body | UUID    | 정적 경로의 테넌트 ID             |
 | vpcsubnets.routes.mask                | Body | Integer | 정적 경로의 마스크                |
 | vpcsubnets.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnets.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
-| vpcsubnets.routes.id                  | Body | UUID    | 추가 경로의 ID                 |
+| vpcsubnets.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역           |
+| vpcsubnets.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
 | vpcsubnets.shared                     | Body | Boolean | 서브넷의 공유 여부                |
 | vpcsubnets.cidr                       | Body | String  | 서브넷의 IP 대역                |
-| vpcsubnets.gateway                    | Body | String  | 서브넷의 게이트웨이 IP         |
+| vpcsubnets.gateway                    | Body | String  | 서브넷의 게이트웨이 IP             |
 
 
 <details><summary>예시</summary>
@@ -470,10 +470,10 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
 | vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
 | vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
+| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블          |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID         |
 | vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부       |
 | vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
 | vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
 | vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
@@ -488,14 +488,14 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
 | vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로                |
 | vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넌트 ID             |
 | vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크                |
 | vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
+| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역           |
 | vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
 | vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
 | vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
-| vpcsubnet.gateway                    | Body | String  | 서브넷의 게이트웨이 IP         |
+| vpcsubnet.gateway                    | Body | String  | 서브넷의 게이트웨이 IP             |
 
 
 <details><summary>예시</summary>
@@ -561,7 +561,7 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc_id    | Body   | UUID   | O   | 서브넷이 할당될 VPC ID |
 | vpcsubnet.cidr      | Body   | String | O   | 서브넷의 IP 대역      |
 | vpcsubnet.name      | Body   | String | O   | 서브넷의 이름         |
-| vpcsubnet.tenant_id | Body   | UUID   |     | 서브넷이 할당될 테넨트 ID |
+| vpcsubnet.tenant_id | Body   | UUID   |     | 서브넷이 할당될 테넌트 ID |
 
 <details><summary>예시</summary>
 <p>
@@ -692,7 +692,7 @@ X-Auth-Token: {tokenId}
 |----------|--------|--------|-----|--------|
 | subnetId | URL    | UUID   | O   | 서브넷 ID |
 | tokenId  | Header | String | O   | 토큰 ID  |
-| routingtable_id | Body | UUID | O   | 연결할 라우팅 테이블 ID
+| routingtable_id | Body | UUID | O   | 연결할 라우팅 테이블 ID |
 
 <details><summary>예시</summary>
 <p>
@@ -715,10 +715,10 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
 | vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
 | vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
+| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블          |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID         |
 | vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부       |
 | vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
 | vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
 | vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
@@ -733,13 +733,14 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
 | vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로                |
 | vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넌트 ID             |
 | vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크                |
 | vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
+| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역           |
 | vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
 | vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
 | vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
+| vpcsubnet.gateway                    | Body | String  | 서브넷의 게이트웨이 IP             |
 
 
 
@@ -784,7 +785,7 @@ X-Auth-Token: {tokenId}
 </details>
 
 ### VPC 서브넷과 라우팅 테이블의 연결을 해제하기
-서브넷과 명시적으로 연결되어 있는 라우팅 테이블의 연결을 해제합니다.
+서브넷과 라우팅 테이블의 명시적 연결을 해제합니다.
 
 ```
 PUT /v2.0/vpcsubnets/{subnetId}/detach_routingtable
@@ -800,41 +801,40 @@ X-Auth-Token: {tokenId}
 
 #### 응답
 
-| 이름                                   | 종류   | 형식      | 설명                        |
-|--------------------------------------|------|---------|---------------------------|
-| vpcsubnet                            | Body | Array   | 서브넷 정보 객체                 |
-| vpcsubnet.router:external            | Body | Boolean | 서브넷의 외부 연결 여부             |
-| vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
-| vpcsubnet.enable_dhcp                | Body | Boolean | 서브넷의 DHCP 활성화 여부          |
-| vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷의 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트 웨이 ID        |
+| 이름                                   | 종류   | 형식      | 설명                       |
+|--------------------------------------|------|---------|--------------------------|
+| vpcsubnet                            | Body | Array   | 서브넷 정보 객체                |
+| vpcsubnet.router:external            | Body | Boolean | 서브넷의 외부 연결 여부            |
+| vpcsubnet.name                       | Body | String  | 서브넷의 이름                  |
+| vpcsubnet.enable_dhcp                | Body | Boolean | 서브넷의 DHCP 활성화 여부         |
+| vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID           |
+| vpcsubnet.routingtable               | Body | Object  | 서브넷의 라우팅 테이블             |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
 | vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블의 명시적 연결 여부        |
-| vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
-| vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
-| vpcsubnet.gateway                    | Body | String  | 서브넷에 연결된 게이트웨이 IP         |
-| vpcsubnet.routes                     | Body | Array   | 서브넷의 추가 경로                |
-| vpcsubnet.routes.subnet_id           | Body | UUID    | 추가 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 추가 경로의 테넨트 ID             |
-| vpcsubnet.routes.mask                | Body | Integer | 추가 경로의 마스크                |
-| vpcsubnet.routes.gateway             | Body | String  | 추가 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 추가 경로의 IP 대역              |
-| vpcsubnet.routes.id                  | Body | UUID    | 추가 경로의 ID                 |
-| vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
-| vpcsubnet.create_time                | Body | Date    | 서브넷의 생성 시간                |
-| vpcsubnet.available_ip_count         | Body | Integer | 서브넷이 사용 가능한 IP 개수         |
-| vpcsubnet.vpc                        | Body | Object  | 서브넷가 속한 VPC               |
-| vpcsubnet.vpc.shared                 | Body | Boolean | VPC의 공유 여부                |
-| vpcsubnet.vpc.state                  | Body | String  | VPC의 상태                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC의 ID                   |
-| vpcsubnet.vpc.cidrv4                 | Body | String  | VPC의 IP 대역                |
-| vpcsubnet.vpc.name                   | Body | String  | VPC 이름                    |
-| vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
-| vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.vpc_id                     | Body | UUID    | 서브넷가 속한 VPC의 ID           |
-| vpcsubnet.hidden                     | Body | Boolean | 서브넷의 콘솔 노출 여부             |
-| vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블의 명시적 연결 여부       |
+| vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID              |
+| vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름              |
+| vpcsubnet.gateway                    | Body | String  | 서브넷에 연결된 게이트웨이 IP        |
+| vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로               |
+| vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID            |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넌트 ID            |
+| vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크               |
+| vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP          |
+| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 IP 대역             |
+| vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                |
+| vpcsubnet.state                      | Body | String  | 서브넷의 상태                  |
+| vpcsubnet.create_time                | Body | Date    | 서브넷의 생성 시간               |
+| vpcsubnet.available_ip_count         | Body | Integer | 서브넷이 사용 가능한 IP 개수        |
+| vpcsubnet.vpc                        | Body | Object  | 서브넷이 속한 VPC              |
+| vpcsubnet.vpc.shared                 | Body | Boolean | VPC의 공유 여부               |
+| vpcsubnet.vpc.state                  | Body | String  | VPC의 상태                  |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC의 ID                  |
+| vpcsubnet.vpc.cidrv4                 | Body | String  | VPC의 IP 대역               |
+| vpcsubnet.vpc.name                   | Body | String  | VPC 이름                   |
+| vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부               |
+| vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                  |
+| vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID          |
+| vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역               |
 
 
 <details><summary>예시</summary>

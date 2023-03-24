@@ -1,54 +1,54 @@
-## Network > VPC > API v2 가이드
+## Network > VPC > API v2 Guide
 
-API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
+To use the API, you need the API endpoint and token. Prepare information required to use the API by referring to [API Preparations](/Compute/Compute/en/identity-api/)
 
-VPC API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+For VPC API, the `network` type endpoint is used. For more details, see `serviceCatalog` from the response of token issuance.
 
-| 타입 | 리전 | 엔드포인트 |
+| Type | Region | Endpoint |
 |---|---|---|
-| network | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전 | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
+| network | Korea (Pangyo) Region<br>Korea (Pyeongchon)<br>Japan | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
 
-API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
+In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, and as such refrain from using them since they may be changed without prior notice.
 
 ## VPC
-### VPC 목록 보기
-사용 가능한 VPC 목록을 반환합니다.
+### View VPC List
+Returns the list of available VPCs.
 ```
 GET /v2.0/vpcs
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
 
-| 이름              | 종류     | 형식      | 필수  | 설명                                                                        |
+| Name              | Type     | Format      | Required  | Description                                                                        |
 |-----------------|--------|---------|-----|---------------------------------------------------------------------------|
-| tokenId         | Header | String  | O   | 토큰 ID                                                                     |
-| tenant_id       | Query  | String  | -   | 조회할 네트워크가 속한 테넌트 ID                                                       |
-| id              | Query  | UUID    | -   | 조회할 네트워크 ID                                                               |
-| name            | Query  | String  | -   | 조회할 네트워크 이름                                                               |
-| router:external | Query  | Boolean | -   | 조회할 네트워크의 외부 연결 여부                                                        |
-| shared          | Query  | Boolean | -   | 조회할 네트워크의 공유 여부                                                           |
-| tenant_id       | Query  | String  | -   | 조회할 네트워크가 속한 테넌트 ID                                                       |
-| sort_dir        | Query  | Enum    | -   | 조회할 네트워크의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
-| sort_key        | Query  | String  | -   | 조회할 네트워크의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬                                |
+| tokenId         | Header | String  | O   | Token ID                                                                     |
+| tenant_id       | Query  | String  | -   | Tenant ID to which network to query is included                                                       |
+| id              | Query  | UUID    | -   | Network ID to query                                                               |
+| name            | Query  | String  | -   | Network name to query                                                               |
+| router:external | Query  | Boolean | -   | Whether network is externally connected                                                        |
+| shared          | Query  | Boolean | -   | Whether to share network to query                                                           |
+| tenant_id       | Query  | String  | -   | Tenant ID to which network to query is included                                                       |
+| sort_dir        | Query  | Enum    | -   | Sorting direction of network to query<br>Sort by the field specified by `sort_key`<br>Either **asc**, or **desc** |
+| sort_key        | Query  | String  | -   | Sorting key of network to query<br>Sort in the direction as specified by `sort_dir`                                |
 
 
-#### 응답
-| 이름                   | 종류   | 형식      | 설명                 |
+#### Response
+| Name                   | Type   | Format      | Description                 |
 |----------------------|------|---------|--------------------|
-| vpcs                 | Body | Array   | VPC 정보 객체 목록       |
-| vpcs.router:external | Body | Boolean | 조회할 VPC의 외부 연결 여부  |
-| vpcs.name            | Body | String  | 조회할 VPC 이름         |
-| vpcs.tenant_id       | Body | UUID    | 조회할 VPC가 속한 테넌트 ID |
-| vpcs.state           | Body | String  | 조회활 VPC의 상태        |
-| vpcs.create_time     | Body | Date    | 조회할 VPC의 생성 시간     |
-| vpcs.cidrv4          | Body | String  | 조회할 VPC의 IP 대역     |
-| vpcs.shared          | Body | Boolean | 조회할 VPC의 공유 여부     |
-| vpcs.id              | Body | UUID    | 조회할 VPC의 ID        |
+| vpcs                 | Body | Array   | List of VPC information objects       |
+| vpcs.router:external | Body | Boolean | Whether VPC is externally connected  |
+| vpcs.name            | Body | String  | Name of VPC to query         |
+| vpcs.tenant_id       | Body | UUID    | Tenant ID to which VPC to query is included |
+| vpcs.state           | Body | String  | Status of VPC to query        |
+| vpcs.create_time     | Body | Date    | Created time of VPC to query     |
+| vpcs.cidrv4          | Body | String  | CIDR of VPC to query     |
+| vpcs.shared          | Body | Boolean | Whether to share VPC to query     |
+| vpcs.id              | Body | UUID    | VPC ID to query        |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -71,69 +71,69 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 보기
-지정한 VPC를 조회합니다.
+### View VPC
+View a specified VPC.
 ```
 GET /v2.0/vpcs/{vpcId}  
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
-| 이름        | 종류     | 형식     | 필수  | 설명                  |
+| Name        | Type     | Format     | Required  | Description                  |
 |-----------|--------|--------|-----|---------------------|
 | vpcId     | URL    | String | O   | VPC ID              |
-| tokenId   | Header | String | O   | 토큰 ID               |
+| tokenId   | Header | String | O   | Token ID               |
 
-#### 응답
+#### Response
 
-| 이름                                     | 종류   | 형식       | 설명                                |
-|----------------------------------------|------|----------|-----------------------------------|
-| vpc                                    | Body | Array    | VPC 정보 객체                         |
-| vpc.router:external                    | Body | Boolean  | 조회할 VPC의 외부 연결 여부                 |
-| vpc.routingtables                      | Body | Array    | 조회할 VPC의 라우팅 테이블 배열               |
-| vpc.name                               | Body | String   | 조회할 VPC 이름                        |
-| vpc.subnets                            | Body | Array    | 조회할 VPC의 서브넷 목록                   | 
-| vpc.subnets.router:external            | Body | Boolean  | 서브넷의 외부 연결 여부                     |
-| vpc.subnets.name                       | Body | String   | 서브넷의 이름                           |
-| vpc.subnets.enable_dhcp                | Body | Boolean  | 서브넷의 DHCP 활성화 여부                  |
-| vpc.subnets.tenant_id                  | Body | UUID     | 서브넷의 테넨트 ID                       |
-| vpc.subnets.gateway                    | Body | String   | 서브넷의 게이트웨이 IP 정보                  |
-| vpc.subnets.routingtable               | Body | Object   | 서브넷의 라우팅 테이블 정보                   |
-| vpc.subnets.routingtable.gateway_id    | Body | UUID     | 라우팅 테이블의 게이트 웨이 ID                |
-| vpc.subnets.routingtable.default_table | Body | Boolean  | 라우팅 테이블의 Default Routing Table 여부 |
-| vpc.subnets.routingtable.explicit      | Body | Boolean  | 라우팅 테이블의 명시적 연결 여부                |
-| vpc.subnets.routingtable.id            | Body | UUID     | 라우팅 테이블의 ID                       |
-| vpc.subnets.routingtable.name          | Body | String   | 라우팅 테이블의 이름                       |
-| vpc.subnets.routes                     | Body | Array    | 서브넷의 정적 경로                        |
-| vpc.subnets.routes.subnet_id           | Body | UUID     | 정적 경로의 서브넷 ID                     |
-| vpc.subnets.routes.tenant_id           | Body | UUID     | 정적 경로의 테넨트 ID                     |
-| vpc.subnets.routes.mask                | Body | Integer  | 정적 경로의 마스크                        |
-| vpc.subnets.routes.gateway             | Body | String   | 정적 경로의 게이트 웨이 IP                  |
-| vpc.subnets.routes.cidr                | Body | String   | 정적 경로의 IP 대역                      |
-| vpc.subnets.routes.id                  | Body | UUID     | 정적 경로의  ID                        |
-| vpc.subnets.state                      | Body | String   | 서브넷의 상태                           |
-| vpc.subnets.create_time                | Body | Date     | 서브넷의 생성 시각                        |
-| vpc.subnets.available_ip_count         | Body | Interger | 서브넷의 할당 가능한 IP 개수                 | 
-| vpc.subnets.vpc                        | Body | Object   | 서브넷의 VPC 정보                       |
-| vpc.subnets.vpc.shared                 | Body | Boolean  | VPC의 공유 여부                        |
-| vpc.subnets.vpc.state                  | Body | String   | VPC의 상태                           |
-| vpc.subnets.vpc.id                     | Body | UUID     | VPC의 ID                           |
-| vpc.subnets.vpc.cidrv4                 | Body | String   | 조회할 VPC의 IP 대역                    |
-| vpc.subnets.vpc.name                   | Body | String   | VPC의 이름                           |
-| vpc.subnets.shared                     | Body | Boolean  | 서브넷의 공유 여부                        |
-| vpc.subnets.id                         | Body | UUID     | 서브넷의 ID                           |
-| vpc.subnets.vpc_id                     | Body | UUID     | 서브넷의 VPC ID                       |
-| vpc.subnets.cidr                       | Body | String   | 서브넷의 CIDR IP                      |
-| vpc.tenant_id                          | Body | UUID     | 조회할 VPC가 속한 테넌트 ID                |
-| vpc.state                              | Body | String   | 조회활 VPC의 상태                       |
-| vpc.create_time                        | Body | Date     | 조회할 VPC의 생성 시간                    |
-| vpc.cidrv4                             | Body | String   | 조회할 VPC의 IPv4                     |
-| vpc.shared                             | Body | Boolean  | 조회할 VPC의 공유 여부                    |
-| vpc.id                                 | Body | UUID     | 조회할 VPC의 ID                       |
+| Name                                     | Type   | Format       | Description                             |
+|----------------------------------------|------|----------|--------------------------------|
+| vpc                                    | Body | Array    | VPC information object                      |
+| vpc.router:external                    | Body | Boolean  | Whether VPC is externally connected              |
+| vpc.routingtables                      | Body | Array    | Array of route tables for VPC to query            |
+| vpc.name                               | Body | String   | Name of VPC to query                     |
+| vpc.subnets                            | Body | Array    | Subnet list of VPC to query                | 
+| vpc.subnets.router:external            | Body | Boolean  | Whether subnet is externally connected                  |
+| vpc.subnets.name                       | Body | String   | Subnet name                        |
+| vpc.subnets.enable_dhcp                | Body | Boolean  | Whether to enable DHCP of subnet               |
+| vpc.subnets.tenant_id                  | Body | UUID     | Tenant ID of subnet                     |
+| vpc.subnets.gateway                    | Body | String   | Gateway IP information of subnet               |
+| vpc.subnets.routingtable               | Body | Object   | Routing table information of subnet                |
+| vpc.subnets.routingtable.gateway_id    | Body | UUID     | Gateway ID of routing table              |
+| vpc.subnets.routingtable.default_table | Body | Boolean  | Whether routing table is default routing table |
+| vpc.subnets.routingtable.explicit      | Body | Boolean  | Whether routing table is explicitly connected             |
+| vpc.subnets.routingtable.id            | Body | UUID     | Routing table ID                    |
+| vpc.subnets.routingtable.name          | Body | String   | Routing table name                    |
+| vpc.subnets.routes                     | Body | Array    | Static route to subnet                     |
+| vpc.subnets.routes.subnet_id           | Body | UUID     | Subnet ID of static route                  |
+| vpc.subnets.routes.tenant_id           | Body | UUID     | Tenant ID of static route                  |
+| vpc.subnets.routes.mask                | Body | Integer  | Mask of static route                     |
+| vpc.subnets.routes.gateway             | Body | String   | Gateway IP of static route                |
+| vpc.subnets.routes.cidr                | Body | String   | CIDR of static route                   |
+| vpc.subnets.routes.id                  | Body | UUID     | ID of static route                      |
+| vpc.subnets.state                      | Body | String   | Subnet status                        |
+| vpc.subnets.create_time                | Body | Date     | Created time for subnet                     |
+| vpc.subnets.available_ip_count         | Body | Interger | Number of assignable IPs in subnet              | 
+| vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                    |
+| vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                     |
+| vpc.subnets.vpc.state                  | Body | String   | VPC status                        |
+| vpc.subnets.vpc.id                     | Body | UUID     | VPC ID                        |
+| vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                 |
+| vpc.subnets.vpc.name                   | Body | String   | VPC Name                        |
+| vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                     |
+| vpc.subnets.id                         | Body | UUID     | Subnet ID                        |
+| vpc.subnets.vpc_id                     | Body | UUID     | VPC ID of subnet                    |
+| vpc.subnets.cidr                       | Body | String   | CIDR ID of subnet                   |
+| vpc.tenant_id                          | Body | UUID     | Tenant ID to which VPC to query is included             |
+| vpc.state                              | Body | String   | Status of VPC to query                    |
+| vpc.create_time                        | Body | Date     | Created time of VPC to query                 |
+| vpc.cidrv4                             | Body | String   | IPv4 of VPC to query                  |
+| vpc.shared                             | Body | Boolean  | Whether to share VPC to query                 |
+| vpc.id                                 | Body | UUID     | VPC ID to query                    |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -189,24 +189,24 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 생성하기
+### Create VPC
 
 ```
 POST /v2.0/vpcs 
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
-| 이름                      | 종류     | 형식     | 필수  | 설명                                   |
+#### Request
+| Name                      | Type     | Format     | Required  | Description                                   |
 |-------------------------|--------|--------|-----|--------------------------------------|
-| tokenId                 | Header | String | O   | 토큰 ID                                |
-| vpc                     | Body   | Object | O   | VPC 생성 요청 객체                         |
-| vpc.name                | Body   | String | O   | VPC 이름                               |
-| vpc.cidrv4              | Body   | String | O   | VPC IP 대역                            |
-| vpc.tenant_id           | Body   | UUID   |     | VPC의 tenant ID                       |
-| vpc.external_network_id | Body   | UUID   |     | VPC에 연결될 External Network ID         |
-| vpc.subnets             | Body   | Array  |     | VPC에 연결될 External Network의 서브넷 ID 배열  |
-<details><summary>예시</summary>
+| tokenId                 | Header | String | O   | Token ID                                |
+| vpc                     | Body   | Object | O   | Object requesting of creating a VPC                         |
+| vpc.name                | Body   | String | O   | VPC Name                               |
+| vpc.cidrv4              | Body   | String | O   | CIDR of VPC                            |
+| vpc.tenant_id           | Body   | UUID   |     | Tenant ID of VPC                       |
+| vpc.external_network_id | Body   | UUID   |     | External network ID to be connected to VPC         |
+| vpc.subnets             | Body   | Array  |     | Array of subnet IDs of External Network to be connected to VPC  |
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -221,18 +221,18 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-#### 응답
-| 이름              | 종류   | 형식      | 설명             |
+#### Response
+| Name              | Type   | Format      | Description             |
 |-----------------|------|---------|----------------|
-| vpc             | Body | Array   | VPC 정보 객체      |
-| vpc.name        | Body | String  | VPC 이름         |
-| vpc.tenant_id   | Body | UUID    | VPC가 속한 테넌트 ID |
-| vpc.state       | Body | String  | VPC의 상태        |
-| vpc.create_time | Body | Date    | VPC의 생성 시간     |
-| vpc.cidrv4      | Body | String  | VPC의 IP 대역     |
-| vpc.shared      | Body | Boolean | VPC의 공유 여부     |
-| vpc.id          | Body | UUID    | VPC의 ID        |
-<details><summary>예시</summary>
+| vpc             | Body | Array   | VPC information object      |
+| vpc.name        | Body | String  | VPC Name         |
+| vpc.tenant_id   | Body | UUID    | Tenant ID that VPC belongs to |
+| vpc.state       | Body | String  | VPC status        |
+| vpc.create_time | Body | Date    | Created time for VPC     |
+| vpc.cidrv4      | Body | String  | CIDR of VPC     |
+| vpc.shared      | Body | Boolean | Whether to share VPC     |
+| vpc.id          | Body | UUID    | VPC ID        |
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -252,25 +252,25 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 수정하기
-VPC의 이름과 VPC IP 대역을 변경합니다.
+### Modify VPC
+Modifies the name and CIDR of VPC.
 ```
 PUT /v2.0/vpcs/{vpcId}
 X-Auth-Token: {tokenId}
 ```
-#### 요청
+#### Request
 
 
 
-| 이름         | 종류     | 형식     | 필수  | 설명           |
+| Name         | Type     | Format     | Required  | Description           |
 |------------|--------|--------|-----|--------------|
 | vpcId      | URL    | String | O   | VPC ID       |
-| tokenId    | Header | String | O   | 토큰 ID        |
-| vpc        | Body   | Object | O   | VPC 생성 요청 객체 |
-| vpc.name   | Body   | String |     | VPC 이름       |
-| vpc.cidrv4 | Body   | String |     | VPC IP 대역    |
+| tokenId    | Header | String | O   | Token ID        |
+| vpc        | Body   | Object | O   | Object requesting of creating a VPC |
+| vpc.name   | Body   | String |     | VPC Name       |
+| vpc.cidrv4 | Body   | String |     | CIDR of VPC    |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -285,19 +285,19 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-#### 응답
-| 이름              | 종류   | 형식      | 설명             |
+#### Response
+| Name              | Type   | Format      | Description             |
 |-----------------|------|---------|----------------|
-| vpc             | Body | Array   | VPC 정보 객체      |
-| vpc.name        | Body | String  | VPC 이름         |
-| vpc.tenant_id   | Body | UUID    | VPC가 속한 테넌트 ID |
-| vpc.state       | Body | String  | VPC의 상태        |
-| vpc.create_time | Body | Date    | VPC의 생성 시간     |
-| vpc.cidrv4      | Body | String  | VPC의 IP 대역     |
-| vpc.shared      | Body | Boolean | VPC의 공유 여부     |
-| vpc.id          | Body | UUID    | VPC의 ID        |
+| vpc             | Body | Array   | VPC information object      |
+| vpc.name        | Body | String  | VPC Name         |
+| vpc.tenant_id   | Body | UUID    | Tenant ID that VPC belongs to |
+| vpc.state       | Body | String  | VPC status        |
+| vpc.create_time | Body | Date    | Created time for VPC     |
+| vpc.cidrv4      | Body | String  | CIDR of VPC     |
+| vpc.shared      | Body | Boolean | Whether to share VPC     |
+| vpc.id          | Body | UUID    | VPC ID        |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -317,85 +317,85 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 삭제하기
-지정한 VPC를 삭제합니다.
+### Delete VPC
+Deletes a specified VPC.
 ```
 DELETE /v2.0/vpcs/{vpcId}
 X-Auth-Token: {tokenId}
 ```
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
-| 이름      | 종류     | 형식     | 필수  | 설명     |
+| Name      | Type     | Format     | Required  | Description     |
 |---------|--------|--------|-----|--------|
 | vpcId   | URL    | String | O   | VPC ID |
-| tokenId | Header | String | O   | 토큰 ID  |
+| tokenId | Header | String | O   | Token ID  |
 
-#### 응답
-이 API는 응답 본문을 반환하지 않습니다.
+#### Response
+This API does not return a response body.
 
-## VPC 서브넷
-### VPC 서브넷 목록 보기
-사용 가능한 서브넷 목록을 반환합니다.
+## VPC Subnet
+### List VPC Subnets
+Returns the list of available subnets.
 
 ```
 GET /v2.0/vpcsubnets
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
-| 이름 | 종류 | 형식 | 필수 | 설명 |
+| Name | Type | Format | Required | Description |
 |---|---|---|---|---|
-| tokenId | Header | String | O | 토큰 ID |
-| id | Query | UUID | - | 조회할 서브넷 ID |
-| name | Query | String | - | 조회할 서브넷 이름 |
-| vpc_id | Query | UUID | - | 조회할 서브넷의 VPC ID |
-| cidr | Query | String | - | 조회할 서브넷 CIDR |
-| shared | Query | Boolean | - | 조회할 서브넷의 공유 여부 |
-| sort_dir | Query | Enum | - | 조회할 서브넷의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
-| sort_key | Query | String | - | 조회할 서브넷의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬 |
+| tokenId | Header | String | O | Token ID |
+| id | Query | UUID | - | Subnet ID to query |
+| name | Query | String | - | Subnet name to query |
+| vpc_id | Query | UUID | - | VPC ID of subnet to query |
+| cidr | Query | String | - | Subnet CIDR to query |
+| shared | Query | Boolean | - | Whether to share subnet to query |
+| sort_dir | Query | Enum | - | Sorting direction of subnet to query<br>Sort by the field specified by `sort_key`<br>Either **asc**, or **desc** |
+| sort_key | Query | String | - | Sorting key of subnet to query<br>Sort in the direction as specified by `sort_dir` |
 
 
-#### 응답
+#### Response
 
-| 이름                                    | 종류   | 형식      | 설명                        |
+| Name                                    | Type   | Format      | Description                        |
 |---------------------------------------|------|---------|---------------------------|
-| vpcsubnets                            | Body | Array   | 서브넷 정보 객체                 |
-| vpcsubnets.router:external            | Body | Boolean | 서브넷의 외부 연결 여부             |
-| vpcsubnets.name                       | Body | String  | 서브넷의 이름                   |
-| vpcsubnets.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
-| vpcsubnets.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnets.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnets.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
-| vpcsubnets.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnets.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
-| vpcsubnets.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
-| vpcsubnets.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
-| vpcsubnets.state                      | Body | String  | 서브넷의 상태                   |
-| vpcsubnets.create_time                | Body | Date    | 서브넷의 생성 시간                |
-| vpcsubnets.available_ip_count         | Body | Integer | 서브넷의 사용 가능한 IP 개수         |
-| vpcsubnets.vpc                        | Body | Object  | 서브넷이 속한 VPC               |
-| vpcsubnets.vpc.shared                 | Body | Boolean | VPC의 공유 여부                |
-| vpcsubnets.vpc.state                  | Body | String  | VPC의 상태                   |
-| vpcsubnets.vpc.id                     | Body | UUID    | VPC의 ID                   |
-| vpcsubnets.vpc.cidrv4                 | Body | String  | VPC의 IP 대역                |
-| vpcsubnets.vpc.name                   | Body | String  | VPC 이름                    |
-| vpcsubnets.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
-| vpcsubnets.routes                     | Body | Array   | 서브넷의 정적 경로                |
-| vpcsubnets.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnets.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
-| vpcsubnets.routes.mask                | Body | Integer | 정적 경로의 마스크                |
-| vpcsubnets.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnets.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
-| vpcsubnets.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
-| vpcsubnets.shared                     | Body | Boolean | 서브넷의 공유 여부                |
-| vpcsubnets.cidr                       | Body | String  | 서브넷의 IP 대역                |
-| vpcsubnets.gateway                    | Body | String  | 서브넷의 게이트웨이 IP         |
+| vpcsubnets                            | Body | Array   | Subnet information object                 |
+| vpcsubnets.router:external            | Body | Boolean | Whether subnet is externally connected             |
+| vpcsubnets.name                       | Body | String  | Subnet name                   |
+| vpcsubnets.tenant_id                  | Body | UUID    | Tenant ID that subnet belongs to            |
+| vpcsubnets.id                         | Body | UUID    | Subnet ID                   |
+| vpcsubnets.routingtable               | Body | Object  | Routing table to which subnet is connected          |
+| vpcsubnets.routingtable.gateway_id    | Body | UUID    | Gateway ID of routing table         |
+| vpcsubnets.routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| vpcsubnets.routingtable.explicit      | Body | Boolean | Whether routing table is explicitly connected       |
+| vpcsubnets.routingtable.id            | Body | UUID    | Routing table ID               |
+| vpcsubnets.routingtable.name          | Body | String  | Routing table name               |
+| vpcsubnets.state                      | Body | String  | Subnet status                   |
+| vpcsubnets.create_time                | Body | Date    | Created time for subnet                |
+| vpcsubnets.available_ip_count         | Body | Integer | Number of available IPs in subnet         |
+| vpcsubnets.vpc                        | Body | Object  | VPC that subnet belongs to               |
+| vpcsubnets.vpc.shared                 | Body | Boolean | Whether to share VPC                |
+| vpcsubnets.vpc.state                  | Body | String  | VPC status                   |
+| vpcsubnets.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnets.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
+| vpcsubnets.vpc.name                   | Body | String  | VPC Name                    |
+| vpcsubnets.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
+| vpcsubnets.routes                     | Body | Array   | Static route to subnet                |
+| vpcsubnets.routes.subnet_id           | Body | UUID    | Subnet ID of static route             |
+| vpcsubnets.routes.tenant_id           | Body | UUID    | Tenant ID of static route             |
+| vpcsubnets.routes.mask                | Body | Integer | Mask of static route                |
+| vpcsubnets.routes.gateway             | Body | String  | Gateway IP of static route           |
+| vpcsubnets.routes.cidr                | Body | String  | Destination CIDR of static route           |
+| vpcsubnets.routes.id                  | Body | UUID    | ID of static route                 |
+| vpcsubnets.shared                     | Body | Boolean | Whether to share subnet                |
+| vpcsubnets.cidr                       | Body | String  | CIDR of subnet                |
+| vpcsubnets.gateway                    | Body | String  | Gateway IP of subnet             |
 
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -445,60 +445,60 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷 보기
-지정한 서브넷을 조회합니다.
+### View VPC Subnet
+Views the specified subnet.
 ```
 GET /v2.0/vpcsubnets/{subnetId}  
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
-| 이름       | 종류     | 형식     | 필수  | 설명     |
+| Name       | Type     | Format     | Required  | Description     |
 |----------|--------|--------|-----|--------|
-| subnetId | URL    | UUID   | O   | 서브넷 ID |
-| tokenId  | Header | String | O   | 토큰 ID  |
+| subnetId | URL    | UUID   | O   | Subnet ID |
+| tokenId  | Header | String | O   | Token ID  |
 
 
-#### 응답
+#### Response
 
-| 이름                                   | 종류   | 형식      | 설명                        |
+| Name                                   | Type   | Format      | Description                        |
 |--------------------------------------|------|---------|---------------------------|
-| vpcsubnet                            | Body | Array   | 서브넷 정보 객체                 |
-| vpcsubnet.router:external            | Body | Boolean | 서브넷의 외부 연결 여부             |
-| vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
-| vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
-| vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
-| vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
-| vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
-| vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
-| vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
-| vpcsubnet.create_time                | Body | Date    | 서브넷의 생성 시간                |
-| vpcsubnet.available_ip_count         | Body | Integer | 서브넷의 사용 가능한 IP 개수         |
-| vpcsubnet.vpc                        | Body | Object  | 서브넷이 속한 VPC               |
-| vpcsubnet.vpc.shared                 | Body | Boolean | VPC의 공유 여부                |
-| vpcsubnet.vpc.state                  | Body | String  | VPC의 상태                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC의 ID                   |
-| vpcsubnet.vpc.cidrv4                 | Body | String  | VPC의 IP 대역                |
-| vpcsubnet.vpc.name                   | Body | String  | VPC 이름                    |
-| vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
-| vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로                |
-| vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
-| vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크                |
-| vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
-| vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
-| vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
-| vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
-| vpcsubnet.gateway                    | Body | String  | 서브넷의 게이트웨이 IP         |
+| vpcsubnet                            | Body | Array   | Subnet information object                 |
+| vpcsubnet.router:external            | Body | Boolean | Whether subnet is externally connected             |
+| vpcsubnet.name                       | Body | String  | Subnet name                   |
+| vpcsubnet.tenant_id                  | Body | UUID    | Tenant ID that subnet belongs to            |
+| vpcsubnet.id                         | Body | UUID    | Subnet ID                   |
+| vpcsubnet.routingtable               | Body | Object  | Routing table to which subnet is connected          |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | Gateway ID of routing table         |
+| vpcsubnet.routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | Whether routing table is explicitly connected       |
+| vpcsubnet.routingtable.id            | Body | UUID    | Routing table ID               |
+| vpcsubnet.routingtable.name          | Body | String  | Routing table name               |
+| vpcsubnet.state                      | Body | String  | Subnet status                   |
+| vpcsubnet.create_time                | Body | Date    | Created time for subnet                |
+| vpcsubnet.available_ip_count         | Body | Integer | Number of available IPs in subnet         |
+| vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
+| vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
+| vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
+| vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
+| vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
+| vpcsubnet.routes                     | Body | Array   | Static route to subnet                |
+| vpcsubnet.routes.subnet_id           | Body | UUID    | Subnet ID of static route             |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | Tenant ID of static route             |
+| vpcsubnet.routes.mask                | Body | Integer | Mask of static route                |
+| vpcsubnet.routes.gateway             | Body | String  | Gateway IP of static route           |
+| vpcsubnet.routes.cidr                | Body | String  | Destination CIDR of static route           |
+| vpcsubnet.routes.id                  | Body | UUID    | ID of static route                 |
+| vpcsubnet.shared                     | Body | Boolean | Whether to share subnet                |
+| vpcsubnet.cidr                       | Body | String  | CIDR of subnet                |
+| vpcsubnet.gateway                    | Body | String  | Gateway IP of subnet             |
 
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -546,24 +546,24 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷 생성하기
-새로운 서브넷을 생성합니다.
+### Create VPC Subnet
+Creates a new subnet.
 ```
 POST /v2.0/vpcsubnets  
 X-Auth-Token: {tokenId}
 ```
-#### 요청
+#### Request
 
-| 이름                  | 종류     | 형식     | 필수  | 설명              |
+| Name                  | Type     | Format     | Required  | Description              |
 |---------------------|--------|--------|-----|-----------------|
-| tokenId             | Header | String | O   | 토큰 ID           |
-| vpcsubnet           | Body   | Object | O   | 서브넷 정보 객체       |
-| vpcsubnet.vpc_id    | Body   | UUID   | O   | 서브넷이 할당될 VPC ID |
-| vpcsubnet.cidr      | Body   | String | O   | 서브넷의 IP 대역      |
-| vpcsubnet.name      | Body   | String | O   | 서브넷의 이름         |
-| vpcsubnet.tenant_id | Body   | UUID   |     | 서브넷이 할당될 테넨트 ID |
+| tokenId             | Header | String | O   | Token ID           |
+| vpcsubnet           | Body   | Object | O   | Subnet information object       |
+| vpcsubnet.vpc_id    | Body   | UUID   | O   | VPC ID to which subnet is assigned |
+| vpcsubnet.cidr      | Body   | String | O   | CIDR of subnet      |
+| vpcsubnet.name      | Body   | String | O   | Subnet name         |
+| vpcsubnet.tenant_id | Body   | UUID   |     | Tenant ID to which subnet is assigned |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -579,22 +579,22 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-#### 응답
+#### Response
 
-| 이름                    | 종류   | 형식      | 설명                |
+| Name                    | Type   | Format      | Description                |
 |-----------------------|------|---------|-------------------|
-| vpcsubnet             | Body | Array   | 서브넷 정보 객체         |
-| vpcsubnet.name        | Body | String  | 서브넷의 이름           |
-| vpcsubnet.tenant_id   | Body | String  | 서브넷이 속한 테넌트 ID    |
-| vpcsubnet.id          | Body | UUID    | 서브넷의 ID           |
-| vpcsubnet.state       | Body | String  | 서브넷의 상태           |
-| vpcsubnet.create_time | Body | Date    | 서브넷의 생성 시간        |
-| vpcsubnet.vpc_id      | Body | String  | 서브넷이 속한 VPC의 ID   |
-| vpcsubnet.shared      | Body | Boolean | 서브넷의 공유 여부        |
-| vpcsubnet.cidr        | Body | String  | 서브넷의 IP 대역        |
-| vpcsubnet.gateway     | Body | String  | 서브넷의 게이트웨이 IP |
+| vpcsubnet             | Body | Array   | Subnet information object         |
+| vpcsubnet.name        | Body | String  | Subnet name           |
+| vpcsubnet.tenant_id   | Body | String  | Tenant ID that subnet belongs to    |
+| vpcsubnet.id          | Body | UUID    | Subnet ID           |
+| vpcsubnet.state       | Body | String  | Subnet status           |
+| vpcsubnet.create_time | Body | Date    | Created time for subnet        |
+| vpcsubnet.vpc_id      | Body | String  | ID of VPC that subnet belongs to   |
+| vpcsubnet.shared      | Body | Boolean | Whether to share subnet        |
+| vpcsubnet.cidr        | Body | String  | CIDR of subnet        |
+| vpcsubnet.gateway     | Body | String  | Gateway IP of subnet |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -616,21 +616,21 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷 수정하기
-서브넷의 이름을 변경합니다.
+### Modify VPC Subnet
+Modifies the subnet name.
 ```
 PUT /v2.0/vpcsubnets/{subnetId}  
 X-Auth-Token: {tokenId}
 ```
-#### 요청
-| 이름             | 종류     | 형식     | 필수  | 설명        |
+#### Request
+| Name             | Type     | Format     | Required  | Description        |
 |----------------|--------|--------|-----|-----------|
-| subnetId       | URL    | UUID   | O   | 서브넷 ID    |
-| tokenId        | Header | String | O   | 토큰 ID     |
-| vpcsubnet      | Body   | Object | O   | 서브넷 정보 객체 |
-| vpcsubnet.name | Body   | String | O   | 서브넷의 이름   |
+| subnetId       | URL    | UUID   | O   | Subnet ID    |
+| tokenId        | Header | String | O   | Token ID     |
+| vpcsubnet      | Body   | Object | O   | Subnet information object |
+| vpcsubnet.name | Body   | String | O   | Subnet name   |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -644,22 +644,22 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-#### 응답
+#### Response
 
-| 이름                    | 종류   | 형식      | 설명                |
+| Name                    | Type   | Format      | Description                |
 |-----------------------|------|---------|-------------------|
-| vpcsubnet             | Body | Array   | 서브넷 정보 객체         |
-| vpcsubnet.name        | Body | String  | 서브넷의 이름           |
-| vpcsubnet.tenant_id   | Body | String  | 서브넷이 속한 테넌트 ID    |
-| vpcsubnet.id          | Body | UUID    | 서브넷의 ID           |
-| vpcsubnet.state       | Body | String  | 서브넷의 상태           |
-| vpcsubnet.create_time | Body | Date    | 서브넷의 생성 시간        |
-| vpcsubnet.vpc_id      | Body | String  | 서브넷이 속한 VPC의 ID   |
-| vpcsubnet.shared      | Body | Boolean | 서브넷의 공유 여부        |
-| vpcsubnet.cidr        | Body | String  | 서브넷의 IP 대역        |
-| vpcsubnet.gateway     | Body | String  | 서브넷의 게이트웨이 IP |
+| vpcsubnet             | Body | Array   | Subnet information object         |
+| vpcsubnet.name        | Body | String  | Subnet name           |
+| vpcsubnet.tenant_id   | Body | String  | Tenant ID that subnet belongs to    |
+| vpcsubnet.id          | Body | UUID    | Subnet ID           |
+| vpcsubnet.state       | Body | String  | Subnet status           |
+| vpcsubnet.create_time | Body | Date    | Created time for subnet        |
+| vpcsubnet.vpc_id      | Body | String  | ID of VPC that subnet belongs to   |
+| vpcsubnet.shared      | Body | Boolean | Whether to share subnet        |
+| vpcsubnet.cidr        | Body | String  | CIDR of subnet        |
+| vpcsubnet.gateway     | Body | String  | Gateway IP of subnet |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -681,57 +681,70 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷을 라우팅 테이블에 연결하기
-서브넷을 특정 라우팅 테이블에 명시적으로 연결합니다.
+### Connect VPC Subnet to Routing Table
+Connects a subnet to a specific routing table.
 ```
 PUT /v2.0/vpcsubnets/{subnetId}/attach_routingtable
 X-Auth-Token: {tokenId}
 ```
-#### 요청
-| 이름       | 종류     | 형식     | 필수  | 설명     |
+#### Request
+| Name       | Type     | Format     | Required  | Description     |
 |----------|--------|--------|-----|--------|
-| subnetId | URL    | UUID   | O   | 서브넷 ID |
-| tokenId  | Header | String | O   | 토큰 ID  |
-| routingtable_id | Body | UUID | O   | 연결할 라우팅 테이블 ID |
-#### 응답
+| subnetId | URL    | UUID   | O   | Subnet ID |
+| tokenId  | Header | String | O   | Token ID  |
+| routingtable_id | Body | UUID | O   | Routing table ID to connect |
 
-| 이름                                   | 종류   | 형식      | 설명                        |
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+   "routingtable_id": "c577a618-1acb-444d-a82e-aeb4c6fce01e"
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name                                   | Type   | Format      | Description                        |
 |--------------------------------------|------|---------|---------------------------|
-| vpcsubnet                            | Body | Array   | 서브넷 정보 객체                 |
-| vpcsubnet.router:external            | Body | Boolean | 서브넷의 외부 연결 여부             |
-| vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
-| vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
-| vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷이 연결된 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트웨이 ID        |
-| vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블과의 명시적 연결 여부        |
-| vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
-| vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
-| vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
-| vpcsubnet.create_time                | Body | Date    | 서브넷의 생성 시간                |
-| vpcsubnet.available_ip_count         | Body | Integer | 서브넷의 사용 가능한 IP 개수         |
-| vpcsubnet.vpc                        | Body | Object  | 서브넷이 속한 VPC               |
-| vpcsubnet.vpc.shared                 | Body | Boolean | VPC의 공유 여부                |
-| vpcsubnet.vpc.state                  | Body | String  | VPC의 상태                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC의 ID                   |
-| vpcsubnet.vpc.cidrv4                 | Body | String  | VPC의 IP 대역                |
-| vpcsubnet.vpc.name                   | Body | String  | VPC 이름                    |
-| vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
-| vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로                |
-| vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
-| vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크                |
-| vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 대상 IP 대역              |
-| vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
-| vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
-| vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
-| vpcsubnet.gateway                    | Body | String  | 서브넷의 게이트웨이 IP         |
+| vpcsubnet                            | Body | Array   | Subnet information object                 |
+| vpcsubnet.router:external            | Body | Boolean | Whether subnet is externally connected             |
+| vpcsubnet.name                       | Body | String  | Subnet name                   |
+| vpcsubnet.tenant_id                  | Body | UUID    | Tenant ID that subnet belongs to            |
+| vpcsubnet.id                         | Body | UUID    | Subnet ID                   |
+| vpcsubnet.routingtable               | Body | Object  | Routing table to which subnet is connected          |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | Gateway ID of routing table         |
+| vpcsubnet.routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | Whether routing table is explicitly connected       |
+| vpcsubnet.routingtable.id            | Body | UUID    | Routing table ID               |
+| vpcsubnet.routingtable.name          | Body | String  | Routing table name               |
+| vpcsubnet.state                      | Body | String  | Subnet status                   |
+| vpcsubnet.create_time                | Body | Date    | Created time for subnet                |
+| vpcsubnet.available_ip_count         | Body | Integer | Number of available IPs in subnet         |
+| vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
+| vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
+| vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
+| vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
+| vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
+| vpcsubnet.routes                     | Body | Array   | Static route to subnet                |
+| vpcsubnet.routes.subnet_id           | Body | UUID    | Subnet ID of static route             |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | Tenant ID of static route             |
+| vpcsubnet.routes.mask                | Body | Integer | Mask of static route                |
+| vpcsubnet.routes.gateway             | Body | String  | Gateway IP of static route           |
+| vpcsubnet.routes.cidr                | Body | String  | Destination CIDR of static route           |
+| vpcsubnet.routes.id                  | Body | UUID    | ID of static route                 |
+| vpcsubnet.shared                     | Body | Boolean | Whether to share subnet                |
+| vpcsubnet.cidr                       | Body | String  | CIDR of subnet                |
+| vpcsubnet.gateway                    | Body | String  | Gateway IP of subnet             |
 
 
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -771,61 +784,60 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷과 라우팅 테이블의 연결을 해제하기
-서브넷과 명시적으로 연결되어 있는 라우팅 테이블의 연결을 해제합니다.
+### Detach VPC Subnet from Routing Table
+Detach explicit connection between subnet and routing table
 
 ```
 PUT /v2.0/vpcsubnets/{subnetId}/detach_routingtable
 X-Auth-Token: {tokenId}
 ```
-#### 요청
-이 API는 요청 본문을 요구하지 않습니다.
+#### Request
+This API does not require a request body.
 
-| 이름       | 종류     | 형식     | 필수  | 설명     |
+| Name       | Type     | Format     | Required  | Description     |
 |----------|--------|--------|-----|--------|
-| subnetId | URL    | UUID   | O   | 서브넷 ID |
-| tokenId  | Header | String | O   | 토큰 ID  |
+| subnetId | URL    | UUID   | O   | Subnet ID |
+| tokenId  | Header | String | O   | Token ID  |
 
-#### 응답
+#### Response
 
-| 이름                                   | 종류   | 형식      | 설명                        |
-|--------------------------------------|------|---------|---------------------------|
-| vpcsubnet                            | Body | Array   | 서브넷 정보 객체                 |
-| vpcsubnet.router:external            | Body | Boolean | 서브넷의 외부 연결 여부             |
-| vpcsubnet.name                       | Body | String  | 서브넷의 이름                   |
-| vpcsubnet.enable_dhcp                | Body | Boolean | 서브넷의 DHCP 활성화 여부          |
-| vpcsubnet.tenant_id                  | Body | UUID    | 서브넷이 속한 테넌트 ID            |
-| vpcsubnet.routingtable               | Body | Object  | 서브넷의 라우팅 테이블              |
-| vpcsubnet.routingtable.gateway_id    | Body | UUID    | 라우팅 테이블의 게이트 웨이 ID        |
-| vpcsubnet.routingtable.default_table | Body | Boolean | 라우팅 테이블의 Default Table 여부 |
-| vpcsubnet.routingtable.explicit      | Body | Boolean | 라우팅 테이블의 명시적 연결 여부        |
-| vpcsubnet.routingtable.id            | Body | UUID    | 라우팅 테이블의 ID               |
-| vpcsubnet.routingtable.name          | Body | String  | 라우팅 테이블의 이름               |
-| vpcsubnet.gateway                    | Body | String  | 서브넷에 연결된 게이트웨이 IP         |
-| vpcsubnet.routes                     | Body | Array   | 서브넷의 정적 경로                |
-| vpcsubnet.routes.subnet_id           | Body | UUID    | 정적 경로의 서브넷 ID             |
-| vpcsubnet.routes.tenant_id           | Body | UUID    | 정적 경로의 테넨트 ID             |
-| vpcsubnet.routes.mask                | Body | Integer | 정적 경로의 마스크                |
-| vpcsubnet.routes.gateway             | Body | String  | 정적 경로의 게이트웨이 IP           |
-| vpcsubnet.routes.cidr                | Body | String  | 정적 경로의 IP 대역              |
-| vpcsubnet.routes.id                  | Body | UUID    | 정적 경로의 ID                 |
-| vpcsubnet.state                      | Body | String  | 서브넷의 상태                   |
-| vpcsubnet.create_time                | Body | Date    | 서브넷의 생성 시간                |
-| vpcsubnet.available_ip_count         | Body | Integer | 서브넷이 사용 가능한 IP 개수         |
-| vpcsubnet.vpc                        | Body | Object  | 서브넷이 속한 VPC               |
-| vpcsubnet.vpc.shared                 | Body | Boolean | VPC의 공유 여부                |
-| vpcsubnet.vpc.state                  | Body | String  | VPC의 상태                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC의 ID                   |
-| vpcsubnet.vpc.cidrv4                 | Body | String  | VPC의 IP 대역                |
-| vpcsubnet.vpc.name                   | Body | String  | VPC 이름                    |
-| vpcsubnet.shared                     | Body | Boolean | 서브넷의 공유 여부                |
-| vpcsubnet.id                         | Body | UUID    | 서브넷의 ID                   |
-| vpcsubnet.vpc_id                     | Body | UUID    | 서브넷이 속한 VPC의 ID           |
-| vpcsubnet.hidden                     | Body | Boolean | 서브넷의 콘솔 노출 여부             |
-| vpcsubnet.cidr                       | Body | String  | 서브넷의 IP 대역                |
+| Name                                   | Type   | Format      | Description                       |
+|--------------------------------------|------|---------|--------------------------|
+| vpcsubnet                            | Body | Array   | Subnet information object                |
+| vpcsubnet.router:external            | Body | Boolean | Whether subnet is externally connected            |
+| vpcsubnet.name                       | Body | String  | Subnet name                  |
+| vpcsubnet.enable_dhcp                | Body | Boolean | Whether to enable DHCP of subnet         |
+| vpcsubnet.tenant_id                  | Body | UUID    | Tenant ID that subnet belongs to           |
+| vpcsubnet.routingtable               | Body | Object  | Routing table of subnet             |
+| vpcsubnet.routingtable.gateway_id    | Body | UUID    | Gateway ID of routing table        |
+| vpcsubnet.routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| vpcsubnet.routingtable.explicit      | Body | Boolean | Whether routing table is explicitly connected       |
+| vpcsubnet.routingtable.id            | Body | UUID    | Routing table ID              |
+| vpcsubnet.routingtable.name          | Body | String  | Routing table name              |
+| vpcsubnet.gateway                    | Body | String  | Gateway IP connected to subnet        |
+| vpcsubnet.routes                     | Body | Array   | Static route to subnet               |
+| vpcsubnet.routes.subnet_id           | Body | UUID    | Subnet ID of static route            |
+| vpcsubnet.routes.tenant_id           | Body | UUID    | Tenant ID of static route            |
+| vpcsubnet.routes.mask                | Body | Integer | Mask of static route               |
+| vpcsubnet.routes.gateway             | Body | String  | Gateway IP of static route          |
+| vpcsubnet.routes.cidr                | Body | String  | CIDR of static route             |
+| vpcsubnet.routes.id                  | Body | UUID    | ID of static route                |
+| vpcsubnet.state                      | Body | String  | Subnet status                  |
+| vpcsubnet.create_time                | Body | Date    | Created time for subnet               |
+| vpcsubnet.available_ip_count         | Body | Integer | Number of available IPs that subnet can use        |
+| vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to              |
+| vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC               |
+| vpcsubnet.vpc.state                  | Body | String  | VPC status                  |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                  |
+| vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC               |
+| vpcsubnet.vpc.name                   | Body | String  | VPC Name                   |
+| vpcsubnet.shared                     | Body | Boolean | Whether to share subnet               |
+| vpcsubnet.id                         | Body | UUID    | Subnet ID                  |
+| vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to          |
+| vpcsubnet.cidr                       | Body | String  | CIDR of subnet               |
 
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 <p>
 
 ```json
@@ -866,25 +878,25 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-### VPC 서브넷 삭제하기
+### Delete VPC Subnet
 
-지정한 서브넷을 삭제합니다.
+Deletes a specified subnet.
 
 ```
 DELETE /v2.0/vpcsubnets/{subnetId}  
 X-Auth-Token: {tokenId}
 ```
 
-#### 요청
+#### Request
 
-이 API는 요청 본문을 요구하지 않습니다.
+This API does not require a request body.
 
-| 이름       | 종류     | 형식     | 필수  | 설명     |
+| Name       | Type     | Format     | Required  | Description     |
 |----------|--------|--------|-----|--------|
-| subnetId | URL    | UUID   | O   | 서브넷 ID |
-| tokenId  | Header | String | O   | 토큰 ID  |
+| subnetId | URL    | UUID   | O   | Subnet ID |
+| tokenId  | Header | String | O   | Token ID  |
 
-#### 응답
-이 API는 응답 본문을 반환하지 않습니다.
+#### Response
+This API does not return a response body.
 
 ---
