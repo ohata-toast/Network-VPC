@@ -119,7 +119,7 @@ This API does not require a request body.
 | vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                    |
 | vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                     |
 | vpc.subnets.vpc.state                  | Body | String   | VPC status                        |
-| vpc.subnets.vpc.id                     | Body | UUID     | VIC ID                        |
+| vpc.subnets.vpc.id                     | Body | UUID     | VPC ID                        |
 | vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                 |
 | vpc.subnets.vpc.name                   | Body | String   | VPC Name                        |
 | vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                     |
@@ -231,7 +231,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VIC ID        |
+| vpc.id          | Body | UUID    | VPC ID        |
 <details><summary>Example</summary>
 <p>
 
@@ -295,7 +295,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VIC ID        |
+| vpc.id          | Body | UUID    | VPC ID        |
 
 <details><summary>Example</summary>
 <p>
@@ -379,7 +379,7 @@ This API does not require a request body.
 | vpcsubnets.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnets.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnets.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnets.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnets.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnets.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnets.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnets.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -482,7 +482,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -727,7 +727,7 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -828,7 +828,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to              |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC               |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                  |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                  |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                  |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC               |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                   |
 | vpcsubnet.shared                     | Body | Boolean | Whether to share subnet               |
