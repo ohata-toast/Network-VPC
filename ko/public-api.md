@@ -205,7 +205,7 @@ X-Auth-Token: {tokenId}
 | vpc.cidrv4              | Body   | String | O   | VPC IP 대역                            |
 | vpc.tenant_id           | Body   | UUID   |     | VPC의 tenant ID                       |
 | vpc.external_network_id | Body   | UUID   |     | VPC에 연결될 External Network ID         |
-| vpc.subnets             | Body   | Array  |     | VPC에 연결될 External Network의 서브넷 ID 배열  |
+
 <details><summary>예시</summary>
 <p>
 
@@ -316,6 +316,61 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
+### VPC 공유하기
+지정한 VPC를 다른 프로젝트에 공유합니다.
+```
+PUT /v2.0/vpcs/{vpcId}/share
+X-Auth-Token: {tokenId}
+```
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|----|----|----|---|---|
+| vpcId | URL | String | O | VPC ID |
+| tokenId | Header | String | O | 토큰 ID |
+| target_tenant | Body | UUID | O | VPC를 공유 받을 프로젝트의 테넌트 ID |
+
+<detail><summary>예시</summary>
+<p>
+
+```json
+{
+    "target_tenant": "1fb0cf13afb341b699f74bbbecab2117"
+}
+```
+
+#### 응답
+이 API는 응답 본문을 반환하지 않습니다.
+
+
+### VPC 공유 해제하기
+지정한 VPC의 공유를 해제합니다. 
+```
+PUT /v2.0/vpcs/{vpcId}/unshare
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|----|----|----|---|---|
+| vpcId | URL | String | O | VPC ID |
+| tokenId | Header | String | O | 토큰 ID |
+| target_tenant | Body | UUID | O | VPC 공유를 해제할 프로젝트의 테넌트 ID |
+
+<detail><summary>예시</summary>
+<p>
+
+```json
+{
+    "target_tenant": "1fb0cf13afb341b699f74bbbecab2117"
+}
+```
+
+#### 응답
+이 API는 응답 본문을 반환하지 않습니다.
+
 
 ### VPC 삭제하기
 지정한 VPC를 삭제합니다.
