@@ -954,4 +954,864 @@ X-Auth-Token: {tokenId}
 #### 응답
 이 API는 응답 본문을 반환하지 않습니다.
 
+
+## 라우팅 테이블
+
+### 라우팅 테이블 목록 보기
+
+사용 가능한 라우팅 테이블의 목록을 반환합니다.
+
+```
+GET /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름       | 종류     | 형식     | 필수  | 설명     |
+|----------|--------|--------|-----|--------|
+| tokenId | Header | String | O | 토큰 ID |
+| tenant_id | Query | String | - | 조회할 라우팅 테이블이 속한 테넌트 ID |
+| id | Query | UUID | - | 조화할 라우팅 테이블 ID |
+| name | Query | String | - | 조회할 라우팅 테이블 이름 |
+| default_table | Query | Boolean | - | 조회할 라우팅 테이블의 기본 라우팅 테이블 여부 |
+| gateway_id | Query | UUID | - | 조회할 라우팅 테이블에 연결된 인터넷 게이트웨이 ID |
+| distributed | Query | Boolean | - | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 | 
+| detail | Query | Boolean | - | 조회할 라우팅 테이블의 상세 정보 포함 여부 |
+| sort_dir | Query  | Enum    | -   | 조회할 네트워크의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
+| sort_key | Query  | String  | -   | 조회할 네트워크의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬 |
+
+#### 응답
+
+##### **detail** 쿼리 파라미터가 없거나 값이 `false`일 떄
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | 라우팅 테이블 정보 객체 목록 |
+| routingtables.id | Body | UUID | 라우팅 테이블 ID |
+| routingtables.name | Body | String | 라우팅 테이블 이름 |
+| routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "name": "vpc-162de82d-7301",
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+##### **detail** 쿼리 파라미터 값이 `true`일 떄
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | 라우팅 테이블 정보 객체 목록 |
+| routingtables.id | Body | UUID | 라우팅 테이블 ID |
+| routingtables.name | Body | String | 라우팅 테이블 이름 |
+| routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtables.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtables.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
+| routingtables.vpcs.name | Body | String | 라우팅 테이블이 속한 VPC 이름 |
+| routingtables.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtables.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtables.subnet.name | Body | UUID | 라우팅 테이블에 연결된 서브넷 이름 |
+| routingtables.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "subnets": [
+        {
+          "name": "Default Network",
+          "id": "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+        }
+      ],
+      "name": "vpc-162de82d-7301",
+      "vpcs": [
+        {
+          "name": "Default Network",
+          "id": "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+        }
+      ],
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### 라우팅 테이블 보기
+
+지정한 라우팅 테이블을 조회합니다.
+
+```
+GET /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 조회할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 포트 정보 객체 |
+| routingtable.id | Body | UUID | 라우팅 테이블 ID |
+| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID | 라우트 ID |
+| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "subnets": [
+      "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+    ],
+    "name": "vpc-162de82d-7301",
+    "vpcs": [
+      "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+    ],
+    "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+    "distributed": false,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2022-08-17 06:55:17",
+    "routes": [
+      {
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 16,
+        "id": "520336f6-8920-4ff9-a7c5-fe9db27f026a",
+        "gateway": "local",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "192.168.0.0/16"
+      },
+      {
+        "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 0,
+        "id": "ddd375f5-5b6b-4e1d-83d0-9d1444224db2",
+        "gateway": "192.168.120.82",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "0.0.0.0/0"
+      }
+    ],
+    "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+  }
+}
+```
+
+</p>
+</details>
+
+### 라우팅 테이블 생성하기
+
+새로운 라우팅 테이블을 생성합니다.
+
+```
+POST /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| routingtable | Body | Object | O | 라우팅 테이블 생성 요청 객체 |
+| routingtable.name | Body | String | O | 라우팅 테이블 이름 |
+| routingtable.vpc_id | Body | UUID | O | 라우팅 테이블이 속할 VPC ID |
+| routingtable.distributed | Body | Boolean | - | 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 (기본값: `true`) |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "name": "second_routing_table",
+    "vpc_id": "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4",
+    "distributed": "true"
+  }
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 생성된 라우팅 테이블 정보 객체 |
+| id | Body | UUID | 라우팅 테이블 ID |
+| name | Body | String | 라우팅 테이블 이름 |
+| default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| state | Body | String | 라우팅 테이블의 상태. 현재는 `"available"` 값만 사용 |
+| tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| create_time | Body | Date | 라우팅 테이블 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "second_routing_table",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### 라우팅 테이블 수정하기
+
+라우팅 테이블의 정보를 수정합니다. 라우팅 테이블의 이름과 라우팅 방식(분산형 / 중앙 집중형)을 변경할 수 있습니다.
+
+```
+PUT /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 수정할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+| routingtable | Body | Object | O | 라우팅 테이블 정보 객체 |
+| routingtable.name | Body | String | - | 변경할 라우팅 테이블 이름 |
+| routingtable.distributed | Body | Boolean | - | 변경하 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 | 
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "distributed": false, 
+    "name": "centralized"
+  }
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 생성된 라우팅 테이블 정보 객체 |
+| id | Body | UUID | 라우팅 테이블 ID |
+| name | Body | String | 라우팅 테이블 이름 |
+| default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| state | Body | String | 라우팅 테이블의 상태. 현재는 `"available"` 값만 사용 |
+| tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| create_time | Body | Date | 라우팅 테이블 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "centralized",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### 라우팅 테이블에 인터넷 게이트웨이 연결하기
+
+라우팅 테이블에 인터넷 게이트웨이를 연결합니다.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/attach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 수정할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+| gateway_id | Body | UUID | O | 라우팅 테이블에 연결할 인터넷 게이트웨이의 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd"
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 포트 정보 객체 |
+| routingtable.id | Body | UUID | 라우팅 테이블 ID |
+| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID | 라우트 ID |
+| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      },
+      {
+        "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 0,
+        "id": "06c233a7-d1c3-4e0e-83bc-b497420f346b",
+        "gateway": "100.127.65.120",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "0.0.0.0/0",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### 라우팅 테이블의 인터넷 게이트웨이 연결 해제하기
+
+라우티 테이블과 연결된 인터넷 게이트웨이와의 연결을 해제합니다.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/detach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 수정할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 포트 정보 객체 |
+| routingtable.id | Body | UUID | 라우팅 테이블 ID |
+| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID | 라우트 ID |
+| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### 라우팅 테이블을 기본 라우팅 테이블로 지정하기
+
+라우팅 테이블을 기본 라우팅 테이블로 지정합니다.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/set_as_default
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 수정할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 포트 정보 객체 |
+| routingtable.id | Body | UUID | 라우팅 테이블 ID |
+| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식.<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID | 라우트 ID |
+| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [
+      "cc39a1a1-4539-46b5-91a9-80c0eacb8184",
+      "ccebb749-fb04-4f52-b18d-141326c0c9c5"
+    ],
+    "name": "3rd-router2",
+    "vpcs": [
+      "86325d48-fbb1-4117-8fa8-bcbf8c692c7f"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2021-09-02 08:47:02",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 16,
+        "id": "a253f579-d0f8-472f-a834-5c4133481086",
+        "gateway": "local",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "10.3.0.0/16",
+        "hidden": false
+      },
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "fc643476-efa1-4f0a-8fae-0c7e271ea0b5",
+        "gateway": "10.3.1.12",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "172.16.0.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### 라우팅 테이블 삭제하기
+
+라우팅 테이블을 삭제합니다. "기본 라우팅 테이블"로 지정된 라우팅 테이블은 삭제할 수 없으며, 이는 VPC 삭제 시 함꼐 삭제됩니다.
+
+```
+DELETE /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 삭제할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+## 라우트
+### 라우트 목록 보기
+
+라우팅 테이블에 설정된 라우트 목록을 반환합니다.
+
+```
+GET /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | UUID | - | 라우트 ID |
+| cidr | Query | String | - | 라우트 목적지 CIDR |
+| mask | Query | Integer | -  | 라우트 목적지 CIDR의 넷마스크 (0 ~ 32) |
+| gateway | Query | String | - | 라우트 게이트웨이 IP |
+| routingtable_id |  Query | String | - | 라우트가 설정된 라우팅 테이블의 ID|
+| gateway_id |  Query | String | - | 인터넷 게이트웨이 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| routes | Body | Array | 라우트 정보 객체 목록 |
+| routes.id | Body | UUID | 라우트 ID |
+| routes.cidr | Body | String | 라우트 목적지 CIDR | 
+| routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| routes.gateway | Body | String | 라우트 게이트웨이 IP. 로컬 라우트인 경우 "local" |
+| routes.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이를 연결하여 자동으로 생성된 라우트인 경우, 인터넷 게이트웨이의 ID |
+| routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "routes": [
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 16,
+      "gateway": "local",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "172.16.0.0/16",
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+    },
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 24,
+      "gateway": "172.16.10.19",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "192.168.0.0/24",
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    },
+    {
+      "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 0,
+      "gateway": "100.127.64.9",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "0.0.0.0/0",
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### 라우트 보기
+
+지정한 라우트를 조회합니다.
+
+```
+GET /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 조회할 라우트 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| route | Body | Array | 라우트 정보 객체 |
+| route.id | Body | UUID | 라우트 ID |
+| route.cidr | Body | String | 라우트 목적지 CIDR | 
+| route.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| route.gateway | Body | String | 라우트 게이트웨이 IP. 로컬 라우트인 경우 "local" |
+| route.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이를 연결하여 자동으로 생성된 라우트인 경우, 인터넷 게이트웨이의 ID |
+| route.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### 라우트 생성하기
+
+라우팅 테이블에 신규 라우트를 추가합니다.
+
+```
+POST /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| routingtable_id | Body | UUID | O | 라우트를 추가할 라우팅 테이블 ID |
+| cidr | Body | String | O | 라우트 목적지 CIDR |
+| gateway| Body | String | O | 라우트 게이트웨이 IP |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "route": {
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
+    "cidr": "192.168.0.0/24", 
+    "gateway": "172.16.10.19"
+  }
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| route | Body | Array | 라우트 정보 객체 |
+| route.id | Body | UUID | 라우트 ID |
+| route.cidr | Body | String | 라우트 목적지 CIDR | 
+| route.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| route.gateway | Body | String | 라우트 게이트웨이 IP |
+| route.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+### 라우트 삭제하기
+
+지정한 라우트를 삭제합니다. `gateway` 항목이 "local" 이거나, 인터넷 게이트웨이 연결로 인해 자동으로 추가된 라우트(`gateway_id` 값 존재)는 삭제할 수 없습니다.
+
+```
+DELETE /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 삭제할 라우트 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+
 ---
