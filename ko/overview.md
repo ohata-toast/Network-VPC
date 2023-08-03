@@ -25,13 +25,16 @@ NHN Cloud VPC는 퍼블릭 네트워크나 데이터 센터 내 호스팅 연결
 
 * VPC는 NHN Cloud 다른 서비스와의 연결을 숨겨진 형태로 제공합니다.
 
+* 한국(판교), 한국(평촌) 리전에서는 프라이빗 IP DNS 기능의 사용할 수 있습니다. 프라이빗 IP DNS 기능 사용 시 VPC 네트워크를 사용하는 인스턴스 및 서비스에서 프라이빗 IP DNS를 수신할 수 있습니다.
+
 <br>
 ### 용어 및 표기
 
-용어  | 표기 | 설명
-------------- | ------------- | -------------------
-Subnet  | 서브넷 | Subnetwork를 의미하며 IP 네트워크의 중 더 작은 단위로 세분화 된 IP 주소 영역입니다.<br><https://en.wikipedia.org/wiki/Subnetwork>
-Routing Table | 라우팅 테이블 | CIDR notation에 의해 정의되는 전달 경로를 기술하는 테이블로 목적지 주소에 의해 전달되는 장비를 지정하거나 우회 시킬 수 있습니다.<br><https://en.wikipedia.org/wiki/Routing_table>
-Private Network| 프라이빗 네트워크 | 인터넷 주소 구조에서 사설 네트워크를 정의하는 IP 영역으로 표기된 네트워크를 의미하며 퍼블릭 망에서 이들 트래픽은 전달되지 않습니다.<br><https://en.wikipedia.org/wiki/Private_network>
-Interface | 인터페이스 | 인스턴스를 네트워크에 연결하기 위한 장치를 네트워크 인터페이스라고 합니다.
+용어  | 표기          | 설명                                                                                                                               
+------------- |-------------|----------------------------------------------------------------------------------------------------------------------------------
+Subnet  | 서브넷         | Subnetwork를 의미하며 IP 네트워크의 중 더 작은 단위로 세분화 된 IP 주소 영역입니다.<br><https://en.wikipedia.org/wiki/Subnetwork>                            
+Routing Table | 라우팅 테이블     | CIDR notation에 의해 정의되는는 전달 경로를 기술하는 테이블로 목적지 주소에 의해 전달되는 장비를 지정하거나 우회 시킬 수 있습니다.<br><https://en.wikipedia.org/wiki/Routing_table> 
+Private Network| 프라이빗 네트워크   | 인터넷 주소 구조에서 사설 네트워크를 정의하는 IP 영역으로 표기된 네트워크를 의미하며 퍼블릭 망에서 이들 트래픽은 전달되지 않습니다.<br><https://en.wikipedia.org/wiki/Private_network>   
+Interface | 인터페이스       | 인스턴스를 네트워크에 연결하기 위한 장치를 네트워크 인터페이스라고 합니다.                                                                                        
+Private IP DNS | 프라이빗 IP DNS | 네트워크 인터페이스에 할당되는 DNS 도메인입니다. 인터넷을 통해 액세스할 수 없고, VPC 통신에서만 사용할 수 있습니다.                                                            
 
