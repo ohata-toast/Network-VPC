@@ -205,7 +205,7 @@ X-Auth-Token: {tokenId}
 | vpc.cidrv4              | Body   | String | O   | CIDR of VPC                            |
 | vpc.tenant_id           | Body   | UUID   |     | Tenant ID of VPC                       |
 | vpc.external_network_id | Body   | UUID   |     | External network ID to be connected to VPC         |
-| vpc.subnets             | Body   | Array  |     | Array of subnet IDs of External Network to be connected to VPC  |
+
 <details><summary>Example</summary>
 <p>
 
