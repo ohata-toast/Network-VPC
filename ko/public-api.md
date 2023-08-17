@@ -924,7 +924,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 조회할 라우팅 테이블 이름 |
 | default_table | Query | Boolean | - | 조회할 라우팅 테이블의 기본 라우팅 테이블 여부 |
 | gateway_id | Query | UUID | - | 조회할 라우팅 테이블에 연결된 인터넷 게이트웨이 ID |
-| distributed | Query | Boolean | - | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 | 
+| distributed | Query | Boolean | - | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 | 
 | detail | Query | Boolean | - | 조회할 라우팅 테이블의 상세 정보 포함 여부 |
 | sort_dir | Query  | Enum    | -   | 조회할 네트워크의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
 | sort_key | Query  | String  | -   | 조회할 네트워크의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬 |
@@ -939,8 +939,8 @@ X-Auth-Token: {tokenId}
 | routingtables.id | Body | UUID | 라우팅 테이블 ID |
 | routingtables.name | Body | String | 라우팅 테이블 이름 |
 | routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
-| routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
+| routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨분산형이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
 | routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
@@ -976,7 +976,7 @@ X-Auth-Token: {tokenId}
 | routingtables.id | Body | UUID | 라우팅 테이블 ID |
 | routingtables.name | Body | String | 라우팅 테이블 이름 |
 | routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
 | routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
@@ -1049,7 +1049,7 @@ X-Auth-Token: {tokenId}
 | routingtable.id | Body | UUID | 라우팅 테이블 ID |
 | routingtable.name | Body | String | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
@@ -1130,7 +1130,7 @@ X-Auth-Token: {tokenId}
 | routingtable | Body | Object | O | 라우팅 테이블 생성 요청 객체 |
 | routingtable.name | Body | String | O | 라우팅 테이블 이름 |
 | routingtable.vpc_id | Body | UUID | O | 라우팅 테이블이 속할 VPC ID |
-| routingtable.distributed | Body | Boolean | - | 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 (기본값: `true`) |
+| routingtable.distributed | Body | Boolean | - | 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 (기본값: `true`) |
 
 <details><summary>예시</summary>
 <p>
@@ -1156,7 +1156,7 @@ X-Auth-Token: {tokenId}
 | id | Body | UUID | 라우팅 테이블 ID |
 | name | Body | String | 라우팅 테이블 이름 |
 | default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | state | Body | String | 라우팅 테이블의 상태. 현재는 `"available"` 값만 사용 |
 | tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | create_time | Body | Date | 라우팅 테이블 생성 시간 |
@@ -1198,7 +1198,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | routingtable | Body | Object | O | 라우팅 테이블 정보 객체 |
 | routingtable.name | Body | String | - | 변경할 라우팅 테이블 이름 |
-| routingtable.distributed | Body | Boolean | - | 변경할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 | 
+| routingtable.distributed | Body | Boolean | - | 변경할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 | 
 
 
 <details><summary>예시</summary>
@@ -1224,7 +1224,7 @@ X-Auth-Token: {tokenId}
 | id | Body | UUID | 라우팅 테이블 ID |
 | name | Body | String | 라우팅 테이블 이름 |
 | default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| distributed | Body | Boolean | 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | state | Body | String | 라우팅 테이블의 상태. 현재는 `"available"` 값만 사용 |
 | tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | create_time | Body | Date | 라우팅 테이블 생성 시간 |
@@ -1287,7 +1287,7 @@ X-Auth-Token: {tokenId}
 | routingtable.id | Body | UUID | 라우팅 테이블 ID |
 | routingtable.name | Body | String | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
@@ -1378,7 +1378,7 @@ X-Auth-Token: {tokenId}
 | routingtable.id | Body | UUID | 라우팅 테이블 ID |
 | routingtable.name | Body | String | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
@@ -1458,7 +1458,7 @@ X-Auth-Token: {tokenId}
 | routingtable.id | Body | UUID | 라우팅 테이블 ID |
 | routingtable.name | Body | String | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
-| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산성, `false`: 중앙 집중형 |
+| routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
