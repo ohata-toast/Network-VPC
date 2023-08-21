@@ -82,7 +82,10 @@ VPCs can be deleted only when subnets are deleted altogether, and in such case, 
 
 * Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice. 
 
-
+* You can specify whether to use the Private IP DNS feature in the Korea (Pangyo) and Korea (Pyeongchon) regions. The feature is only available within the same VPC.
+    * Private IP DNS is a DNS hostname assigned to a network interface on an IP basis. The feature is only available within the same VPC.
+    * When using the Private IP DNS feature without using the Private DNS service, instances in the VPC must be restarted.
+    
 ## Subnets 
 
 A VPC can be subdivided into subnets that are composed of multiple networks. However, a subnet must be included within the range of a VPC address, with its length the same or shorter. For example, in the case of 192.168.0.0/16, a total of 65536 IP addresses are available between 192.168.0.0 and 192.168.255.255. In addition, the smallest subnet is 28 bits and any configuration cannot be smaller than that. Subnets also adopt CIDR display, just like VPC.  
