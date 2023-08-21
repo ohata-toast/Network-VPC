@@ -8,7 +8,7 @@ For VPC API, the `network` type endpoint is used. For more details, see `service
 |---|---|---|
 | network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
 
-Fields not specified in the guide may appear in API responses. These fields are used for internal use by NHN Cloud and are subject to change without prior notice, so we advise you not to use them.
+In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, and as such refrain from using them since they may be changed without prior notice.
 
 ## VPC
 ### View VPC List
@@ -88,50 +88,50 @@ This API does not require a request body.
 
 #### Response
 
-| Name                                     | Type   | Format       | Description                                |
-|----------------------------------------|------|----------|-----------------------------------|
-| vpc                                    | Body | Array    | VPC information object                         |
-| vpc.router:external                    | Body | Boolean  | Whether VPC is externally connected                 |
-| vpc.routingtables                      | Body | Array    | Array of route tables for VPC to query               |
-| vpc.name                               | Body | String   | Name of VPC to query                        |
-| vpc.subnets                            | Body | Array    | Subnet list of VPC to query                   | 
-| vpc.subnets.router:external            | Body | Boolean  | Whether subnet is externally connected                     |
-| vpc.subnets.name                       | Body | String   | Subnet name                           |
-| vpc.subnets.enable_dhcp                | Body | Boolean  | Whether to enable DHCP of subnet                  |
-| vpc.subnets.tenant_id                  | Body | UUID     | Tenant ID of subnet                       |
-| vpc.subnets.gateway                    | Body | String   | Gateway IP information of subnet                  |
-| vpc.subnets.routingtable               | Body | Object   | Routing table information of subnet                   |
-| vpc.subnets.routingtable.gateway_id    | Body | UUID     | Gateway ID of routing table                 |
+| Name                                     | Type   | Format       | Description                             |
+|----------------------------------------|------|----------|--------------------------------|
+| vpc                                    | Body | Array    | VPC information object                      |
+| vpc.router:external                    | Body | Boolean  | Whether VPC is externally connected              |
+| vpc.routingtables                      | Body | Array    | Array of route tables for VPC to query            |
+| vpc.name                               | Body | String   | Name of VPC to query                     |
+| vpc.subnets                            | Body | Array    | Subnet list of VPC to query                | 
+| vpc.subnets.router:external            | Body | Boolean  | Whether subnet is externally connected                  |
+| vpc.subnets.name                       | Body | String   | Subnet name                        |
+| vpc.subnets.enable_dhcp                | Body | Boolean  | Whether to enable DHCP of subnet               |
+| vpc.subnets.tenant_id                  | Body | UUID     | Tenant ID of subnet                     |
+| vpc.subnets.gateway                    | Body | String   | Gateway IP information of subnet               |
+| vpc.subnets.routingtable               | Body | Object   | Routing table information of subnet                |
+| vpc.subnets.routingtable.gateway_id    | Body | UUID     | Gateway ID of routing table              |
 | vpc.subnets.routingtable.default_table | Body | Boolean  | Whether routing table is default routing table |
-| vpc.subnets.routingtable.explicit      | Body | Boolean  | Whether routing table is explicitly connected                |
-| vpc.subnets.routingtable.id            | Body | UUID     | Routing table ID                       |
-| vpc.subnets.routingtable.name          | Body | String   | Routing table name                       |
-| vpc.subnets.routes                     | Body | Array    | Static route to subnet                        |
-| vpc.subnets.routes.subnet_id           | Body | UUID     | Subnet ID of static route                     |
-| vpc.subnets.routes.tenant_id           | Body | UUID     | Tenant ID of static route                     |
-| vpc.subnets.routes.mask                | Body | Integer  | Mask of static route                        |
-| vpc.subnets.routes.gateway             | Body | String   | Gateway IP of static route                   |
-| vpc.subnets.routes.cidr                | Body | String   | CIDR of static route                      |
-| vpc.subnets.routes.id                  | Body | UUID     | ID of static route                         |
-| vpc.subnets.state                      | Body | String   | Subnet status                           |
-| vpc.subnets.create_time                | Body | Date     | Created time for subnet                        |
-| vpc.subnets.available_ip_count         | Body | Interger | Number of assignable IPs in subnet                 | 
-| vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                       |
-| vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                        |
-| vpc.subnets.vpc.state                  | Body | String   | VPC status                           |
-| vpc.subnets.vpc.id                     | Body | UUID     | VIC ID                           |
-| vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                    |
-| vpc.subnets.vpc.name                   | Body | String   | VPC Name                           |
-| vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                        |
-| vpc.subnets.id                         | Body | UUID     | Subnet ID                           |
-| vpc.subnets.vpc_id                     | Body | UUID     | VPC ID of subnet                       |
-| vpc.subnets.cidr                       | Body | String   | CIDR ID of subnet                      |
-| vpc.tenant_id                          | Body | UUID     | Tenant ID to which VPC to query is included                |
-| vpc.state                              | Body | String   | Status of VPC to query                       |
-| vpc.create_time                        | Body | Date     | Created time of VPC to query                    |
-| vpc.cidrv4                             | Body | String   | IPv4 of VPC to query                     |
-| vpc.shared                             | Body | Boolean  | Whether to share VPC to query                    |
-| vpc.id                                 | Body | UUID     | VPC ID to query                       |
+| vpc.subnets.routingtable.explicit      | Body | Boolean  | Whether routing table is explicitly connected             |
+| vpc.subnets.routingtable.id            | Body | UUID     | Routing table ID                    |
+| vpc.subnets.routingtable.name          | Body | String   | Routing table name                    |
+| vpc.subnets.routes                     | Body | Array    | Static route to subnet                     |
+| vpc.subnets.routes.subnet_id           | Body | UUID     | Subnet ID of static route                  |
+| vpc.subnets.routes.tenant_id           | Body | UUID     | Tenant ID of static route                  |
+| vpc.subnets.routes.mask                | Body | Integer  | Mask of static route                     |
+| vpc.subnets.routes.gateway             | Body | String   | Gateway IP of static route                |
+| vpc.subnets.routes.cidr                | Body | String   | CIDR of static route                   |
+| vpc.subnets.routes.id                  | Body | UUID     | ID of static route                      |
+| vpc.subnets.state                      | Body | String   | Subnet status                        |
+| vpc.subnets.create_time                | Body | Date     | Created time for subnet                     |
+| vpc.subnets.available_ip_count         | Body | Interger | Number of assignable IPs in subnet              | 
+| vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                    |
+| vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                     |
+| vpc.subnets.vpc.state                  | Body | String   | VPC status                        |
+| vpc.subnets.vpc.id                     | Body | UUID     | VPC ID                        |
+| vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                 |
+| vpc.subnets.vpc.name                   | Body | String   | VPC Name                        |
+| vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                     |
+| vpc.subnets.id                         | Body | UUID     | Subnet ID                        |
+| vpc.subnets.vpc_id                     | Body | UUID     | VPC ID of subnet                    |
+| vpc.subnets.cidr                       | Body | String   | CIDR ID of subnet                   |
+| vpc.tenant_id                          | Body | UUID     | Tenant ID to which VPC to query is included             |
+| vpc.state                              | Body | String   | Status of VPC to query                    |
+| vpc.create_time                        | Body | Date     | Created time of VPC to query                 |
+| vpc.cidrv4                             | Body | String   | IPv4 of VPC to query                  |
+| vpc.shared                             | Body | Boolean  | Whether to share VPC to query                 |
+| vpc.id                                 | Body | UUID     | VPC ID to query                    |
 
 <details><summary>Example</summary>
 <p>
@@ -231,7 +231,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VIC ID        |
+| vpc.id          | Body | UUID    | VPC ID        |
 <details><summary>Example</summary>
 <p>
 
@@ -295,7 +295,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VIC ID        |
+| vpc.id          | Body | UUID    | VPC ID        |
 
 <details><summary>Example</summary>
 <p>
@@ -380,7 +380,7 @@ This API does not require a request body.
 | vpcsubnets.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnets.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnets.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnets.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnets.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnets.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnets.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnets.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -483,7 +483,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -728,7 +728,7 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -829,7 +829,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to              |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC               |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                  |
-| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                  |
+| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                  |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC               |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                   |
 | vpcsubnet.shared                     | Body | Boolean | Whether to share subnet               |
