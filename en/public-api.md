@@ -6,9 +6,9 @@ For VPC API, the `network` type endpoint is used. For more details, see `service
 
 | Type | Region | Endpoint |
 |---|---|---|
-| network | Korea (Pangyo) Region<br>Korea (Pyeongchon)<br>Japan | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
+| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
 
-In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, and as such refrain from using them since they may be changed without prior notice.
+Fields not specified in the guide may appear in API responses. These fields are used for internal use by NHN Cloud and are subject to change without prior notice, so we advise you not to use them.
 
 ## VPC
 ### View VPC List
@@ -88,50 +88,50 @@ This API does not require a request body.
 
 #### Response
 
-| Name                                     | Type   | Format       | Description                             |
-|----------------------------------------|------|----------|--------------------------------|
-| vpc                                    | Body | Array    | VPC information object                      |
-| vpc.router:external                    | Body | Boolean  | Whether VPC is externally connected              |
-| vpc.routingtables                      | Body | Array    | Array of route tables for VPC to query            |
-| vpc.name                               | Body | String   | Name of VPC to query                     |
-| vpc.subnets                            | Body | Array    | Subnet list of VPC to query                | 
-| vpc.subnets.router:external            | Body | Boolean  | Whether subnet is externally connected                  |
-| vpc.subnets.name                       | Body | String   | Subnet name                        |
-| vpc.subnets.enable_dhcp                | Body | Boolean  | Whether to enable DHCP of subnet               |
-| vpc.subnets.tenant_id                  | Body | UUID     | Tenant ID of subnet                     |
-| vpc.subnets.gateway                    | Body | String   | Gateway IP information of subnet               |
-| vpc.subnets.routingtable               | Body | Object   | Routing table information of subnet                |
-| vpc.subnets.routingtable.gateway_id    | Body | UUID     | Gateway ID of routing table              |
+| Name                                     | Type   | Format       | Description                                |
+|----------------------------------------|------|----------|-----------------------------------|
+| vpc                                    | Body | Array    | VPC information object                         |
+| vpc.router:external                    | Body | Boolean  | Whether VPC is externally connected                 |
+| vpc.routingtables                      | Body | Array    | Array of route tables for VPC to query               |
+| vpc.name                               | Body | String   | Name of VPC to query                        |
+| vpc.subnets                            | Body | Array    | Subnet list of VPC to query                   | 
+| vpc.subnets.router:external            | Body | Boolean  | Whether subnet is externally connected                     |
+| vpc.subnets.name                       | Body | String   | Subnet name                           |
+| vpc.subnets.enable_dhcp                | Body | Boolean  | Whether to enable DHCP of subnet                  |
+| vpc.subnets.tenant_id                  | Body | UUID     | Tenant ID of subnet                       |
+| vpc.subnets.gateway                    | Body | String   | Gateway IP information of subnet                  |
+| vpc.subnets.routingtable               | Body | Object   | Routing table information of subnet                   |
+| vpc.subnets.routingtable.gateway_id    | Body | UUID     | Gateway ID of routing table                 |
 | vpc.subnets.routingtable.default_table | Body | Boolean  | Whether routing table is default routing table |
-| vpc.subnets.routingtable.explicit      | Body | Boolean  | Whether routing table is explicitly connected             |
-| vpc.subnets.routingtable.id            | Body | UUID     | Routing table ID                    |
-| vpc.subnets.routingtable.name          | Body | String   | Routing table name                    |
-| vpc.subnets.routes                     | Body | Array    | Static route to subnet                     |
-| vpc.subnets.routes.subnet_id           | Body | UUID     | Subnet ID of static route                  |
-| vpc.subnets.routes.tenant_id           | Body | UUID     | Tenant ID of static route                  |
-| vpc.subnets.routes.mask                | Body | Integer  | Mask of static route                     |
-| vpc.subnets.routes.gateway             | Body | String   | Gateway IP of static route                |
-| vpc.subnets.routes.cidr                | Body | String   | CIDR of static route                   |
-| vpc.subnets.routes.id                  | Body | UUID     | ID of static route                      |
-| vpc.subnets.state                      | Body | String   | Subnet status                        |
-| vpc.subnets.create_time                | Body | Date     | Created time for subnet                     |
-| vpc.subnets.available_ip_count         | Body | Interger | Number of assignable IPs in subnet              | 
-| vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                    |
-| vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                     |
-| vpc.subnets.vpc.state                  | Body | String   | VPC status                        |
-| vpc.subnets.vpc.id                     | Body | UUID     | VPC ID                        |
-| vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                 |
-| vpc.subnets.vpc.name                   | Body | String   | VPC Name                        |
-| vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                     |
-| vpc.subnets.id                         | Body | UUID     | Subnet ID                        |
-| vpc.subnets.vpc_id                     | Body | UUID     | VPC ID of subnet                    |
-| vpc.subnets.cidr                       | Body | String   | CIDR ID of subnet                   |
-| vpc.tenant_id                          | Body | UUID     | Tenant ID to which VPC to query is included             |
-| vpc.state                              | Body | String   | Status of VPC to query                    |
-| vpc.create_time                        | Body | Date     | Created time of VPC to query                 |
-| vpc.cidrv4                             | Body | String   | IPv4 of VPC to query                  |
-| vpc.shared                             | Body | Boolean  | Whether to share VPC to query                 |
-| vpc.id                                 | Body | UUID     | VPC ID to query                    |
+| vpc.subnets.routingtable.explicit      | Body | Boolean  | Whether routing table is explicitly connected                |
+| vpc.subnets.routingtable.id            | Body | UUID     | Routing table ID                       |
+| vpc.subnets.routingtable.name          | Body | String   | Routing table name                       |
+| vpc.subnets.routes                     | Body | Array    | Static route to subnet                        |
+| vpc.subnets.routes.subnet_id           | Body | UUID     | Subnet ID of static route                     |
+| vpc.subnets.routes.tenant_id           | Body | UUID     | Tenant ID of static route                     |
+| vpc.subnets.routes.mask                | Body | Integer  | Mask of static route                        |
+| vpc.subnets.routes.gateway             | Body | String   | Gateway IP of static route                   |
+| vpc.subnets.routes.cidr                | Body | String   | CIDR of static route                      |
+| vpc.subnets.routes.id                  | Body | UUID     | ID of static route                         |
+| vpc.subnets.state                      | Body | String   | Subnet status                           |
+| vpc.subnets.create_time                | Body | Date     | Created time for subnet                        |
+| vpc.subnets.available_ip_count         | Body | Interger | Number of assignable IPs in subnet                 | 
+| vpc.subnets.vpc                        | Body | Object   | VPC information for subnet                       |
+| vpc.subnets.vpc.shared                 | Body | Boolean  | Whether to share VPC                        |
+| vpc.subnets.vpc.state                  | Body | String   | VPC status                           |
+| vpc.subnets.vpc.id                     | Body | UUID     | VIC ID                           |
+| vpc.subnets.vpc.cidrv4                 | Body | String   | CIDR of VPC to query                    |
+| vpc.subnets.vpc.name                   | Body | String   | VPC Name                           |
+| vpc.subnets.shared                     | Body | Boolean  | Whether to share subnet                        |
+| vpc.subnets.id                         | Body | UUID     | Subnet ID                           |
+| vpc.subnets.vpc_id                     | Body | UUID     | VPC ID of subnet                       |
+| vpc.subnets.cidr                       | Body | String   | CIDR ID of subnet                      |
+| vpc.tenant_id                          | Body | UUID     | Tenant ID to which VPC to query is included                |
+| vpc.state                              | Body | String   | Status of VPC to query                       |
+| vpc.create_time                        | Body | Date     | Created time of VPC to query                    |
+| vpc.cidrv4                             | Body | String   | IPv4 of VPC to query                     |
+| vpc.shared                             | Body | Boolean  | Whether to share VPC to query                    |
+| vpc.id                                 | Body | UUID     | VPC ID to query                       |
 
 <details><summary>Example</summary>
 <p>
@@ -231,7 +231,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VPC ID        |
+| vpc.id          | Body | UUID    | VIC ID        |
 <details><summary>Example</summary>
 <p>
 
@@ -295,7 +295,7 @@ X-Auth-Token: {tokenId}
 | vpc.create_time | Body | Date    | Created time for VPC     |
 | vpc.cidrv4      | Body | String  | CIDR of VPC     |
 | vpc.shared      | Body | Boolean | Whether to share VPC     |
-| vpc.id          | Body | UUID    | VPC ID        |
+| vpc.id          | Body | UUID    | VIC ID        |
 
 <details><summary>Example</summary>
 <p>
@@ -316,6 +316,7 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
 
 ### Delete VPC
 Deletes a specified VPC.
@@ -379,7 +380,7 @@ This API does not require a request body.
 | vpcsubnets.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnets.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnets.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnets.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnets.vpc.id                     | Body | UUID    | VIC ID                   |
 | vpcsubnets.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnets.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnets.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -482,7 +483,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -727,7 +728,7 @@ X-Auth-Token: {tokenId}
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to               |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC                |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                   |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                   |
+| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                   |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC                |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                    |
 | vpcsubnet.vpc_id                     | Body | UUID    | ID of VPC that subnet belongs to           |
@@ -828,7 +829,7 @@ This API does not require a request body.
 | vpcsubnet.vpc                        | Body | Object  | VPC that subnet belongs to              |
 | vpcsubnet.vpc.shared                 | Body | Boolean | Whether to share VPC               |
 | vpcsubnet.vpc.state                  | Body | String  | VPC status                  |
-| vpcsubnet.vpc.id                     | Body | UUID    | VPC ID                  |
+| vpcsubnet.vpc.id                     | Body | UUID    | VIC ID                  |
 | vpcsubnet.vpc.cidrv4                 | Body | String  | CIDR of VPC               |
 | vpcsubnet.vpc.name                   | Body | String  | VPC Name                   |
 | vpcsubnet.shared                     | Body | Boolean | Whether to share subnet               |
@@ -898,5 +899,865 @@ This API does not require a request body.
 
 #### Response
 This API does not return a response body.
+
+
+## Routing Table
+
+### View Routing Table List
+
+Returns the list of available routing tables.
+
+```
+GET /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name       | Type     | Format     | Required  | Description     |
+|----------|--------|--------|-----|--------|
+| tokenId | Header | String | O | Token ID |
+| tenant_id | Query | String | - | Tenant ID to which routing table to query is included |
+| id | Query | UUID | - | Routing table ID to query |
+| name | Query | String | - | Routing table name to query |
+| default_table | Query | Boolean | - | Whether routing table to query is default table |
+| gateway_id | Query | UUID | - | Internet gateway ID associated with routing table to query |
+| distributed | Query | Boolean | - | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized | 
+| detail | Query | Boolean | - | Whether or not to include details of the routing table to be queried |
+| sort_dir | Query  | Enum    | -   | Sorting direction of network to query<br>Sort by the field specified by `sort_key`<br>Either **asc**, or **desc** |
+| sort_key | Query  | String  | -   | Sorting key of network to query<br>Sort in the direction as specified by `sort_dir` |
+
+#### Response
+
+##### When there is no **detail** query parameter or when the value is `false`
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | List of routing table information objects |
+| routingtables.id | Body | UUID | Routing table ID |
+| routingtables.name | Body | String | Routing table name |
+| routingtables.default_table | Body | Boolean | Whether routing table is default table |
+| routingtables.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtables.gateway_id | Body | UUID | The ID of the Internet gateway if the Internet gateway of distributed type is associated with the routing table. |
+| routingtables.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtables.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "name": "vpc-162de82d-7301",
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+##### When the **detail** query parameter is `true`
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | List of routing table information objects |
+| routingtables.id | Body | UUID | Routing table ID |
+| routingtables.name | Body | String | Routing table name |
+| routingtables.default_table | Body | Boolean | Whether routing table is default table |
+| routingtables.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtables.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtables.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtables.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtables.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
+| routingtables.vpcs.id | Body | UUID | VPC ID to which routing table is included |
+| routingtables.vpcs.name | Body | String | VPC ID to which routing table is included |
+| routingtables.subnets | Body | Array | List of subnet information objects associated with routing table | 
+| routingtables.subnets.id | Body | UUID | Subnet ID linked to routing table | 
+| routingtables.subnet.name | Body | UUID | Subnet name associated with routing table |
+| routingtables.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "subnets": [
+        {
+          "name": "Default Network",
+          "id": "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+        }
+      ],
+      "name": "vpc-162de82d-7301",
+      "vpcs": [
+        {
+          "name": "Default Network",
+          "id": "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+        }
+      ],
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### View Routing Table
+
+Views the specified routing table.
+
+```
+GET /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table ID to query |
+| tokenId | Header | String | O | Token ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Port information object |
+| routingtable.id | Body | UUID | Routing table ID |
+| routingtable.name | Body | String | Routing table name |
+| routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID | Route ID |
+| routingtable.routes.cidr | Body | String | Route destination CIDR |
+| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
+| routingtable.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "subnets": [
+      "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+    ],
+    "name": "vpc-162de82d-7301",
+    "vpcs": [
+      "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+    ],
+    "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+    "distributed": false,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2022-08-17 06:55:17",
+    "routes": [
+      {
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 16,
+        "id": "520336f6-8920-4ff9-a7c5-fe9db27f026a",
+        "gateway": "local",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "192.168.0.0/16"
+      },
+      {
+        "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 0,
+        "id": "ddd375f5-5b6b-4e1d-83d0-9d1444224db2",
+        "gateway": "192.168.120.82",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "0.0.0.0/0"
+      }
+    ],
+    "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+  }
+}
+```
+
+</p>
+</details>
+
+### Create Routing Table
+
+Create a new routing table.
+
+```
+POST /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | Token ID |
+| routingtable | Body | Object | O | Routing table creation request object |
+| routingtable.name | Body | String | O | Routing table name |
+| routingtable.vpc_id | Body | UUID | O | VPC ID to which the routing table belongs |
+| routingtable.distributed | Body | Boolean | - | Routing method of routing table<br>`true`: Distributed, `false`: Centralized (default is `true`) |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "name": "second_routing_table",
+    "vpc_id": "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4",
+    "distributed": "true"
+  }
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Created routing table information object |
+| id | Body | UUID | Routing table ID |
+| name | Body | String | Routing table name |
+| default_table | Body | Boolean | Whether routing table is default table |
+| distributed | Body | Boolean | Routing method of routing table<br>`true`: Distributed, `false`: Centralized |
+| state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| tenant_id | Body | String | Tenant ID to which routing table is included |
+| create_time | Body | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "second_routing_table",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### Modify Routing Table
+
+Modifies the routing table information. You can change the name of the routing table and the routing method (distributed/centralized).
+
+```
+PUT /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table ID to modify |
+| tokenId | Header | String | O | Token ID |
+| routingtable | Body | Object | O | Routing table information object |
+| routingtable.name | Body | String | - | Routing table name to change |
+| routingtable.distributed | Body | Boolean | - | Routing method of routing table to change<br>`true`: Distributed, `false`: Centralized | 
+
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "distributed": false, 
+    "name": "centralized"
+  }
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Created routing table information object |
+| id | Body | UUID | Routing table ID |
+| name | Body | String | Routing table name |
+| default_table | Body | Boolean | Whether routing table is default table |
+| distributed | Body | Boolean | Routing method of routing table<br>`true`: Distributed, `false`: Centralized |
+| state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| tenant_id | Body | String | Tenant ID to which routing table is included |
+| create_time | Body | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "centralized",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### Associate Internet Gateway with Routing Table
+
+Associates an internet gateway with routing table.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/attach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table ID to modify |
+| tokenId | Header | String | O | Token ID |
+| gateway_id | Body | UUID | O | Internet gateway ID to be associated with routing table |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd"
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Port information object |
+| routingtable.id | Body | UUID | Routing table ID |
+| routingtable.name | Body | String | Routing table name |
+| routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID | Route ID |
+| routingtable.routes.cidr | Body | String | Route destination CIDR |
+| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
+| routingtable.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      },
+      {
+        "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 0,
+        "id": "06c233a7-d1c3-4e0e-83bc-b497420f346b",
+        "gateway": "100.127.65.120",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "0.0.0.0/0",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### Disassociate Internet Gateway from Routing Table
+
+Disassociates an internet gateway from the routing table.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/detach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table ID to modify |
+| tokenId | Header | String | O | Token ID |
+
+
+#### Response
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Port information object |
+| routingtable.id | Body | UUID | Routing table ID |
+| routingtable.name | Body | String | Routing table name |
+| routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID | Route ID |
+| routingtable.routes.cidr | Body | String | Route destination CIDR |
+| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
+| routingtable.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### Designate Routing Table as Default Routing Table
+
+Designates a routing table as default routing table.
+
+```
+PUT /v2.0/routingtables/{routingtableId}/set_as_default
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table ID to modify |
+| tokenId | Header | String | O | Token ID |
+
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | Port information object |
+| routingtable.id | Body | UUID | Routing table ID |
+| routingtable.name | Body | String | Routing table name |
+| routingtable.default_table | Body | Boolean | Whether routing table is default table |
+| routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
+| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
+| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID | Route ID |
+| routingtable.routes.cidr | Body | String | Route destination CIDR |
+| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
+| routingtable.create_time | Date | Routing table creation time |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [
+      "cc39a1a1-4539-46b5-91a9-80c0eacb8184",
+      "ccebb749-fb04-4f52-b18d-141326c0c9c5"
+    ],
+    "name": "3rd-router2",
+    "vpcs": [
+      "86325d48-fbb1-4117-8fa8-bcbf8c692c7f"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2021-09-02 08:47:02",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 16,
+        "id": "a253f579-d0f8-472f-a834-5c4133481086",
+        "gateway": "local",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "10.3.0.0/16",
+        "hidden": false
+      },
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "fc643476-efa1-4f0a-8fae-0c7e271ea0b5",
+        "gateway": "10.3.1.12",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "172.16.0.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### Delete Routing Table
+
+Deletes the routing table. Route tables designated as the default routing table cannot be deleted, they are deleted when the VPC is deleted.
+
+```
+DELETE /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | Routing table to delete |
+| tokenId | Header | String | O | Token ID |
+
+
+#### Response
+
+This API does not return a response body.
+
+## Route
+### View Route List
+
+Returns the route list set up in the routing table.
+
+```
+GET /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | Token ID |
+| id | Query | UUID | - | Route ID |
+| cidr | Query | String | - | Route destination CIDR |
+| mask | Query | Integer | -  | Netmask of route destination CIDR (0-32) |
+| gateway | Query | String | - | Route gateway IP |
+| routingtable_id |  Query | String | - | Table ID to which route is set up|
+| gateway_id |  Query | String | - | Internet gateway ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| routes | Body | Array | List of route information objects |
+| routes.id | Body | UUID | Route ID |
+| routes.cidr | Body | String | Route destination CIDR | 
+| routes.mask | Body | Integer | Netmask of route destination CIDR |
+| routes.gateway | Body | String | Route Gateway IP. "local" for a local route |
+| routes.gateway_id | Body | UUID | The ID of the internet gateway, if the route was created automatically by attaching the internet gateway to the route table. |
+| routes.tenant_id | Body | String | Tenant ID that route belongs to |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "routes": [
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 16,
+      "gateway": "local",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "172.16.0.0/16",
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+    },
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 24,
+      "gateway": "172.16.10.19",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "192.168.0.0/24",
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    },
+    {
+      "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 0,
+      "gateway": "100.127.64.9",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "0.0.0.0/0",
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### View Route
+
+Views the specified route.
+
+```
+GET /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | Route ID to query |
+| tokenId | Header | String | O | Token ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| route | Body | Array | Route information object |
+| route.id | Body | UUID | Route ID |
+| route.cidr | Body | String | Route destination CIDR | 
+| route.mask | Body | Integer | Netmask of route destination CIDR |
+| route.gateway | Body | String | Route Gateway IP. "local" for a local route |
+| route.gateway_id | Body | UUID | The ID of the internet gateway, if the route was created automatically by attaching the internet gateway to the route table. |
+| route.tenant_id | Body | String | Tenant ID that route belongs to |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### Create Route
+
+Add a new route to the routing table.
+
+```
+POST /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | Token ID |
+| routingtable_id | Body | UUID | O | Routing table ID to add a route |
+| cidr | Body | String | O | Route destination CIDR |
+| gateway| Body | String | O | Route gateway IP |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "route": {
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
+    "cidr": "192.168.0.0/24", 
+    "gateway": "172.16.10.19"
+  }
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| route | Body | Array | Route information object |
+| route.id | Body | UUID | Route ID |
+| route.cidr | Body | String | Route destination CIDR | 
+| route.mask | Body | Integer | Netmask of route destination CIDR |
+| route.gateway | Body | String | Route gateway IP |
+| route.tenant_id | Body | String | Tenant ID that route belongs to |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+### Delete Route
+
+Delete the specified route. Routes with a `gateway` entry of "local" or automatically added due to an Internet gateway connection (with a `gateway_id` value) cannot be deleted.
+
+```
+DELETE /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | Route ID to delete |
+| tokenId | Header | String | O | Token ID |
+
+
+#### Response
+
+This API does not return a response body.
+
 
 ---
