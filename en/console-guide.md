@@ -80,11 +80,7 @@ VPCs can be deleted only when subnets are deleted altogether, and in such case, 
 
 * All instances within a VPC cannot access the internet without internet gateway. 
 
-* Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice. 
-
-* You can specify whether to use the Private IP DNS feature in the Korea (Pangyo) and Korea (Pyeongchon) regions. The feature is only available within the same VPC.
-    * Private IP DNS is a DNS hostname assigned to a network interface on an IP basis. The feature is only available within the same VPC.
-    * When using the Private IP DNS feature without using the Private DNS service, instances in the VPC must be restarted.
+* Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice.
     
 ## Subnets 
 

@@ -24,8 +24,6 @@ For subnets divided into each service, or a particular network service, modify t
 
 * VPC is provided while connection with other NHN Cloud services is hidden.
 
-* Choose whether to use the Private ID DNS feature in the Korea (Pangyo) and Korea (Pyeongchon) regions
-
 <br>
 ### Glossary
 
@@ -34,6 +32,5 @@ Terms  | Written Form          | Description
 Subnet  | Subnet         | Refers to a subnetwork, which is a subdivided IP address range within the IP network.<br><https://en.wikipedia.org/wiki/Subnetwork>                            
 Routing Table | Routing Table | A table describing a transfer path defined by CIDR notation. By using destination addresses, you can specify the devices which the traffic is forwarded to or bypass.<br><https://en.wikipedia.org/wiki/Routing_table> 
 Private Network| Private Network | Refers to a network configured with an IP address range that defines a private network in the structure of an internet address. The traffic is not delivered in a public network.<br><https://en.wikipedia.org/wiki/Private_network>   
-Interface | Interface | A network interface refers to a device to connect an instance to a network.                                                                 
-Private IP DNS | Private IP DNS | DNS host name assigned to a network interface based on an IP basis.    
+Interface | Interface | A network interface refers to a device to connect an instance to a network.
 
