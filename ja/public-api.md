@@ -205,7 +205,7 @@ X-Auth-Token: {tokenId}
 | vpc.cidrv4              | Body   | String | O   | VPC IP帯域                         |
 | vpc.tenant_id           | Body   | UUID   |     | VPCのtenant ID                       |
 | vpc.external_network_id | Body   | UUID   |     | VPCに接続されるExternal Network ID         |
-| vpc.subnets             | Body   | Array  |     | VPCに接続されるExternal NetworkのサブネットID配列 |
+
 <details><summary>例</summary>
 <p>
 
