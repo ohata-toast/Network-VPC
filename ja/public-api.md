@@ -204,8 +204,8 @@ X-Auth-Token: {tokenId}
 | vpc.name                | Body   | String | O   | VPCの名前                            |
 | vpc.cidrv4              | Body   | String | O   | VPC IP帯域                         |
 | vpc.tenant_id           | Body   | UUID   |     | VPCのtenant ID                       |
-| vpc.external_network_id | Body   | UUID   |     | VPCに接続されるExternal Network ID         |
-| vpc.subnets             | Body   | Array  |     | VPCに接続されるExternal NetworkのサブネットID配列 |
+
+
 <details><summary>例</summary>
 <p>
 
@@ -316,6 +316,7 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
 
 ### VPCを削除する
 指定したVPCを削除します。
@@ -898,5 +899,864 @@ X-Auth-Token: {tokenId}
 
 #### レスポンス
 このAPIはレスポンス本文を返しません。
+
+## ルーティングテーブル
+
+### ルーティングテーブルリスト表示
+
+使用可能なルーティングテーブルのリストを返します。
+
+```
+GET /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前     | 種類   | 形式   | 必須 | 説明   |
+|----------|--------|--------|-----|--------|
+| tokenId | Header | String | O | トークンID |
+| tenant_id | Query | String | - | 照会するルーティングテーブルが属するテナントID |
+| id | Query | UUID | - | 照会するルーティングテーブルID |
+| name | Query | String | - | 照会するルーティングテーブル名 |
+| default_table | Query | Boolean | - | 照会するルーティングテーブルの基本ルーティングテーブルかどうか |
+| gateway_id | Query | UUID | - | 照会するルーティングテーブルに接続されたインターネットゲートウェイID |
+| distributed | Query | Boolean | - | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、`false`:中央集中型 | 
+| detail | Query | Boolean | - | 照会するルーティングテーブルの詳細情報を含むかどうか |
+| sort_dir | Query  | Enum    | -   | 照会するネットワークのソート方向<br>`sort_key`で指定したフィールドを基準にソート<br>**asc**、**desc**のいずれか |
+| sort_key | Query  | String  | -   | 照会するネットワークのソートキー<br>`sort_dir`で指定した方向でソート |
+
+#### レスポンス
+
+##### **detail**クエリパラメータがないか値が`false`の場合
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | ルーティングテーブル情報オブジェクトリスト |
+| routingtables.id | Body | UUID | ルーティングテーブルID |
+| routingtables.name | Body | String | ルーティングテーブル名 |
+| routingtables.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtables.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、`false`:中央集中型 |
+| routingtables.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、そのインターネットゲートウェイのID |
+| routingtables.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtables.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtable.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "name": "vpc-162de82d-7301",
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+##### **detail**クエリパラメータ値が`true`の場合
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtables | Body | Array | ルーティングテーブル情報オブジェクトリスト |
+| routingtables.id | Body | UUID | ルーティングテーブルID |
+| routingtables.name | Body | String | ルーティングテーブル名 |
+| routingtables.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtables.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、`false`:中央集中型 |
+| routingtables.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、そのインターネットゲートウェイのID |
+| routingtables.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtables.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtables.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
+| routingtables.vpcs.id | Body | UUID | ルーティングテーブルが属するVPC ID |
+| routingtables.vpcs.name | Body | String | ルーティングテーブルが属するVPC名 |
+| routingtables.subnets | Body | Array | ルーティングテーブルに接続されたサブネット情報オブジェクトリスト | 
+| routingtables.subnets.id | Body | UUID | ルーティングテーブルに接続されたサブネットID | 
+| routingtables.subnet.name | Body | UUID | ルーティングテーブルに接続されたサブネット名 |
+| routingtables.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtables": [
+    {
+      "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "subnets": [
+        {
+          "name": "Default Network",
+          "id": "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+        }
+      ],
+      "name": "vpc-162de82d-7301",
+      "vpcs": [
+        {
+          "name": "Default Network",
+          "id": "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+        }
+      ],
+      "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+      "distributed": false,
+      "state": "available",
+      "default_table": true,
+      "create_time": "2022-08-17 06:55:17",
+      "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### ルーティングテーブル表示
+
+指定したルーティングテーブルを照会します。
+
+```
+GET /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 照会するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | ポート情報オブジェクト |
+| routingtable.id | Body | UUID | ルーティングテーブルID |
+| routingtable.name | Body | String | ルーティングテーブル名 |
+| routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
+| routingtable.vpcs.id | Body | UUID | ルーティングテーブルが属するVPC ID |
+| routingtable.subnets | Body | Array | ルーティングテーブルに接続されているサブネット情報オブジェクトリスト | 
+| routingtable.subnets.id | Body | UUID | ルーティングテーブルに接続されているサブネットID | 
+| routingtable.routes | Body | Array | ルーティングテーブルに設定されたルート情報オブジェクトリスト |
+| routingtable.routes.id | Body | UUID | ルートID |
+| routingtable.routes.cidr | Body | String | ルート目的地CIDR |
+| routingtable.routes.mask | Body | String | ルート目的地CIDRのネットマスク |
+| routingtable.routes.gateway | Body | String | ルートゲートウェイIP |
+| routingtable.routes.gateway_id | Body | String | インターネットゲートウェイに向かうルートの場合、インターネットゲートウェイID |
+| routingtable.routes.routingtable_id | Body | String | ルートが属するルーティングテーブルID |
+| routingtable.routes.tenant_id | Body | String | ルートが属するテナントID |
+| routingtable.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "subnets": [
+      "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
+    ],
+    "name": "vpc-162de82d-7301",
+    "vpcs": [
+      "162de82d-7301-4141-ae7a-36c3dc9a63f8"
+    ],
+    "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+    "distributed": false,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2022-08-17 06:55:17",
+    "routes": [
+      {
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 16,
+        "id": "520336f6-8920-4ff9-a7c5-fe9db27f026a",
+        "gateway": "local",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "192.168.0.0/16"
+      },
+      {
+        "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+        "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
+        "mask": 0,
+        "id": "ddd375f5-5b6b-4e1d-83d0-9d1444224db2",
+        "gateway": "192.168.120.82",
+        "routingtable_id": "51848e19-f4ae-489a-9428-71927b97f3b5",
+        "cidr": "0.0.0.0/0"
+      }
+    ],
+    "id": "51848e19-f4ae-489a-9428-71927b97f3b5"
+  }
+}
+```
+
+</p>
+</details>
+
+### ルーティングテーブルを作成する
+
+新しいルーティングテーブルを作成します。
+
+```
+POST /v2.0/routingtables
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| routingtable | Body | Object | O | ルーティングテーブル作成リクエストオブジェクト |
+| routingtable.name | Body | String | O | ルーティングテーブル名 |
+| routingtable.vpc_id | Body | UUID | O | ルーティングテーブルが属するVPC ID |
+| routingtable.distributed | Body | Boolean | - | ルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型(デフォルト値: `true`) |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "name": "second_routing_table",
+    "vpc_id": "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4",
+    "distributed": "true"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 作成されたルーティングテーブル情報オブジェクト |
+| id | Body | UUID | ルーティングテーブルID |
+| name | Body | String | ルーティングテーブル名 |
+| default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| distributed | Body | Boolean | ルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| state | Body | String | ルーティングテーブルの状態。現在は`"available"`値のみ使用 |
+| tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| create_time | Body | Date | ルーティングテーブル作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "second_routing_table",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### ルーティングテーブルを修正する
+
+ルーティングテーブルの情報を修正します。ルーティングテーブルの名前とルーティング方式(分散型/中央集中型)を変更できます。
+
+```
+PUT /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 修正するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+| routingtable | Body | Object | O | ルーティングテーブル情報オブジェクト |
+| routingtable.name | Body | String | - | 変更するルーティングテーブル名 |
+| routingtable.distributed | Body | Boolean | - | 変更するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 | 
+
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "distributed": false, 
+    "name": "centralized"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | 作成されたルーティングテーブル情報オブジェクト |
+| id | Body | UUID | ルーティングテーブルID |
+| name | Body | String | ルーティングテーブル名 |
+| default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| distributed | Body | Boolean | ルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| state | Body | String | ルーティングテーブルの状態。現在は`"available"`値のみ使用 |
+| tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| create_time | Body | Date | ルーティングテーブル作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "default_table": false,
+    "name": "centralized",
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "distributed": false,
+    "state": "available",
+    "create_time": "2023-07-25 05:46:40",
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### ルーティングテーブルにインターネットゲートウェイを接続する
+
+ルーティングテーブルにインターネットゲートウェイを接続します。
+
+```
+PUT /v2.0/routingtables/{routingtableId}/attach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 修正するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+| gateway_id | Body | UUID | O | ルーティングテーブルに接続するインターネットゲートウェイのID |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd"
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | ポート情報オブジェクト |
+| routingtable.id | Body | UUID | ルーティングテーブルID |
+| routingtable.name | Body | String | ルーティングテーブル名 |
+| routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
+| routingtable.vpcs.id | Body | UUID | ルーティングテーブルが属するVPC ID |
+| routingtable.subnets | Body | Array | ルーティングテーブルに接続されているサブネット情報オブジェクトリスト | 
+| routingtable.subnets.id | Body | UUID | ルーティングテーブルに接続されているサブネットID | 
+| routingtable.routes | Body | Array | ルーティングテーブルに設定されたルート情報オブジェクトリスト |
+| routingtable.routes.id | Body | UUID | ルートID |
+| routingtable.routes.cidr | Body | String | ルート目的地CIDR |
+| routingtable.routes.mask | Body | String | ルート目的地CIDRのネットマスク |
+| routingtable.routes.gateway | Body | String | ルートゲートウェイIP |
+| routingtable.routes.gateway_id | Body | String | インターネットゲートウェイに向かうルートの場合、インターネットゲートウェイID |
+| routingtable.routes.routingtable_id | Body | String | ルートが属するルーティングテーブルID |
+| routingtable.routes.tenant_id | Body | String | ルートが属するテナントID |
+| routingtable.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      },
+      {
+        "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 0,
+        "id": "06c233a7-d1c3-4e0e-83bc-b497420f346b",
+        "gateway": "100.127.65.120",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "0.0.0.0/0",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### ルーティングテーブルのインターネットゲートウェイを接続解除する
+
+ルーティングテーブルと接続されたインターネットゲートウェイとの接続を解除します。
+
+```
+PUT /v2.0/routingtables/{routingtableId}/detach_gateway
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 修正するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+
+
+#### レスポンス
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | ポート情報オブジェクト |
+| routingtable.id | Body | UUID | ルーティングテーブルID |
+| routingtable.name | Body | String | ルーティングテーブル名 |
+| routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
+| routingtable.vpcs.id | Body | UUID | ルーティングテーブルが属するVPC ID |
+| routingtable.subnets | Body | Array | ルーティングテーブルに接続されているサブネット情報オブジェクトリスト | 
+| routingtable.subnets.id | Body | UUID | ルーティングテーブルに接続されているサブネットID | 
+| routingtable.routes | Body | Array | ルーティングテーブルに設定されたルート情報オブジェクトリスト |
+| routingtable.routes.id | Body | UUID | ルートID |
+| routingtable.routes.cidr | Body | String | ルート目的地CIDR |
+| routingtable.routes.mask | Body | String | ルート目的地CIDRのネットマスク |
+| routingtable.routes.gateway | Body | String | ルートゲートウェイIP |
+| routingtable.routes.gateway_id | Body | String | インターネットゲートウェイに向かうルートの場合、インターネットゲートウェイID |
+| routingtable.routes.routingtable_id | Body | String | ルートが属するルーティングテーブルID |
+| routingtable.routes.tenant_id | Body | String | ルートが属するテナントID |
+| routingtable.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [],
+    "name": "second_routingtable",
+    "vpcs": [
+      "e3c11abd-41d9-4f7d-a8c1-a5e62d65bce4"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": false,
+    "create_time": "2023-07-25 05:46:40",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "4e1cfa8d-7947-4aa8-b0dd-2012397e083f",
+        "gateway": "local",
+        "routingtable_id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8",
+        "cidr": "10.0.20.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "9abb4a7c-3609-4e1c-85e3-27f6ad127ee8"
+  }
+}
+```
+
+</p>
+</details>
+
+### ルーティングテーブルを基本ルーティングテーブルに指定する
+
+ルーティングテーブルを基本ルーティングテーブルに指定します。
+
+```
+PUT /v2.0/routingtables/{routingtableId}/set_as_default
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 修正するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routingtable | Body | Object | ポート情報オブジェクト |
+| routingtable.id | Body | UUID | ルーティングテーブルID |
+| routingtable.name | Body | String | ルーティングテーブル名 |
+| routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
+| routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
+| routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
+| routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
+| routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
+| routingtable.vpcs.id | Body | UUID | ルーティングテーブルが属するVPC ID |
+| routingtable.subnets | Body | Array | ルーティングテーブルに接続されているサブネット情報オブジェクトリスト | 
+| routingtable.subnets.id | Body | UUID | ルーティングテーブルに接続されているサブネットID | 
+| routingtable.routes | Body | Array | ルーティングテーブルに設定されたルート情報オブジェクトリスト |
+| routingtable.routes.id | Body | UUID | ルートID |
+| routingtable.routes.cidr | Body | String | ルート目的地CIDR |
+| routingtable.routes.mask | Body | String | ルート目的地CIDRのネットマスク |
+| routingtable.routes.gateway | Body | String | ルートゲートウェイIP |
+| routingtable.routes.gateway_id | Body | String | インターネットゲートウェイに向かうルートの場合、インターネットゲートウェイID |
+| routingtable.routes.routingtable_id | Body | String | ルートが属するルーティングテーブルID |
+| routingtable.routes.tenant_id | Body | String | ルートが属するテナントID |
+| routingtable.create_time | Date | ルーティングテーブルの作成時間 |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routingtable": {
+    "subnets": [
+      "cc39a1a1-4539-46b5-91a9-80c0eacb8184",
+      "ccebb749-fb04-4f52-b18d-141326c0c9c5"
+    ],
+    "name": "3rd-router2",
+    "vpcs": [
+      "86325d48-fbb1-4117-8fa8-bcbf8c692c7f"
+    ],
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "activated": true,
+    "distributed": true,
+    "state": "available",
+    "default_table": true,
+    "create_time": "2021-09-02 08:47:02",
+    "routes": [
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 16,
+        "id": "a253f579-d0f8-472f-a834-5c4133481086",
+        "gateway": "local",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "10.3.0.0/16",
+        "hidden": false
+      },
+      {
+        "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+        "mask": 24,
+        "id": "fc643476-efa1-4f0a-8fae-0c7e271ea0b5",
+        "gateway": "10.3.1.12",
+        "routingtable_id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c",
+        "cidr": "172.16.0.0/24",
+        "hidden": false
+      }
+    ],
+    "id": "0cd5d6a2-fa9e-45c7-86e7-de72454ae08c"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### ルーティングテーブルを削除する
+
+ルーティングテーブルを削除します。基本ルーティングテーブルに指定されたルーティングテーブルは削除できず、これはVPC削除時に一緒に削除されます。
+
+```
+DELETE /v2.0/routingtables/{routingtableId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 削除するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+
+
+#### レスポンス
+
+このAPIはレスポンス本文を返しません。
+
+## ルート
+### ルートリスト表示
+
+ルーティングテーブルに設定されたルートリストを返します。
+
+```
+GET /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| id | Query | UUID | - | ルートID |
+| cidr | Query | String | - | ルート目的地CIDR |
+| mask | Query | Integer | -  | ルート目的地CIDRのネットマスク(0～32) |
+| gateway | Query | String | - | ルートゲートウェイIP |
+| routingtable_id |  Query | String | - | ルートが設定されたルーティングテーブルのID|
+| gateway_id |  Query | String | - | インターネットゲートウェイID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| routes | Body | Array | ルート情報オブジェクトリスト |
+| routes.id | Body | UUID | ルートID |
+| routes.cidr | Body | String | ルート目的地CIDR | 
+| routes.mask | Body | Integer | ルート目的地CIDRのネットマスク |
+| routes.gateway | Body | String | ルートゲートウェイIP。ローカルルートの場合"local" |
+| routes.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイを接続して自動的に作成されたルートの場合、インターネットゲートウェイのID |
+| routes.tenant_id | Body | String | ルートが属するテナントID |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "routes": [
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 16,
+      "gateway": "local",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "172.16.0.0/16",
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+    },
+    {
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 24,
+      "gateway": "172.16.10.19",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "192.168.0.0/24",
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    },
+    {
+      "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
+      "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+      "mask": 0,
+      "gateway": "100.127.64.9",
+      "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+      "cidr": "0.0.0.0/0",
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### ルート表示
+
+指定したルートを照会します。
+
+```
+GET /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 照会するルートID |
+| tokenId | Header | String | O | トークンID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| route | Body | Array | ルート情報オブジェクト |
+| route.id | Body | UUID | ルートID |
+| route.cidr | Body | String | ルート目的地CIDR | 
+| route.mask | Body | Integer | ルート目的地CIDRのネットマスク |
+| route.gateway | Body | String | ルートゲートウェイIP。ローカルルートの場合は"local" |
+| route.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイを接続して自動的に作成されたルートの場合、インターネットゲートウェイのID |
+| route.tenant_id | Body | String | ルートが属するテナントID |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+
+### ルートを作成する
+
+ルーティングテーブルに新規ルートを追加します。
+
+```
+POST /v2.0/routes
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| routingtable_id | Body | UUID | O | ルートを追加するルーティングテーブルID |
+| cidr | Body | String | O | ルート目的地CIDR |
+| gateway| Body | String | O | ルートゲートウェイIP |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "route": {
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
+    "cidr": "192.168.0.0/24", 
+    "gateway": "172.16.10.19"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| route | Body | Array | ルート情報オブジェクト |
+| route.id | Body | UUID | ルートID |
+| route.cidr | Body | String | ルート目的地CIDR | 
+| route.mask | Body | Integer | ルート目的地CIDRのネットマスク |
+| route.gateway | Body | String | ルートゲートウェイIP |
+| route.tenant_id | Body | String | ルートが属するテナントID |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
+### ルートを削除する
+
+指定したルートを削除します。 `gateway`項目が"local"である場合や、インターネットゲートウェイ接続により自動的に追加されたルート(`gateway_id`値存在)は削除できません。
+
+```
+DELETE /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 削除するルートID |
+| tokenId | Header | String | O | トークンID |
+
+
+#### レスポンス
+
+このAPIはレスポンス本文を返しません。
+
 
 ---

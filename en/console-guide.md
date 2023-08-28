@@ -80,9 +80,8 @@ VPCs can be deleted only when subnets are deleted altogether, and in such case, 
 
 * All instances within a VPC cannot access the internet without internet gateway. 
 
-* Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice. 
-
-
+* Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice.
+    
 ## Subnets 
 
 A VPC can be subdivided into subnets that are composed of multiple networks. However, a subnet must be included within the range of a VPC address, with its length the same or shorter. For example, in the case of 192.168.0.0/16, a total of 65536 IP addresses are available between 192.168.0.0 and 192.168.255.255. In addition, the smallest subnet is 28 bits and any configuration cannot be smaller than that. Subnets also adopt CIDR display, just like VPC.  
