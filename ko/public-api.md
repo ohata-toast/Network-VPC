@@ -933,17 +933,17 @@ X-Auth-Token: {tokenId}
 
 ##### **detail** 쿼리 파라미터가 없거나 값이 `false`일 때
 
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| routingtables | Body | Array | 라우팅 테이블 정보 객체 목록 |
-| routingtables.id | Body | UUID | 라우팅 테이블 ID |
-| routingtables.name | Body | String | 라우팅 테이블 이름 |
+| 이름 | 종류   | 형식      | 설명 |
+| --- |------|---------| --- |
+| routingtables | Body | Array   | 라우팅 테이블 정보 객체 목록 |
+| routingtables.id | Body | UUID    | 라우팅 테이블 ID |
+| routingtables.name | Body | String  | 라우팅 테이블 이름 |
 | routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
-| routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨분산형이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
-| routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
-| routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
-| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+| routingtables.gateway_id | Body | UUID    | 라우팅 테이블에 인터넷 게이트웨분산형이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.tenant_id | Body | String  | 라우팅 테이블이 속한 테넌트 ID |
+| routingtables.state | Body | String  | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.create_time | Body | Date    | 라우팅 테이블의 생성 시간 |
 
 <details><summary>예시</summary>
 <p>
@@ -1043,29 +1043,29 @@ X-Auth-Token: {tokenId}
 
 #### 응답
 
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | 포트 정보 객체 |
-| routingtable.id | Body | UUID | 라우팅 테이블 ID |
-| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| 이름 | 종류   | 형식      | 설명 |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | 포트 정보 객체 |
+| routingtable.id | Body | UUID    | 라우팅 테이블 ID |
+| routingtable.name | Body | String  | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
-| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
-| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
-| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
-| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
-| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
-| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
-| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
-| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
-| routingtable.routes.id | Body | UUID | 라우트 ID |
-| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
-| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
-| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
-| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
-| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
-| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
-| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+| routingtable.gateway_id | Body | UUID    | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String  | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String  | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array   | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID    | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array   | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID    | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array   | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID    | 라우트 ID |
+| routingtable.routes.cidr | Body | String  | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String  | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String  | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String  | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String  | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Body | Date    | 라우팅 테이블의 생성 시간 |
 
 <details><summary>예시</summary>
 <p>
@@ -1281,29 +1281,29 @@ X-Auth-Token: {tokenId}
 
 #### 응답
 
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | 포트 정보 객체 |
-| routingtable.id | Body | UUID | 라우팅 테이블 ID |
-| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| 이름 | 종류   | 형식      | 설명 |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | 포트 정보 객체 |
+| routingtable.id | Body | UUID    | 라우팅 테이블 ID |
+| routingtable.name | Body | String  | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
-| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
-| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
-| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
-| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
-| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
-| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
-| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
-| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
-| routingtable.routes.id | Body | UUID | 라우트 ID |
-| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
-| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
-| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
-| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
-| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
-| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
-| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+| routingtable.gateway_id | Body | UUID    | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String  | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String  | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array   | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID    | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array   | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID    | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array   | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID    | 라우트 ID |
+| routingtable.routes.cidr | Body | String  | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String  | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String  | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String  | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String  | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Body | Date    | 라우팅 테이블의 생성 시간 |
 
 <details><summary>예시</summary>
 <p>
@@ -1372,28 +1372,28 @@ X-Auth-Token: {tokenId}
 
 
 #### 응답
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | 포트 정보 객체 |
-| routingtable.id | Body | UUID | 라우팅 테이블 ID |
-| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| 이름 | 종류   | 형식      | 설명 |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | 포트 정보 객체 |
+| routingtable.id | Body | UUID    | 라우팅 테이블 ID |
+| routingtable.name | Body | String  | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
-| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
-| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
-| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
-| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
-| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
-| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
-| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
-| routingtable.routes.id | Body | UUID | 라우트 ID |
-| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
-| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
-| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
-| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
-| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
-| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
-| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+| routingtable.tenant_id | Body | String  | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String  | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array   | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID    | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array   | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID    | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array   | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID    | 라우트 ID |
+| routingtable.routes.cidr | Body | String  | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String  | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String  | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String  | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String  | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Body | Date    | 라우팅 테이블의 생성 시간 |
 
 <details><summary>예시</summary>
 <p>
@@ -1452,29 +1452,29 @@ X-Auth-Token: {tokenId}
 
 #### 응답
 
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | 포트 정보 객체 |
-| routingtable.id | Body | UUID | 라우팅 테이블 ID |
-| routingtable.name | Body | String | 라우팅 테이블 이름 |
+| 이름 | 종류   | 형식      | 설명 |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | 포트 정보 객체 |
+| routingtable.id | Body | UUID    | 라우팅 테이블 ID |
+| routingtable.name | Body | String  | 라우팅 테이블 이름 |
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
-| routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
-| routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
-| routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
-| routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
-| routingtable.vpcs.id | Body | UUID | 라우팅 테이블이 속한 VPC ID |
-| routingtable.subnets | Body | Array | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
-| routingtable.subnets.id | Body | UUID | 라우팅 테이블에 연결된 서브넷 ID | 
-| routingtable.routes | Body | Array | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
-| routingtable.routes.id | Body | UUID | 라우트 ID |
-| routingtable.routes.cidr | Body | String | 라우트 목적지 CIDR |
-| routingtable.routes.mask | Body | String | 라우트 목적지 CIDR의 넷마스크 |
-| routingtable.routes.gateway | Body | String | 라우트 게이트웨이 IP |
-| routingtable.routes.gateway_id | Body | String | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
-| routingtable.routes.routingtable_id | Body | String | 라우트가 속한 라우팅 테이블 ID |
-| routingtable.routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
-| routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
+| routingtable.gateway_id | Body | UUID    | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.tenant_id | Body | String  | 라우팅 테이블이 속한 테넌트 ID |
+| routingtable.state | Body | String  | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
+| routingtable.vpcs | Body | Array   | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
+| routingtable.vpcs.id | Body | UUID    | 라우팅 테이블이 속한 VPC ID |
+| routingtable.subnets | Body | Array   | 라우팅 테이블에 연결된 서브넷 정보 객체 목록 | 
+| routingtable.subnets.id | Body | UUID    | 라우팅 테이블에 연결된 서브넷 ID | 
+| routingtable.routes | Body | Array   | 라우팅 테이블에 설정된 라우트 정보 객체 목록 |
+| routingtable.routes.id | Body | UUID    | 라우트 ID |
+| routingtable.routes.cidr | Body | String  | 라우트 목적지 CIDR |
+| routingtable.routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| routingtable.routes.gateway | Body | String  | 라우트 게이트웨이 IP |
+| routingtable.routes.gateway_id | Body | String  | 인터넷 게이트웨이로 향하는 라우트의 경우 인터넷 게이트웨이 ID |
+| routingtable.routes.routingtable_id | Body | String  | 라우트가 속한 라우팅 테이블 ID |
+| routingtable.routes.tenant_id | Body | String  | 라우트가 속한 테넌트 ID |
+| routingtable.create_time | Body | Date    | 라우팅 테이블의 생성 시간 |
 
 <details><summary>예시</summary>
 <p>
