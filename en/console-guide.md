@@ -81,6 +81,21 @@ VPCs can be deleted only when subnets are deleted altogether, and in such case, 
 * All instances within a VPC cannot access the internet without internet gateway. 
 
 * Excessively transferred "Broadcast, Multicast, Unknown Unicast" may be blocked without prior notice.
+
+* You can specify whether to use the Private IP DNS feature in the Korea (Pangyo), Korea (Pyeongchon), and Korea (Gwangju) regions.
+  * The feature is only available within the same VPC.
+  * When enabling the Private IP DNS feature, you must reset the nameservers of the instances in the VPC to the private DNS ports.
+    * When you restart the instance, the nameservers for the instance are set to your private DNS port IP.
+    * To change the nameservers without restarting, you must connect to the instance and point the nameservers to your private DNS port IPs. Follow the instructions for setting up nameservers for your operating system to make the change.
+
+> [Note] Private DNS port
+> * When you set up private IP DNS or connect VPC to the Zone for the first time, a private DNS port is created within the VPC.
+> * For VPCs that are disconnected to all Zones without setting up private IP DNS, the private DNS port is deleted.
+> * For VPCs that are disconnected and reconnected to all Zones without setting up private IP DNS, the private DNS port may be changed.
+> * If a private DNS port is created/changed/deleted, the nameserver must be reset to reflect the changes.
+>   * Restarting instances resets nameservers.
+>   * To change the nameservers without restarting, you need to connect to the instance and change the nameservers. Follow the instructions for setting up nameservers for your operating system to make the change.
+> * If you have restarted an instance for the application of private DNS port, you do not need to restart the instance if you subsequently connect another zone to that VPC or change the private IP DNS settings.
     
 ## Subnets 
 
