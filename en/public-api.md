@@ -933,17 +933,17 @@ This API does not require a request body.
 
 ##### When there is no **detail** query parameter or when the value is `false`
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| routingtables | Body | Array | List of routing table information objects |
-| routingtables.id | Body | UUID | Routing table ID |
-| routingtables.name | Body | String | Routing table name |
+| Name | Type | Format  | Description |
+| --- |------|---------| --- |
+| routingtables | Body | Array   | List of routing table information objects |
+| routingtables.id | Body | UUID    | Routing table ID |
+| routingtables.name | Body | String  | Routing table name |
 | routingtables.default_table | Body | Boolean | Whether routing table is default table |
 | routingtables.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtables.gateway_id | Body | UUID | The ID of the Internet gateway if the Internet gateway of distributed type is associated with the routing table. |
-| routingtables.tenant_id | Body | String | Tenant ID to which routing table is included |
-| routingtables.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
-| routingtable.create_time | Date | Routing table creation time |
+| routingtables.gateway_id | Body | UUID    | The ID of the Internet gateway if the Internet gateway of distributed type is associated with the routing table. |
+| routingtables.tenant_id | Body | String  | Tenant ID to which routing table is included |
+| routingtables.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.create_time | Body | Date    | Routing table creation time |
 
 <details><summary>Example</summary>
 <p>
@@ -1043,29 +1043,29 @@ This API does not require a request body.
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | Port information object |
-| routingtable.id | Body | UUID | Routing table ID |
-| routingtable.name | Body | String | Routing table name |
+| Name | Type | Format  | Description |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | Port information object |
+| routingtable.id | Body | UUID    | Routing table ID |
+| routingtable.name | Body | String  | Routing table name |
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
-| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
-| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
-| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
-| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
-| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
-| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
-| routingtable.routes | Body | Array | List of route information objects set to routing table |
-| routingtable.routes.id | Body | UUID | Route ID |
-| routingtable.routes.cidr | Body | String | Route destination CIDR |
-| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
-| routingtable.routes.gateway | Body | String | Route gateway IP |
-| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
-| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
-| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
-| routingtable.create_time | Date | Routing table creation time |
+| routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
+| routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID    | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array   | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID    | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array   | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID    | Route ID |
+| routingtable.routes.cidr | Body | String  | Route destination CIDR |
+| routingtable.routes.mask | Body | Integer | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String  | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String  | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String  | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String  | Tenant ID that route belongs to |
+| routingtable.create_time | Body | Date    | Routing table creation time |
 
 <details><summary>Example</summary>
 <p>
@@ -1281,29 +1281,29 @@ X-Auth-Token: {tokenId}
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | Port information object |
-| routingtable.id | Body | UUID | Routing table ID |
-| routingtable.name | Body | String | Routing table name |
+| Name | Type | Format  | Description |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | Port information object |
+| routingtable.id | Body | UUID    | Routing table ID |
+| routingtable.name | Body | String  | Routing table name |
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
-| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
-| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
-| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
-| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
-| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
-| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
-| routingtable.routes | Body | Array | List of route information objects set to routing table |
-| routingtable.routes.id | Body | UUID | Route ID |
-| routingtable.routes.cidr | Body | String | Route destination CIDR |
-| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
-| routingtable.routes.gateway | Body | String | Route gateway IP |
-| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
-| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
-| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
-| routingtable.create_time | Date | Routing table creation time |
+| routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
+| routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID    | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array   | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID    | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array   | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID    | Route ID |
+| routingtable.routes.cidr | Body | String  | Route destination CIDR |
+| routingtable.routes.mask | Body | Integer | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String  | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String  | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String  | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String  | Tenant ID that route belongs to |
+| routingtable.create_time | Body | Date    | Routing table creation time |
 
 <details><summary>Example</summary>
 <p>
@@ -1372,28 +1372,28 @@ This API does not require a request body.
 
 
 #### Response
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | Port information object |
-| routingtable.id | Body | UUID | Routing table ID |
-| routingtable.name | Body | String | Routing table name |
+| Name | Type | Format  | Description |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | Port information object |
+| routingtable.id | Body | UUID    | Routing table ID |
+| routingtable.name | Body | String  | Routing table name |
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
-| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
-| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
-| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
-| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
-| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
-| routingtable.routes | Body | Array | List of route information objects set to routing table |
-| routingtable.routes.id | Body | UUID | Route ID |
-| routingtable.routes.cidr | Body | String | Route destination CIDR |
-| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
-| routingtable.routes.gateway | Body | String | Route gateway IP |
-| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
-| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
-| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
-| routingtable.create_time | Date | Routing table creation time |
+| routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
+| routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID    | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array   | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID    | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array   | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID    | Route ID |
+| routingtable.routes.cidr | Body | String  | Route destination CIDR |
+| routingtable.routes.mask | Body | Integer | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String  | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String  | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String  | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String  | Tenant ID that route belongs to |
+| routingtable.create_time | Body | Date    | Routing table creation time |
 
 <details><summary>Example</summary>
 <p>
@@ -1452,29 +1452,29 @@ This API does not require a request body.
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| routingtable | Body | Object | Port information object |
-| routingtable.id | Body | UUID | Routing table ID |
-| routingtable.name | Body | String | Routing table name |
+| Name | Type | Format  | Description |
+| --- |------|---------| --- |
+| routingtable | Body | Object  | Port information object |
+| routingtable.id | Body | UUID    | Routing table ID |
+| routingtable.name | Body | String  | Routing table name |
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtable.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
-| routingtable.tenant_id | Body | String | Tenant ID to which routing table is included |
-| routingtable.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
-| routingtable.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
-| routingtable.vpcs.id | Body | UUID | VPC ID to which routing table is included |
-| routingtable.subnets | Body | Array | List of subnet information objects associated with routing table | 
-| routingtable.subnets.id | Body | UUID | Subnet ID linked to routing table | 
-| routingtable.routes | Body | Array | List of route information objects set to routing table |
-| routingtable.routes.id | Body | UUID | Route ID |
-| routingtable.routes.cidr | Body | String | Route destination CIDR |
-| routingtable.routes.mask | Body | String | Netmask of route destination CIDR |
-| routingtable.routes.gateway | Body | String | Route gateway IP |
-| routingtable.routes.gateway_id | Body | String | For routes to an internet gateway, the internet gateway ID |
-| routingtable.routes.routingtable_id | Body | String | Table ID to which route is included |
-| routingtable.routes.tenant_id | Body | String | Tenant ID that route belongs to |
-| routingtable.create_time | Date | Routing table creation time |
+| routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
+| routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
+| routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
+| routingtable.vpcs.id | Body | UUID    | VPC ID to which routing table is included |
+| routingtable.subnets | Body | Array   | List of subnet information objects associated with routing table | 
+| routingtable.subnets.id | Body | UUID    | Subnet ID linked to routing table | 
+| routingtable.routes | Body | Array   | List of route information objects set to routing table |
+| routingtable.routes.id | Body | UUID    | Route ID |
+| routingtable.routes.cidr | Body | String  | Route destination CIDR |
+| routingtable.routes.mask | Body | Integer | Netmask of route destination CIDR |
+| routingtable.routes.gateway | Body | String  | Route gateway IP |
+| routingtable.routes.gateway_id | Body | String  | For routes to an internet gateway, the internet gateway ID |
+| routingtable.routes.routingtable_id | Body | String  | Table ID to which route is included |
+| routingtable.routes.tenant_id | Body | String  | Tenant ID that route belongs to |
+| routingtable.create_time | Body | Date    | Routing table creation time |
 
 <details><summary>Example</summary>
 <p>
