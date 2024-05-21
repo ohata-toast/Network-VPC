@@ -81,7 +81,7 @@ VPCs can be deleted only when subnets are deleted altogether, and in such case, 
 
 * All instances within a VPC cannot access the internet without internet gateway. 
 
-* Excessive 'Broadcast, Multicast, Unknown Unicast' may be blocked without notice.
+* Excessively transferred 'Broadcast, Multicast, Unknown Unicast' may be blocked without notice.
 
 * You can specify whether to enable the **Private IP DNS** feature.
 	* The feature is only available within the same VPC.
