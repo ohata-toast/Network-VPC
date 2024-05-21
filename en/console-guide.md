@@ -118,7 +118,7 @@ You can see basic information such as the subnet name, UUID, CIDR, and creation 
 > [Note]
 > The number of free IPs on a subnet is the number of IPs already assigned to resources on the subnet, excluding the IPs below.
 > For example, if your subnet has a CIDR of `192.168.0.0/24`, you can use the
-> * 192.168.0.0 - network address
+> * 192.168.0.0 - Network address
 > * 192.168.0.1 - Gateway address. When a subnet is created, it is automatically associated with the **default routing table** included in VPC where the first IP is assigned as the gateway address.
 > * 192.168.0.2 - DHCP Server address or IP for SNAT that connects to the Internet gateway
 > * 192.168.0.3 - DHCP Server address or IP for SNAT that connects to an Internet gateway
@@ -132,7 +132,7 @@ A list of resources that have been assigned IPs on the subnet. You can see the r
 ### Subnet Static Route
 By using a subnet's **Static Route** setting, it is possible to pass the routing rules that instances in the subnet will set in the routing table within the instances at boot time.
 
-* The routing rules registered in **Static Route** are sent by being included in the "classless-static-routes" option of the response to the DHCP request requested by the instance. The DHCP client running in the instance registers the content of this option in the routing table.
+* The routing rules registered in **Static Route** are sent by being included in the ‘classless-static-routes’ option of the response to the DHCP request requested by the instance. The DHCP client running in the instance registers the content of this option in the routing table.
 
 * The method of reflecting the ‘classless-static-routes’ option varies depending on the OS type, distribution, or DHCP client version running on the instance. However, it is generally reflected when the DHCP client is first started, such as instance booting, and is not reflected when renewing the DHCP lease. Therefore, when you edit a subnet's **Static Route**, the change may not take effect immediately on the running instances, so it is recommended to reboot the running target instances if possible.
 
@@ -151,7 +151,7 @@ Enter the following information to create a subnet
 
 > [Note]
 > You can create a maximum of 10 subnets per VPC.
-> If you need to create more than 11 subnets within a single VPC, please contact our Help [Center](https://www.nhncloud.com/kr/support/inquiry). 
+> If you need to create more than 11 subnets within a single VPC, please contact our [Customer Center](https://www.nhncloud.com/kr/support/inquiry). 
 
 ### Modify Subnet
 You can rename the subnet. 
@@ -159,20 +159,20 @@ You can rename the subnet.
 ### Delete Subnet
 Deletes the selected subnet. You can delete a subnet only if it does not contain any resources, such as instances or load balancers, that have IP assignments from the subnet. 
 
-### Connect Routing table
+### Attach Routing table
 'Explicitly' attach the selected subnet to the selected routing table.
 
-When you create a subnet, it is "implicitly" connected to the VPC's default routing table, which you can "explicitly" connect to the default routing table or to another routing table using the Connect Routing Table feature.
+When you create a subnet, it is 'implicitly' attached to the VPC's default routing table, which you can 'explicitly' attach to the default routing table or to another routing table using the Connect Routing Table feature.
 
-### Disassociate Routing Table
-If the subnet and routing table are 'explicitly' associated, disassociate them.
+### Detach Routing Table
+If the subnet and routing table are 'explicitly' attached, detach them.
 
-Subnets that are explicitly disassociated from the routing table are "implicitly" associated back to the VPC's **default routing table**.
+Subnets that are detached from the routing table are 'implicitly' attached back to the VPC's **default routing table**.
 
 > [Note]
-> * Implicitly connected: Subnets are automatically connected to the **default routing table**. If you specify a different routing table as the default routing table for the VPC, subnets that were implicitly connected to the existing default routing table are unlinked and automatically connected to the newly specified default routing table.
-In this case, the **Subnet Basic Information > Routing Table** entry will show as **(Default Associated Routing Table)**.
-> * Explicit: You are explicitly connected to a routing table, using the **Connect Routing Table** feature, and specifying a subnet. All connections are explicit unless you connect to the default routing table, in which case specifying the default routing table changes the implicit connection state to explicit. In this case, even if you change the default routing table, the subnet retains its association with the existing routing table.
+> * Implicitly attached: Subnets are automatically attached to the **default routing table**. If you specify a different routing table as the default routing table for the VPC, subnets that were implicitly attached to the existing default routing table are detached and automatically attached to the newly specified default routing table.
+   In this case, the **Subnet Basic Information > Routing Table** entry will show as **(Routing Table of Default Connection)**.
+> * Explicitly attached: Subnets are explicitly attached to a routing table, using the **Attach Routing Table** feature. All attachments are explicit unless you attach to the default routing table, in which case specifying the default routing table changes the implicit attachment state to explicit. In this case, even if you change the default routing table, the subnet retains its association with the existing routing table.
 
 ## Routing Table 
 
