@@ -126,7 +126,7 @@ You can see basic information such as the subnet name, UUID, CIDR, and creation 
 >
 > The IP for the SNAT that connects to the Internet gateway is assigned when the routing table to which the subnet is connected has an Internet gateway connection, and might be assigned an IP other than `192.168.0.3`, depending on when the routing table and the Internet gateway were connected.
 
-### Subnet Connection
+### Subnet Attachment Information
 A list of resources that have been assigned IPs on the subnet. You can see the resource's type, ID, assigned IP, and if the resource has a floating IP associated with it, its floating IP.
 
 ### Subnet Static Route
