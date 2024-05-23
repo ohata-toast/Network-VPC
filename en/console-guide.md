@@ -162,7 +162,7 @@ Deletes the selected subnet. You can delete a subnet only if it does not contain
 ### Attach Routing table
 'Explicitly' attach the selected subnet to the selected routing table.
 
-When you create a subnet, it is 'implicitly' attached to the VPC's default routing table, which you can 'explicitly' attach to the default routing table or to another routing table using the Connect Routing Table feature.
+When you create a subnet, it is 'implicitly' attached to the VPC's default routing table, which you can 'explicitly' attach to the default routing table or to another routing table using the Attach Routing Table feature.
 
 ### Detach Routing Table
 If the subnet and routing table are 'explicitly' attached, detach them.
