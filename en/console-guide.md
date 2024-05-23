@@ -151,7 +151,7 @@ Enter the following information to create a subnet
 
 > [Note]
 > You can create a maximum of 10 subnets per VPC.
-> If you need to create more than 11 subnets within a single VPC, please contact our [Customer Center](https://www.nhncloud.com/kr/support/inquiry). 
+> If you need to create more than 11 subnets within a single VPC, please contact the [Customer Center](https://www.nhncloud.com/kr/support/inquiry). 
 
 ### Modify Subnet
 You can rename the subnet. 
@@ -167,7 +167,7 @@ When you create a subnet, it is 'implicitly' attached to the VPC's default routi
 ### Detach Routing Table
 If the subnet and routing table are 'explicitly' attached, detach them.
 
-Subnets that are detached from the routing table are 'implicitly' attached back to the VPC's **default routing table**.
+Subnets that are explicitly detached from the routing table are 'implicitly' attached back to the VPC's **default routing table**.
 
 > [Note]
 > * Implicitly attached: Subnets are automatically attached to the **default routing table**. If you specify a different routing table as the default routing table for the VPC, subnets that were implicitly attached to the existing default routing table are detached and automatically attached to the newly specified default routing table.
