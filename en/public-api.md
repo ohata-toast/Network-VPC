@@ -6,7 +6,7 @@ For VPC API, the `network` type endpoint is used. For more details, see `service
 
 | Type | Region | Endpoint |
 |---|---|---|
-| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
+| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region<br>USA Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
 In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, and as such refrain from using them since they may be changed without prior notice.
 
