@@ -1581,13 +1581,13 @@ X-Auth-Token: {tokenId}
 
 `gateways.type`에 올 수 있는 값들과 각 값에 대한 설명은 다음과 같습니다.
 
-| gateways.type | 종류 | 콘솔애서 표기되는 문자열 |
+| gateways.type | 종류 | 콘솔에서 표기되는 문자열 |
 | --- | --- | --- |
 | `goblin:transition` | 트랜짓 게이트웨이 연결 | TRANSIT_GATEWAY_ATTACHMENT |
 | `goblin:colocation_gateway` | 코로케이션 게이트웨이 | COLOCATION_GATEWAY |
 | `goblin:peering` | VPC 피어링 게이트웨이 | PEERING |
-| `goblin:inter_project_peering` | 프로젝트간 피어링 게이트웨이 |  INTER_PROJECT_PEERING |
-| `goblin:inter_region_peering` | 리전간 피어링 게이트웨이 | INTER_REGION_PEERING |
+| `goblin:inter_project_peering` | 프로젝트 간 피어링 게이트웨이 |  INTER_PROJECT_PEERING |
+| `goblin:inter_region_peering` | 리전 간 피어링 게이트웨이 | INTER_REGION_PEERING |
 | `goblin:service_gateway` | 서비스 게이트웨이 | SERVICE_GATEWAY |
 | `goblin:natgateway` | NAT 게이트웨이 | NAT_GATEWAY |
 | `goblin:vpngateway` | VPN 게이트웨이 | VPN_GATEWAY |
