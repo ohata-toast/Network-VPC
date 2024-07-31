@@ -1547,6 +1547,75 @@ X-Auth-Token: {tokenId}
 
 このAPIはレスポンス本文を返しません。
 
+
+### ルーティングテーブルと関連付けられたゲートウェイ情報照会
+
+ルーティングテーブルに設定されたルーティングポリシーによってパケットが到達できるゲートウェイの情報を返します。
+
+```
+GET /v2.0/tcvpc/routingtables/{routingtableId}/related_gateways
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 関連するゲートウェイ情報を照会するルーティングテーブルID |
+| tokenId | Header | String | O | トークンID |
+
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| gateways | Body | Array | ルーティングテーブルに関連付けられたゲートウェイ情報リスト |
+| gateways.id | Body | UUID | ゲートウェイのID |
+| gateways.type | Body | String | ゲートウェイのタイプ |
+| gateways.name | Body | String | ゲートウェイの名前 | 
+
+
+`gateways.type`に設定できる値と各値の説明は次のとおりです。
+
+| gateways.type | 種類 | コンソールで表記される文字列 |
+| --- | --- | --- |
+| `goblin:transition` | トランジットゲートウェイ接続 | TRANSIT_GATEWAY_ATTACHMENT |
+| `goblin:colocation_gateway` | コロケーションゲートウェイ | COLOCATION_GATEWAY |
+| `goblin:peering` | VPCピアリングゲートウェイ | PEERING |
+| `goblin:inter_project_peering` | プロジェクト間ピアリングゲートウェイ |  INTER_PROJECT_PEERING |
+| `goblin:inter_region_peering` | リージョン間ピアリングゲートウェイ | INTER_REGION_PEERING |
+| `goblin:service_gateway` | サービスゲートウェイ | SERVICE_GATEWAY |
+| `goblin:natgateway` | NATゲートウェイ | NAT_GATEWAY |
+| `goblin:vpngateway` | VPNゲートウェイ | VPN_GATEWAY |
+| `goblin:asterisk` | トランジットハブ | TRANSIT_HUB | 
+
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "gateways": [
+    {
+      "type": "goblin:natgateway",
+      "id": "8e2e97e3-4cff-461c-97f3-297f0b23025e",
+      "name": "Test NAT Gateway"
+    },
+    {
+      "type": "goblin:peering",
+      "id": "2057f51f-75c1-40f2-bfd7-77c4a4c366a9",
+      "name": "Test Peering"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+
 ## ルート
 ### ルートリスト表示
 
