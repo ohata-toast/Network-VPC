@@ -6,7 +6,7 @@ VPC API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| network | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전<br>미국 리전 | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
+| network | 한국(판교) 리전<br>한국(평촌) 리전<br>일본(도쿄) 리전<br>미국(캘리포니아) 리전 | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
 API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -1547,6 +1547,75 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+
+
+### 라우팅 테이블과 연관된 게이트웨이 정보 조회
+
+라우팅 테이블에 설정된 라우팅 정책을 통해 패킷이 도달할 수 있는 게이트웨이들의 정보를 반환합니다.
+
+```
+GET /v2.0/tcvpc/routingtables/{routingtableId}/related_gateways
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 연관된 게이트웨이 정보를 조회할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| gateways | Body | Array | 라우팅 테이블과 연관된 게이트웨이 정보 목록 |
+| gateways.id | Body | UUID | 게이트웨이의 ID |
+| gateways.type | Body | String | 게이트웨이의 타입 |
+| gateways.name | Body | String | 게이트웨이의 이름 | 
+
+
+`gateways.type`에 올 수 있는 값들과 각 값에 대한 설명은 다음과 같습니다.
+
+| gateways.type | 종류 | 콘솔에서 표기되는 문자열 |
+| --- | --- | --- |
+| `goblin:transition` | 트랜짓 게이트웨이 연결 | TRANSIT_GATEWAY_ATTACHMENT |
+| `goblin:colocation_gateway` | 코로케이션 게이트웨이 | COLOCATION_GATEWAY |
+| `goblin:peering` | VPC 피어링 게이트웨이 | PEERING |
+| `goblin:inter_project_peering` | 프로젝트 간 피어링 게이트웨이 |  INTER_PROJECT_PEERING |
+| `goblin:inter_region_peering` | 리전 간 피어링 게이트웨이 | INTER_REGION_PEERING |
+| `goblin:service_gateway` | 서비스 게이트웨이 | SERVICE_GATEWAY |
+| `goblin:natgateway` | NAT 게이트웨이 | NAT_GATEWAY |
+| `goblin:vpngateway` | VPN 게이트웨이 | VPN_GATEWAY |
+| `goblin:asterisk` | 트랜짓 허브 | TRANSIT_HUB | 
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "gateways": [
+    {
+      "type": "goblin:natgateway",
+      "id": "8e2e97e3-4cff-461c-97f3-297f0b23025e",
+      "name": "Test NAT Gateway"
+    },
+    {
+      "type": "goblin:peering",
+      "id": "2057f51f-75c1-40f2-bfd7-77c4a4c366a9",
+      "name": "Test Peering"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
 
 ## 라우트
 ### 라우트 목록 보기
