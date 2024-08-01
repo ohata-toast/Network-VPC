@@ -6,7 +6,7 @@ For VPC API, the `network` type endpoint is used. For more details, see `service
 
 | Type | Region | Endpoint |
 |---|---|---|
-| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region<br>USA Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
+| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan (Tokyo) Region<br>USA (California) Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
 In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, and as such refrain from using them since they may be changed without prior notice.
 
@@ -1548,8 +1548,77 @@ This API does not require a request body.
 
 This API does not return a response body.
 
+
+### View Details of Gateway associatd with Routing Table
+
+Returns information about the gateways that packets can reach through the routing rules set in the routing table.
+
+```
+GET /v2.0/tcvpc/routingtables/{routingtableId}/related_gateways
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | The routing table ID to look up the associated gateway information. |
+| tokenId | Header | String | O | Token ID |
+
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| gateways | Body | Array | List of gateway information associated with the routing table |
+| gateways.id | Body | UUID | Gateway ID |
+| gateways.type | Body | String | Gateway type |
+| gateways.name | Body | String | Gateway name | 
+
+
+The following are the possible values for `gateways.type` and a description of each value.
+
+| gateways.type | Type | String represented in console |
+| --- | --- | --- |
+| `goblin:transition` | Transit Gateway attachment | TRANSIT_GATEWAY_ATTACHMENT |
+| `goblin:colocation_gateway` | Colocation gateway | COLOCATION_GATEWAY |
+| `goblin:peering` | VPC peering gateway | PEERING |
+| `goblin:inter_project_peering` | Peering gateway between projects |  INTER_PROJECT_PEERING |
+| `goblin:inter_region_peering` | Peering gateway between regions | INTER_REGION_PEERING |
+| `goblin:service_gateway` | Servie gateway | SERVICE_GATEWAY |
+| `goblin:natgateway` | NAT gateway | NAT_GATEWAY |
+| `goblin:vpngateway` | VPN gateway | VPN_GATEWAY |
+| `goblin:asterisk` | Transit Hub | TRANSIT_HUB | 
+
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "gateways": [
+    {
+      "type": "goblin:natgateway",
+      "id": "8e2e97e3-4cff-461c-97f3-297f0b23025e",
+      "name": "Test NAT Gateway"
+    },
+    {
+      "type": "goblin:peering",
+      "id": "2057f51f-75c1-40f2-bfd7-77c4a4c366a9",
+      "name": "Test Peering"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+
 ## Route
-### View Route List
+### View Routes
 
 Returns the route list set up in the routing table.
 
