@@ -940,6 +940,7 @@ X-Auth-Token: {tokenId}
 | routingtables.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
 | routingtables.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、`false`:中央集中型 |
 | routingtables.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、そのインターネットゲートウェイのID |
+| routingtables.gateway_name | Body | String | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイの名前 |
 | routingtables.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
 | routingtables.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
 | routingtable.create_time | Date | ルーティングテーブルの作成時間 |
@@ -952,6 +953,7 @@ X-Auth-Token: {tokenId}
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "name": "vpc-162de82d-7301",
       "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
       "distributed": false,
@@ -977,6 +979,7 @@ X-Auth-Token: {tokenId}
 | routingtables.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
 | routingtables.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、`false`:中央集中型 |
 | routingtables.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、そのインターネットゲートウェイのID |
+| routingtables.gateway_name | Body | String | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイの名前 |
 | routingtables.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
 | routingtables.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
 | routingtables.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
@@ -995,6 +998,7 @@ X-Auth-Token: {tokenId}
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "subnets": [
         {
           "name": "Default Network",
@@ -1050,6 +1054,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
 | routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
 | routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.gateway_name | Body | String | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイの名前 |
 | routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
 | routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
 | routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
@@ -1073,6 +1078,7 @@ X-Auth-Token: {tokenId}
 {
   "routingtable": {
     "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [
       "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
     ],
@@ -1288,6 +1294,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
 | routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
 | routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.gateway_name | Body | String | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイの名前 |
 | routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
 | routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
 | routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
@@ -1311,6 +1318,7 @@ X-Auth-Token: {tokenId}
 {
   "routingtable": {
     "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [],
     "name": "second_routingtable",
     "vpcs": [
@@ -1459,6 +1467,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 基本ルーティングテーブルかどうか |
 | routingtable.distributed | Body | Boolean | 照会するルーティングテーブルのルーティング方式<br>`true`:分散型、 `false`:中央集中型 |
 | routingtable.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイのID |
+| routingtable.gateway_name | Body | String | ルーティングテーブルにインターネットゲートウェイが接続されている場合、該当インターネットゲートウェイの名前 |
 | routingtable.tenant_id | Body | String | ルーティングテーブルが属するテナントID |
 | routingtable.state | Body | String | ルーティングテーブルの状態。現在は`available`状態のみ存在 |
 | routingtable.vpcs | Body | Array | ルーティングテーブルが属するVPC情報オブジェクトリスト |
@@ -1553,7 +1562,7 @@ X-Auth-Token: {tokenId}
 ルーティングテーブルに設定されたルーティングポリシーによってパケットが到達できるゲートウェイの情報を返します。
 
 ```
-GET /v2.0/tcvpc/routingtables/{routingtableId}/related_gateways
+GET /v2.0/routingtables/{routingtableId}/related_gateways
 X-Auth-Token: {tokenId}
 ```
 
@@ -1581,15 +1590,14 @@ X-Auth-Token: {tokenId}
 
 | gateways.type | 種類 | コンソールで表記される文字列 |
 | --- | --- | --- |
-| `goblin:transition` | トランジットゲートウェイ接続 | TRANSIT_GATEWAY_ATTACHMENT |
-| `goblin:colocation_gateway` | コロケーションゲートウェイ | COLOCATION_GATEWAY |
+| `goblin:transition` | トランジットゲートウェイ | TRANSIT_GATEWAY |
+| `goblin:colocation_gateway` | コロケーションゲートウェイ | TRANSIT_GATEWAY |
 | `goblin:peering` | VPCピアリングゲートウェイ | PEERING |
 | `goblin:inter_project_peering` | プロジェクト間ピアリングゲートウェイ |  INTER_PROJECT_PEERING |
 | `goblin:inter_region_peering` | リージョン間ピアリングゲートウェイ | INTER_REGION_PEERING |
-| `goblin:service_gateway` | サービスゲートウェイ | SERVICE_GATEWAY |
 | `goblin:natgateway` | NATゲートウェイ | NAT_GATEWAY |
 | `goblin:vpngateway` | VPNゲートウェイ | VPN_GATEWAY |
-| `goblin:asterisk` | トランジットハブ | TRANSIT_HUB | 
+| `goblin:asterisk` | トランジットハブ接続 | TRANSIT_HUB_ATTACHMENT | 
 
 
 <details><summary>例</summary>
