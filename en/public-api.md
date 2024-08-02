@@ -940,7 +940,8 @@ This API does not require a request body.
 | routingtables.name | Body | String  | Routing table name |
 | routingtables.default_table | Body | Boolean | Whether routing table is default table |
 | routingtables.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
-| routingtables.gateway_id | Body | UUID    | The ID of the Internet gateway if the Internet gateway of distributed type is associated with the routing table. |
+| routingtables.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtables.gateway_name | Body | String    | The name of the internet gateway when the gateway is associated with routing table |
 | routingtables.tenant_id | Body | String  | Tenant ID to which routing table is included |
 | routingtables.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
 | routingtable.create_time | Body | Date    | Routing table creation time |
@@ -953,6 +954,7 @@ This API does not require a request body.
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "name": "vpc-162de82d-7301",
       "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
       "distributed": false,
@@ -978,6 +980,7 @@ This API does not require a request body.
 | routingtables.default_table | Body | Boolean | Whether routing table is default table |
 | routingtables.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
 | routingtables.gateway_id | Body | UUID | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtables.gateway_name | Body | String    | The name of the internet gateway when the gateway is associated with routing table |
 | routingtables.tenant_id | Body | String | Tenant ID to which routing table is included |
 | routingtables.state | Body | String | Status of the routing table. Currently, only the `available` status exists |
 | routingtables.vpcs | Body | Array | List of VPC information objects to which routing table belongs |
@@ -996,6 +999,7 @@ This API does not require a request body.
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "subnets": [
         {
           "name": "Default Network",
@@ -1051,6 +1055,7 @@ This API does not require a request body.
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
 | routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.gateway_name | Body | String    | The name of the internet gateway when the gateway is associated with routing table |
 | routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
 | routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
 | routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
@@ -1074,6 +1079,7 @@ This API does not require a request body.
 {
   "routingtable": {
     "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [
       "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
     ],
@@ -1289,6 +1295,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
 | routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.gateway_name | Body | String    | The name of the internet gateway when the gateway is associated with routing table |
 | routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
 | routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
 | routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
@@ -1312,6 +1319,7 @@ X-Auth-Token: {tokenId}
 {
   "routingtable": {
     "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [],
     "name": "second_routingtable",
     "vpcs": [
@@ -1460,6 +1468,7 @@ This API does not require a request body.
 | routingtable.default_table | Body | Boolean | Whether routing table is default table |
 | routingtable.distributed | Body | Boolean | Routing method of routing table to query<br>`true`: Distributed, `false`: Centralized |
 | routingtable.gateway_id | Body | UUID    | The ID of the internet gateway when the gateway is associated with routing table |
+| routingtable.gateway_name | Body | String    | The name of the internet gateway when the gateway is associated with routing table |
 | routingtable.tenant_id | Body | String  | Tenant ID to which routing table is included |
 | routingtable.state | Body | String  | Status of the routing table. Currently, only the `available` status exists |
 | routingtable.vpcs | Body | Array   | List of VPC information objects to which routing table belongs |
@@ -1554,7 +1563,7 @@ This API does not return a response body.
 Returns information about the gateways that packets can reach through the routing rules set in the routing table.
 
 ```
-GET /v2.0/tcvpc/routingtables/{routingtableId}/related_gateways
+GET /v2.0/routingtables/{routingtableId}/related_gateways
 X-Auth-Token: {tokenId}
 ```
 
@@ -1582,15 +1591,14 @@ The following are the possible values for `gateways.type` and a description of e
 
 | gateways.type | Type | String represented in console |
 | --- | --- | --- |
-| `goblin:transition` | Transit Gateway attachment | TRANSIT_GATEWAY_ATTACHMENT |
-| `goblin:colocation_gateway` | Colocation gateway | COLOCATION_GATEWAY |
+| `goblin:transition` | Transit Gateway | TRANSIT_GATEWAY |
+| `goblin:colocation_gateway` | Colocation gateway | TRANSIT_GATEWAY |
 | `goblin:peering` | VPC peering gateway | PEERING |
 | `goblin:inter_project_peering` | Peering gateway between projects |  INTER_PROJECT_PEERING |
 | `goblin:inter_region_peering` | Peering gateway between regions | INTER_REGION_PEERING |
-| `goblin:service_gateway` | Servie gateway | SERVICE_GATEWAY |
 | `goblin:natgateway` | NAT gateway | NAT_GATEWAY |
 | `goblin:vpngateway` | VPN gateway | VPN_GATEWAY |
-| `goblin:asterisk` | Transit Hub | TRANSIT_HUB | 
+| `goblin:asterisk` | Transit Hub Attachment| TRANSIT_HUB_ATTACHMENT | 
 
 
 <details><summary>Example</summary>
