@@ -941,6 +941,7 @@ X-Auth-Token: {tokenId}
 | routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.gateway_name | Body | String | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 이름 |
 | routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.create_time | Date | 라우팅 테이블의 생성 시간 |
@@ -953,6 +954,7 @@ X-Auth-Token: {tokenId}
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "name": "vpc-162de82d-7301",
       "tenant_id": "130f20670ac34949b64b10ad8a5989c8",
       "distributed": false,
@@ -978,6 +980,7 @@ X-Auth-Token: {tokenId}
 | routingtables.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtables.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtables.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtables.gateway_name | Body | String | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 이름 |
 | routingtables.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtables.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtables.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
@@ -996,6 +999,7 @@ X-Auth-Token: {tokenId}
   "routingtables": [
     {
       "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+      "gateway_name": "ig-162de82d-7301",
       "subnets": [
         {
           "name": "Default Network",
@@ -1051,6 +1055,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.gateway_name | Body | String | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 이름 |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
@@ -1074,6 +1079,7 @@ X-Auth-Token: {tokenId}
 {
   "routingtable": {
     "gateway_id": "e0e51d26-f8e8-4643-9b1a-01562db00949",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [
       "2f8919a1-d06b-480f-8e26-87c7c9eee16f"
     ],
@@ -1289,6 +1295,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.gateway_name | Body | String | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 이름 |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
@@ -1312,6 +1319,7 @@ X-Auth-Token: {tokenId}
 {
   "routingtable": {
     "gateway_id": "615d1cb1-fe54-4505-8a39-35faa6c868cd",
+    "gateway_name": "ig-162de82d-7301",
     "subnets": [],
     "name": "second_routingtable",
     "vpcs": [
@@ -1460,6 +1468,7 @@ X-Auth-Token: {tokenId}
 | routingtable.default_table | Body | Boolean | 기본 라우팅 테이블 여부 |
 | routingtable.distributed | Body | Boolean | 조회할 라우팅 테이블의 라우팅 방식<br>`true`: 분산형, `false`: 중앙 집중형 |
 | routingtable.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 ID |
+| routingtable.gateway_name | Body | String | 라우팅 테이블에 인터넷 게이트웨이가 연결된 경우 해당 인터넷 게이트웨이의 이름 |
 | routingtable.tenant_id | Body | String | 라우팅 테이블이 속한 테넌트 ID |
 | routingtable.state | Body | String | 라우팅 테이블의 상태. 현재는 `available` 상태만 존재 |
 | routingtable.vpcs | Body | Array | 라우팅 테이블이 속한 VPC 정보 객체 목록 |
@@ -1547,6 +1556,74 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+
+
+### 라우팅 테이블과 연관된 게이트웨이 정보 조회
+
+라우팅 테이블에 설정된 라우팅 정책을 통해 패킷이 도달할 수 있는 게이트웨이들의 정보를 반환합니다.
+
+```
+GET /v2.0/routingtables/{routingtableId}/related_gateways
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routingtableId | URL | UUID | O | 연관된 게이트웨이 정보를 조회할 라우팅 테이블 ID |
+| tokenId | Header | String | O | 토큰 ID |
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| gateways | Body | Array | 라우팅 테이블과 연관된 게이트웨이 정보 목록 |
+| gateways.id | Body | UUID | 게이트웨이의 ID |
+| gateways.type | Body | String | 게이트웨이의 타입 |
+| gateways.name | Body | String | 게이트웨이의 이름 | 
+
+
+`gateways.type`에 올 수 있는 값들과 각 값에 대한 설명은 다음과 같습니다.
+
+| gateways.type | 종류 | 콘솔에서 표기되는 문자열 |
+| --- | --- | --- |
+| `goblin:transition` | 트랜짓 게이트웨이 | TRANSIT_GATEWAY |
+| `goblin:colocation_gateway` | 코로케이션 게이트웨이 | TRANSIT_GATEWAY |
+| `goblin:peering` | VPC 피어링 게이트웨이 | PEERING |
+| `goblin:inter_project_peering` | 프로젝트 간 피어링 게이트웨이 |  INTER_PROJECT_PEERING |
+| `goblin:inter_region_peering` | 리전 간 피어링 게이트웨이 | INTER_REGION_PEERING |
+| `goblin:natgateway` | NAT 게이트웨이 | NAT_GATEWAY |
+| `goblin:vpngateway` | VPN 게이트웨이 | VPN_GATEWAY |
+| `goblin:asterisk` | 트랜짓 허브 연결 | TRANSIT_HUB_ATTACHMENT | 
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "gateways": [
+    {
+      "type": "goblin:natgateway",
+      "id": "8e2e97e3-4cff-461c-97f3-297f0b23025e",
+      "name": "Test NAT Gateway"
+    },
+    {
+      "type": "goblin:peering",
+      "id": "2057f51f-75c1-40f2-bfd7-77c4a4c366a9",
+      "name": "Test Peering"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
 
 ## 라우트
 ### 라우트 목록 보기
