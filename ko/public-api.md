@@ -1659,6 +1659,7 @@ X-Auth-Token: {tokenId}
 | routes.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
 | routes.gateway | Body | String | 라우트 게이트웨이 IP. 로컬 라우트인 경우 "local" |
 | routes.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이를 연결하여 자동으로 생성된 라우트인 경우, 인터넷 게이트웨이의 ID |
+| route.description | Body | String | 라우트 설명 | 
 | routes.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -1727,6 +1728,7 @@ X-Auth-Token: {tokenId}
 | route.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
 | route.gateway | Body | String | 라우트 게이트웨이 IP. 로컬 라우트인 경우 "local" |
 | route.gateway_id | Body | UUID | 라우팅 테이블에 인터넷 게이트웨이를 연결하여 자동으로 생성된 라우트인 경우, 인터넷 게이트웨이의 ID |
+| route.description | Body | String | 라우트 설명 | 
 | route.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -1766,6 +1768,7 @@ X-Auth-Token: {tokenId}
 | routingtable_id | Body | UUID | O | 라우트를 추가할 라우팅 테이블 ID |
 | cidr | Body | String | O | 라우트 목적지 CIDR |
 | gateway| Body | String | O | 라우트 게이트웨이 IP |
+| description | Body | String | O | 라우트 설명. 최대 256bytes | 
 
 <details><summary>예시</summary>
 <p>
@@ -1792,6 +1795,7 @@ X-Auth-Token: {tokenId}
 | route.cidr | Body | String | 라우트 목적지 CIDR | 
 | route.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
 | route.gateway | Body | String | 라우트 게이트웨이 IP |
+| route.description | Body | String | 라우트 설명 | 
 | route.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -1812,6 +1816,58 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
+### 라우트 변경하기
+
+지정한 라우트를 변경합니다. 변경 가능한 항목은 `cidr`, `gateway`, `description` 이며, `gateway` 항목이 "local" 이거나, 인터넷 게이트웨이 연결로 인해 자동으로 추가된 라우트(`gateway_id` 값 존재)는 변경할 수 없습니다.
+
+```
+PUT /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 변경할 라우트 ID |
+| tokenId | Header | String | O | 토큰 ID |
+| cidr | Body | String | X | 라우트 목적지 CIDR |
+| gateway| Body | String | X | 라우트 게이트웨이 IP |
+| description | Body | String | X | 라우트 설명. 최대 256bytes | 
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| route | Body | Array | 라우트 정보 객체 |
+| route.id | Body | UUID | 라우트 ID |
+| route.cidr | Body | String | 라우트 목적지 CIDR | 
+| route.mask | Body | Integer | 라우트 목적지 CIDR의 넷마스크 |
+| route.gateway | Body | String | 라우트 게이트웨이 IP |
+| route.description | Body | String | 라우트 설명 | 
+| route.tenant_id | Body | String | 라우트가 속한 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+  }
+}
+```
+
+</p>
+</details>
+
 
 ### 라우트 삭제하기
 
