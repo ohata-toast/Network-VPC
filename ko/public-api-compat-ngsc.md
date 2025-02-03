@@ -1,14 +1,27 @@
-## Network > VPC > API v2 가이드
+## Network > VPC > Openstack 호환 API 가이드
+
+NHN Cloud Network 서비스는 Openstack Neutron API와 호환되는 API를 제공합니다. 
+제공하는 Openstack 호환 API는 다음과 같습니다.
+
+| Openstack API 메서드 | 용도 |
+| --- | --- |
+| GET networks | 네트워크 목록 보기 |
+| GET subnets | 서브넷 목록 보기 |
+| GET ports | 포트 목록 보기 |
+| POST port | 포트 생성하기 |
+| PUT port | 포트 변경하기 |
+| DELETE port | 포트 삭제하기 |
+
+OpenStack 호환 API의 요청 및 응답에 포함되는 필드는 OpenStack Neutron API가 제공하는 항목 중 NHN Cloud의 정책에 따라 본 문서에 명시된 항목으로 제한됩니다.
 
 API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api-ngsc/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
-VPC API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+Openstack 호환 API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
 | network | 한국(판교) 리전 | https://kr1-api-network-infrastructure.gncloud.go.kr  |
 
-API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
 ## 네트워크
 ### 네트워크 목록 보기
