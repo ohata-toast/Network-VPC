@@ -379,13 +379,13 @@ X-Auth-Token: {tokenId}
 | port.fixed_ips.subnet_id | Body | UUID | - | 고정 IP를 할당할 서브넷 ID |
 | port.fixed_ips.ip_address | Body | String | - | 고정 IP 주소 |
 | port.port_security_enabled | Body | Boolean | - | 포트 보안 사용 여부. 기본값 `true` | 
-| port.security_groups | Body | Array | - | 포트의 보안 그룹 ID 목록 |
-| port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록 |
+| port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 **default** 보안 그룹의 ID<br>포트 보안 사용 시 설정 가능 |
+| port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
 | port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
 | port.device_owner | Body | String | - | 포트를 사용하는 리소스 종류 |
-| port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip` 로 지정한다. |
+| port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip` 로 지정 |
 
 <details><summary>예시</summary>
 <p>
@@ -477,9 +477,9 @@ X-Auth-Token: {tokenId}
 | port.fixed_ips | Body | Array | - | 포트의 고정 IP 목록 |
 | port.fixed_ips.subnet_id | Body | UUID | - | 고정 IP를 할당할 서브넷 ID |
 | port.fixed_ips.ip_address | Body | String | - | 고정 IP 주소 |
-| port.port_security_enabled | Body | Boolean | - | 포트 보안 사용 여부 | 
-| port.security_groups | Body | Array | - | 포트의 보안 그룹 ID 목록 |
-| port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록 |
+| port.port_security_enabled | Body | Boolean | - | 포트 보안 사용 여부.<br>보안 그룹 및 허용 주소 쌍이 모두 제거된 이후 `false`로 변경 가능 | 
+| port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
+| port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
 | port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
