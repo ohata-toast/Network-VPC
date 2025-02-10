@@ -1675,7 +1675,8 @@ X-Auth-Token: {tokenId}
       "gateway": "local",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "172.16.0.0/16",
-      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf",
+      "description": null
     },
     {
       "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
@@ -1683,7 +1684,8 @@ X-Auth-Token: {tokenId}
       "gateway": "172.16.10.19",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "192.168.0.0/24",
-      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+      "description": "description text"
     },
     {
       "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
@@ -1692,7 +1694,8 @@ X-Auth-Token: {tokenId}
       "gateway": "100.127.64.9",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "0.0.0.0/0",
-      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7",
+      "description": null
     }
   ]
 }
@@ -1743,7 +1746,8 @@ X-Auth-Token: {tokenId}
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
@@ -1779,7 +1783,8 @@ X-Auth-Token: {tokenId}
   "route": {
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
     "cidr": "192.168.0.0/24", 
-    "gateway": "172.16.10.19"
+    "gateway": "172.16.10.19",
+    "description": "description text"
   }
 }
 ```
@@ -1810,7 +1815,8 @@ X-Auth-Token: {tokenId}
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
@@ -1837,6 +1843,22 @@ X-Auth-Token: {tokenId}
 | gateway| Body | String | X | 라우트 게이트웨이 IP |
 | description | Body | String | X | 라우트 설명. 최대 256bytes | 
 
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "route": {
+    "gateway": "172.16.10.19",
+    "cidr": "192.168.0.0/24",
+    "description": "description text"
+  }
+}
+```
+
+</p>
+</details>
+
 
 #### 응답
 
@@ -1861,7 +1883,8 @@ X-Auth-Token: {tokenId}
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
