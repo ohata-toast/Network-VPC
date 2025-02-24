@@ -1,6 +1,6 @@
 ## Network > VPC > Openstack 호환 API 가이드
 
-NHN Cloud Network 서비스는 Openstack Neutron API와 호환되는 API를 제공합니다. 
+NHN Cloud Network 서비스는 OpenStack neutron API와 호환되는 API를 제공합니다. 
 제공하는 Openstack 호환 API는 다음과 같습니다.
 
 | Openstack API 메서드 | 용도 |
@@ -12,7 +12,7 @@ NHN Cloud Network 서비스는 Openstack Neutron API와 호환되는 API를 제�
 | PUT port | 포트 변경하기 |
 | DELETE port | 포트 삭제하기 |
 
-OpenStack 호환 API의 요청 및 응답에 포함되는 필드는 OpenStack Neutron API가 제공하는 항목 중 NHN Cloud의 정책에 따라 본 문서에 명시된 항목으로 제한됩니다.
+OpenStack 호환 API의 요청 및 응답에 포함되는 필드는 OpenStack neutron API가 제공하는 항목 중 NHN Cloud의 정책에 따라 본 문서에 명시된 항목으로 제한됩니다.
 
 API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api-gov/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
@@ -210,7 +210,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | id | Query | UUID | - | 조회할 포트 ID |
-| status | Query | Enum | - | 조회할 포트 상태<br>**ACTIVE**, **BUILD**, **DOWN** 중 하나. |
+| status | Query | Enum | - | 조회할 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | name | Query | String | - | 조회할 포트 이름 |
 | admin_state | Query | Boolean | - | 조회할 포트의 관리자 제어 상태 |
 | network_id | Query | UUID | - | 조회할 포트의 네트워크 ID |
@@ -228,12 +228,12 @@ X-Auth-Token: {tokenId}
 | ports | Body | Array | 포트 정보 객체 목록 |
 | ports.id | Body | UUID | 포트의 ID |
 | ports.name | Body | String | 포트 이름 |
-| ports.status | Body | Enum | 포트 상태<br>**ACTIVE**, **BUILD**, **DOWN** 중 하나. |
+| ports.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | ports.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | ports.network_id | Body | UUID | 포트의 네트워크 ID |
 | ports.tenant_id | Body | String | 테넌트 ID |
 | ports.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
-| ports.binding:vnic_type | Body | String | 포트에 연결된 vNIC의 타입 |
+| ports.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
 | ports.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
 | ports.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
 | ports.mac_address | Body | String | 포트의 MAC 주소 |
@@ -306,12 +306,12 @@ X-Auth-Token: {tokenId}
 | port | Body | Array | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>**ACTIVE**, **BUILD**, **DOWN** 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
 | port.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
-| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC의 타입 |
+| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
 | port.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
 | port.mac_address | Body | String | 포트의 MAC 주소 |
@@ -380,13 +380,13 @@ X-Auth-Token: {tokenId}
 | port.fixed_ips.subnet_id | Body | UUID | - | 고정 IP를 할당할 서브넷 ID |
 | port.fixed_ips.ip_address | Body | String | - | 고정 IP 주소 |
 | port.port_security_enabled | Body | Boolean | - | 포트 보안 사용 여부. 기본값 `true` | 
-| port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 **default** 보안 그룹의 ID<br>포트 보안 사용 시 설정 가능 |
+| port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 `default 보안 그룹의 ID`<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
 | port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
 | port.device_owner | Body | String | - | 포트를 사용하는 리소스 종류 |
-| port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip` 로 지정 |
+| port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip`로 지정 |
 
 <details><summary>예시</summary>
 <p>
@@ -411,12 +411,12 @@ X-Auth-Token: {tokenId}
 | port | Body | Array | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>**ACTIVE**, **BUILD**, **DOWN** 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
 | port.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
-| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC의 타입 |
+| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
 | port.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
 | port.mac_address | Body | String | 포트의 MAC 주소 |
@@ -507,12 +507,12 @@ X-Auth-Token: {tokenId}
 | port | Body | Array | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>**ACTIVE**, **BUILD**, **DOWN** 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
 | port.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
-| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC의 타입 |
+| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
 | port.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
 | port.mac_address | Body | String | 포트의 MAC 주소 |

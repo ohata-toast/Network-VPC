@@ -1825,7 +1825,7 @@ X-Auth-Token: {tokenId}
 
 ### 라우트 변경하기
 
-지정한 라우트를 변경합니다. 변경 가능한 항목은 `cidr`, `gateway`, `description` 이며, `gateway` 항목이 "local" 이거나, 인터넷 게이트웨이 연결로 인해 자동으로 추가된 라우트(`gateway_id` 값 존재)는 변경할 수 없습니다.
+지정한 라우트를 변경합니다. 변경 가능한 항목은 `cidr`, `gateway`, `description`이며, `gateway` 항목이 "local" 이거나, 인터넷 게이트웨이 연결로 인해 자동으로 추가된 라우트(`gateway_id` 값 존재)는 변경할 수 없습니다.
 
 ```
 PUT /v2.0/routes/{routeId}
