@@ -1,9 +1,9 @@
-## Network > VPC > Openstack 호환 API 가이드
+## Network > VPC > OpenStack 호환 API 가이드
 
 NHN Cloud Network 서비스는 OpenStack neutron API와 호환되는 API를 제공합니다. 
-제공하는 Openstack 호환 API는 다음과 같습니다.
+제공하는 OpenStack 호환 API는 다음과 같습니다.
 
-| Openstack API 메서드 | 용도 |
+| OpenStack API 메서드 | 용도 |
 | --- | --- |
 | GET networks | 네트워크 목록 보기 |
 | GET subnets | 서브넷 목록 보기 |
@@ -16,7 +16,7 @@ OpenStack 호환 API의 요청 및 응답에 포함되는 필드는 OpenStack ne
 
 API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
-Openstack 호환 API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+OpenStack 호환 API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
@@ -52,7 +52,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | networks | Body | Array | 네트워크 정보 객체 목록 |
-| networks.status | Body | Enum | 네트워크 상태<br>**ACTIVE**, **DOWN**, **BUILD**, **ERROR** 중 하나. |
+| networks.status | Body | Enum | 네트워크 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
 | networks.subnets | Body | Array | 네트워크에 속한 서브넷들의 ID 목록 |
 | networks.name | Body | String | 네트워크 이름 |
 | networks.router:external | Body | Boolean | 네트워크 외부 연결 여부 |
