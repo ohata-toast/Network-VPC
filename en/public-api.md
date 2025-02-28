@@ -1659,6 +1659,7 @@ This API does not require a request body.
 | routes.mask | Body | Integer | Netmask of route destination CIDR |
 | routes.gateway | Body | String | Route Gateway IP. "local" for a local route |
 | routes.gateway_id | Body | UUID | The ID of the internet gateway, if the route was created automatically by attaching the internet gateway to the route table. |
+| route.description | Body | String | Route description | 
 | routes.tenant_id | Body | String | Tenant ID that route belongs to |
 
 <details><summary>Example</summary>
@@ -1672,8 +1673,9 @@ This API does not require a request body.
       "mask": 16,
       "gateway": "local",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
-      "cidr": "172.16.0.0/16",
-      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+      "cidr": "172.16.0.0/16",      
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf",
+      "description": null
     },
     {
       "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
@@ -1681,7 +1683,8 @@ This API does not require a request body.
       "gateway": "172.16.10.19",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "192.168.0.0/24",
-      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+      "description": "description text"
     },
     {
       "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
@@ -1690,7 +1693,8 @@ This API does not require a request body.
       "gateway": "100.127.64.9",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "0.0.0.0/0",
-      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7",
+      "description": null
     }
   ]
 }
@@ -1727,6 +1731,7 @@ This API does not require a request body.
 | route.mask | Body | Integer | Netmask of route destination CIDR |
 | route.gateway | Body | String | Route Gateway IP. "local" for a local route |
 | route.gateway_id | Body | UUID | The ID of the internet gateway, if the route was created automatically by attaching the internet gateway to the route table. |
+| route.description | Body | String | Route description | 
 | route.tenant_id | Body | String | Tenant ID that route belongs to |
 
 <details><summary>Example</summary>
@@ -1740,7 +1745,8 @@ This API does not require a request body.
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
@@ -1766,6 +1772,7 @@ X-Auth-Token: {tokenId}
 | routingtable_id | Body | UUID | O | Routing table ID to add a route |
 | cidr | Body | String | O | Route destination CIDR |
 | gateway| Body | String | O | Route gateway IP |
+| description | Body | String | O | Route description. Up to  256bytes | 
 
 <details><summary>Example</summary>
 <p>
@@ -1775,7 +1782,8 @@ X-Auth-Token: {tokenId}
   "route": {
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
     "cidr": "192.168.0.0/24", 
-    "gateway": "172.16.10.19"
+    "gateway": "172.16.10.19",
+    "description": "description text"
   }
 }
 ```
@@ -1805,13 +1813,83 @@ X-Auth-Token: {tokenId}
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
 
 </p>
 </details>
+
+### Change Route
+
+Changes the specified route. The items that can be changed are `cidr`, `gateway`, and `description`; you cannot change a route whose `gateway` entry is "local" or that was automatically added due to internet gateway attachments (`gateway_id` value exists).
+
+```
+PUT /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | Route ID to change |
+| tokenId | Header | String | O | Token ID |
+| cidr | Body | String | X | Route destination CIDR |
+| gateway| Body | String | X | Route gateway IP |
+| description | Body | String | X | Route description. Up to 256 bytes | 
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "route": {
+    "gateway": "172.16.10.19",
+    "cidr": "192.168.0.0/24",
+    "description": "description text"
+  }
+}
+```
+
+</p>
+</details>
+
+
+#### Response
+
+| Name | Type | Format | Description |
+| --- | --- | --- | --- |
+| route | Body | Array | Route information object |
+| route.id | Body | UUID | Route ID |
+| route.cidr | Body | String | Route destination CIDR | 
+| route.mask | Body | Integer | Netmask of route destination CIDR |
+| route.gateway | Body | String | Route gateway IP |
+| route.description | Body | String | Route description | 
+| route.tenant_id | Body | String | Tenant ID which route belongs to |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
+  }
+}
+```
+
+</p>
+</details>
+
 
 ### Delete Route
 

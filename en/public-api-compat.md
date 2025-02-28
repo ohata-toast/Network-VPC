@@ -1,14 +1,27 @@
-## Network > VPC > API v2 Guide
+## Network > VPC > Openstack Compatible API Guide
+
+NHN Cloud Network services provide APIs compatible with OpenStack neutron APIs.
+The OpenStack-compatible APIs are provided as follows.
+
+| OpenStack API Methods | Usage |
+| --- | --- |
+| GET networks | List networks |
+| GET subnets | List subnets |
+| GET ports | List ports |
+| POST port | Create a port |
+| PUT port | Change a port |
+| DELETE port | Delete a port |
+
+The fields included in requests and responses from OpenStack-compatible APIs are limited to the fields specified in this document among those provided by the OpenStack neutron APIs in accordance with NHN Cloud policies.
 
 To use the API, you need the API endpoint and token. Prepare information required to use the API by referring to [API Preparations](/Compute/Compute/en/identity-api/)
 
-For VPC API, the `network` type endpoint is used. For more details, see `serviceCatalog` from the response of token issuance.
+For Openstack compatible APIs, the `network` type endpoint is used. For more details, see `serviceCatalog` from the response of token issuance.
 
 | Type | Region | Endpoint |
 |---|---|---|
 | network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan (Tokyo) Region<br>USA (California) Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
-Fields not specified in the guide may appear in API responses. These fields are used for internal use by NHN Cloud and are subject to change without prior notice, so we advise you not to use them.
 
 ## Network
 ### List Networks
@@ -196,15 +209,14 @@ This API does not require a request body.
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | id | Query | UUID | - | ID of port IP to query |
-| status | Query | Enum | - | Port status to query<br>Either **ACTIVE** or **DOWN**. |
-| display_name | Query | UUID | - | Port name to query |
+| status | Query | Enum | - | Port status to query<br>Either `ACTIVE`, `BUILD` or `DOWN`. |
+| name | Query | String | - | Port name to query |
 | admin_state | Query | Boolean | - | Administrator control status of port to query |
 | network_id | Query | UUID | - | Network ID of port to query |
 | tenant_id | Query | String | - | Tenant ID of port to query |
-| device_owner | Query | String | - | Resource type for the port to query |
+| fixed_ips | Query | array | - | Fixed IP information of the port to query<br>Filterable by IP address (`ip_address`), IP address partial (`ip_address_substr`), or subnet ID (`subnet_id`) |
 | mac_address | Query | String | - | MAC address of port to query |
-| port_id | Query | UUID | - | ID of port to query |
-| security_groups | Query | UUID | - | Security group ID of port to query |
+| device_owner | Query | String | - | Type of resource that uses the port to query |
 | device_id | Query | UUID | - | Resource ID for the port to query |
 | fields | Query | String | - | Field name of port to query<br>e.g.) `fields=id&fields=name` |
 
@@ -213,23 +225,22 @@ This API does not require a request body.
 | Name | Type | Format | Description |
 |---|---|---|---|
 | ports | Body | Array | List of port information objects |
-| ports.status | Body | Enum | Port status<br>Either **ACTIVE** or **DOWN**. |
+| ports.id | Body | UUID | Port ID |
 | ports.name | Body | String | Port name |
-| ports.allowed_address_pairs | Body | Array | List of address pairs of port |
+| ports.status | Body | Enum | Port status<br>One of `ACTIVE`, `BUILD`, or `DOWN`|
 | ports.admin_state_up | Body | Boolean | Admin control status of port |
 | ports.network_id | Body | UUID | Network ID of port |
 | ports.tenant_id | Body | String | Tenant ID |
-| ports.extra_dhcp_opts | Body | Array | Additional DHCP setting |
-| ports.binding:vnic_type | Body | String | Port type |
+| ports.extra_dhcp_opts | Body | Array | Additional DHCP option |
+| ports.binding:vnic_type | Body | String | vNIC type connected to the port |
 | ports.device_owner | Body | String | Resource type using port |
+| ports.device_id | Body | UUID | Resource ID of the resource using the port|
 | ports.mac_address | Body | String | MAC address of port |
-| ports.port_security_enabled | Body | Boolean | Security status of port<br>If enabled, available to be applied to security group |
-| ports.fixed_ips | Body | Array | List of fixed IPs of port |
-| ports.fixed_ips.subnet_id | Body | UUID | Subnet ID of fixed IP of port |
-| ports.fixed_ips.ip_address | Body | String | Fixed IP address of port |
-| ports.id | Body | UUID | Port ID |
-| ports.security_groups | Body | Array | List of security group IDs of port |
-| ports.device_id | Body | UUID | Resource ID using port |
+| ports.fixed_ips.subnet_id | Body | UUID | Subnet ID to which the fixed IP belongs |
+| ports.fixed_ips.ip_address | Body | String | Fixed IP address |
+| ports.port_security_enabled | Body | Boolean | Security status of the port<br>If enabled, you can set security group, allowed address pairs |
+| ports.security_groups | Body | Array | List of security group IDs set on the port |
+| ports.allowed_address_pairs | Body | Array | List of allowed address pairs set on the port |
 
 <details><summary>Example</summary>
 <p>
@@ -290,24 +301,23 @@ This API does not require a request body.
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| port | Body | Object | Port information object |
-| port.status | Body | Enum | Port status<br>Either **ACTIVE** or **DOWN** |
+|  port | Body | Array | Port information object |
+| port.id | Body | UUID | Port ID |
 | port.name | Body | String | Port name |
-| port.allowed_address_pairs | Body | Array | List of address pairs of port |
+| port.status | Body | Enum | Port status<br>One of `ACTIVE`, `BUILD`, or `DOWN`. |
 | port.admin_state_up | Body | Boolean | Admin control status of port |
 | port.network_id | Body | UUID | Network ID of port |
 | port.tenant_id | Body | String | Tenant ID |
-| port.extra_dhcp_opts | Body | Array | Additional DHCP setting |
-| port.binding:vnic_type | Body | String | Port type |
+| port.extra_dhcp_opts | Body | Array | Additional DHCP option |
+| port.binding:vnic_type | Body | String | vNIC type connected to the port |
 | port.device_owner | Body | String | Resource type using port |
+| port.device_id | Body | UUID | Resource ID using the port |
 | port.mac_address | Body | String | MAC address of port |
-| port.port_security_enabled | Body | Boolean | Security status of port<br>If enabled, available to be applied to security group |
-| port.fixed_ips | Body | Array | List of fixed IPs of port |
-| port.fixed_ips.subnet_id | Body | UUID | Subnet ID of fixed IP of port |
-| port.fixed_ips.ip_address | Body | String | Fixed IP address of port |
-| port.id | Body | UUID | Port ID |
-| port.security_groups | Body | Array | List of security group IDs of port |
-| port.device_id | Body | UUID | Resource ID using port |
+| port.fixed_ips.subnet_id | Body | UUID | Subnet ID to which the fixed IP belongs |
+| port.fixed_ips.ip_address | Body | String | Fixed IP address |
+| port.port_security_enabled | Body | Boolean | Port security status<br>If enabled, you can set security groups and allowed address pairs |
+| port.security_groups | Body | Array | List of security group IDs set on the port |
+| port.allowed_address_pairs | Body | Array | List of allowed address pairs set on the port |
 
 <details><summary>Example</summary>
 <p>
@@ -361,19 +371,17 @@ X-Auth-Token: {tokenId}
 | port | Body | Object | O | Object requesting of creating a port |
 | port.name | Body | String | - | Port name |
 | port.network_id | Body | UUID | O | Network ID of port |
-| port.admin_state_up | Body | Boolean | - | Admin control status of port |
-| port.mac_address | Body | String | - | MAC address of port |
-| port.port_id | Body | UUID | - | ID of port associated with floating IP |
-| port.fixed_ips | Body | Array | - | List of fixed IPs of port |
-| port.fixed_ips.subnet_id | Body | UUID | - | Subnet ID of fixed IP of port |
-| port.fixed_ips.ip_address | Body | String | - | Fixed IP address of port |
-| port.security_groups | Body | Array | - | List of security group IDs of port |
-| port.allowed_address_pairs | Body | Array | - | List of address pairs of port |
-| port.allowed_address_pairs.ip_address | Body | String | - | IP address of port |
-| port.allowed_address_pairs.mac_address | Body | String | - | MAC address of port |
-| port.extra_dhcp_opts | Body | Array | - | Additional DHCP setting |
+| port.admin_state_up | Body | Boolean | - | Admin control status of port. Default `true` |
+| port.fixed_ips.subnet_id | Body | UUID | - | Subnet ID to assign a fixed IP to |
+| port.fixed_ips.ip_address | Body | String | - | Fixed IP address|
+| port.port_security_enabled | Body | Boolean | - | Whether to enable port security. Default `true` | 
+| port.security_groups | Body | Array | - | A list of security group IDs to set on the port. Default `default security group's ID`<br>Settable when port security is enabled |
+| port.allowed_address_pairs | Body | Array | - | List of allowed address pairs for the port<br>Settable when port security is enabled |
+| port.allowed_address_pairs.ip_address | Body | String | - | IP address to allow |
+| port.allowed_address_pairs.mac_address | Body | String | - | MAC address to allow |
+| port.extra_dhcp_opts | Body | Array | - | Additional DHCP option |
 | port.device_owner | Body | String | - | Resource type using port |
-| port.device_id | Body | UUID | - | Resource ID using port |
+| port.device_id | Body | UUID | - | Resource ID using port. Specify as `network:virtual_ip` when using as a virtual IP|
 
 <details><summary>Example</summary>
 <p>
@@ -396,23 +404,24 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Description |
 |---|---|---|---|
 | port | Body | Array | Port information object |
-| port.status | Body | Enum | Port status<br>Either **ACTIVE** or **DOWN** |
+| port.id | Body | UUID | Port ID |
 | port.name | Body | String | Port name |
-| port.allowed_address_pairs | Body | Array | List of address pairs of port |
+| port.status | Body | Enum | Port status<br>One of `ACTIVE`, `BUILD`, or `DOWN`.. |
 | port.admin_state_up | Body | Boolean | Admin control status of port |
 | port.network_id | Body | UUID | Network ID of port |
 | port.tenant_id | Body | String | Tenant ID |
-| port.extra_dhcp_opts | Body | Array | Additional DHCP setting |
-| port.binding:vnic_type | Body | String | Port type |
+| port.extra_dhcp_opts | Body | Array | Additional DHCP option |
+| port.binding:vnic_type | Body | String | vNIC type connected to the port |
 | port.device_owner | Body | String | Resource type using port |
+| port.device_id | Body | UUID | Resource ID using the port|
 | port.mac_address | Body | String | MAC address of port |
-| port.port_security_enabled | Body | Boolean | Security status of port<br>If enabled, available to be applied to security group |
 | port.fixed_ips | Body | Array | List of fixed IPs of port |
-| port.fixed_ips.subnet_id | Body | UUID | Subnet ID of fixed IP of port |
-| port.fixed_ips.ip_address | Body | String | Fixed IP address of port |
-| port.id | Body | UUID | Port ID |
-| port.security_groups | Body | Array | List of security group IDs of port |
-| port.device_id | Body | UUID | Resource ID using port |
+| port.fixed_ips.subnet_id | Body | UUID | Subnet ID to which the fixed IP belongs |
+| port.fixed_ips.ip_address | Body | String | Fixed IP address |
+| port.port_security_enabled | Body | Boolean | Security status of the port<br>If enabled, you can set security group, allowed address pairs |
+| port.security_groups | Body | Array | List of security group IDs set on the port |
+| port.allowed_address_pairs | Body | Array | List of allowed address pairs set on the port |
+
 
 <details><summary>Example</summary>
 <p>
@@ -447,6 +456,115 @@ X-Auth-Token: {tokenId}
 </details>
 
 ---
+
+### Change Port
+Changes the properties of the specified port.
+```
+PUT /v2.0/ports/{portId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| port | Body | Object | O | Object requesting of creating a port |
+| port.name | Body | String | - | Port name |
+| port.admin_state_up | Body | Boolean | - | Admin control status of port |
+| port.fixed_ips | Body | Array | - | List of fixed IPs of port |
+| port.fixed_ips.subnet_id | Body | UUID | - | Subnet ID to which a static IP is assigned |
+| port.fixed_ips.ip_address | Body | String | - | Fixed IP address |
+| port.port_security_enabled | Body | Boolean | - | Whether to enable port security.<br>Can be changed to `false` after both security group and allow address pairs are removed | 
+| port.security_groups | Body | Array | - | List of security group IDs to set on the port. If you enter an empty list, remove all<br>Can be set when port security is enabled |
+| port.allowed_address_pairs | Body | Array | - | List of allowed address pairs for the port. Remove all when entering an empty list<br>Can be set when port security is enabled |
+| port.allowed_address_pairs.ip_address | Body | String | - | IP addresses to allow |
+| port.allowed_address_pairs.mac_address | Body | String | - | MAC addresses to allow |
+| port.extra_dhcp_opts | Body | Array | - | Additional DHCP option |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+    "port": {
+        "name": "private-port",
+        "admin_state_up": true
+    }
+}
+```
+
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| port | Body | Array | Port information object |
+| port.id | Body | UUID | Port ID |
+| port.name | Body | String | Port name |
+| port.status | Body | Enum | Port status<br>One of `ACTIVE`, `BUILD`, or `DOWN`. |
+| port.admin_state_up | Body | Boolean | Admin control status of port |
+| port.network_id | Body | UUID | Network ID of port |
+| port.tenant_id | Body | String | Tenant ID |
+| port.extra_dhcp_opts | Body | Array | Additional DHCP option |
+| port.binding:vnic_type | Body | String | Type of vNIC connected to the port |
+| port.device_owner | Body | String | Resource type using port |
+| port.device_id | Body | UUID | Resource ID using port |
+| port.mac_address | Body | String | MAC address of port |
+| port.fixed_ips | Body | Array | List of fixed IPs of port |
+| port.fixed_ips.subnet_id | Body | UUID | Subnet ID to which the static IP belongs |
+| port.fixed_ips.ip_address | Body | String | Fixed IP address |
+| port.port_security_enabled | Body | Boolean | Security status of port<br>If enabled, you can set security groups and allowable address pairs |
+| port.security_groups | Body | Array | List of security group IDs set on the port |
+| port.allowed_address_pairs | Body | Array | List of allowed address pairs set on the port |
+
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+    "port": {
+        "status": "DOWN",
+        "name": "private-port",
+        "allowed_address_pairs": [],
+        "admin_state_up": true,
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "device_owner": "",
+        "mac_address": "fa:16:3e:c9:cb:f0",
+        "fixed_ips": [
+            {
+                "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                "ip_address": "10.0.0.2"
+            }
+        ],
+        "id": "65c0ee9f-d634-4522-8954-51021b570b0d",
+        "security_groups": [ [
+            "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+        ],
+        "device_id": ""
+    }
+}
+```
+
+</p>
+</details>
+
+### Delete a port
+
+```
+
+```
+
+#### Request
+
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+|  |  | UUID | O |  |
+| tokenId | Header | String | O | Token ID |
 
 ### Delete Port
 Deletes a specified port.
