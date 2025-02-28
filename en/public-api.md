@@ -1824,7 +1824,7 @@ X-Auth-Token: {tokenId}
 
 ### Change Route
 
-Changes the specified route. The items that can be changed are `cidr`, `gateway`, and `description`; you cannot change a route whose `gateway` entry is "local" or that was automatically added due to internet gateway attachments `(gateway_id` value exists).
+Changes the specified route. The items that can be changed are `cidr`, `gateway`, and `description`; you cannot change a route whose `gateway` entry is "local" or that was automatically added due to internet gateway attachments (`gateway_id` value exists).
 
 ```
 PUT /v2.0/routes/{routeId}
