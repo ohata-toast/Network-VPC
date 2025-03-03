@@ -1,14 +1,27 @@
-## Network > VPC > API v2ガイド
+## Network > VPC > Openstack互換APIガイド
+
+NHN Cloud NetworkサービスはOpenStack neutron APIと互換性のあるAPIを提供します。 
+提供するOpenstack互換APIは次のとおりです。
+
+| Openstack APIメソッド | 用途 |
+| --- | --- |
+| GET networks | ネットワークリスト表示 |
+| GET subnets | サブネットリスト表示 |
+| GET ports | ポートリスト表示 |
+| POST port | ポートを作成する |
+| PUT port | ポートを変更する |
+| DELETE port | ポートを削除する |
+
+OpenStack互換APIのリクエスト及びレスポンスに含まれるフィールドはOpenStack neutron APIが提供する項目のうち、NHN Cloudのポリシーに基づき、文書に明示された項目に制限されます。
 
 APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](https://docs.toast.com/ja/Compute/Compute/ja/identity-api/)を参照してAPIを使用するのに必要な情報を準備します。
 
-VPC APIは`network`タイプエンドポイントを利用します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
+Openstack互換APIは`network`タイプエンドポイントを利用します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
 | network | 韓国(パンギョ)リージョン<br>韓国(ピョンチョン)リージョン<br>日本(東京)リージョン<br>米国(カリフォルニア)リージョン | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
-APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。それらのフィールドは、NHN Cloud内部用途で使用され、事前に告知せずに変更する場合があるため使用しないでください。
 
 ## ネットワーク
 ### ネットワークリスト表示
@@ -195,16 +208,15 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
-| id | Query | UUID | - | 照会するポートIP ID |
-| status | Query | Enum | - | 照会するポート状態<br>**ACTIVE**、**DOWN**のいずれか。 |
-| display_name | Query | UUID | - | 照会するポート名 |
+| id | Query | UUID | - | 照会するポートID |
+| status | Query | Enum | - | 照会するポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
+| name | Query | String | - | 照会するポート名 |
 | admin_state | Query | Boolean | - | 照会するポートの管理者制御状態 |
 | network_id | Query | UUID | - | 照会するポートのネットワークID |
 | tenant_id | Query | String | - | 照会するポートのテナントID |
-| device_owner | Query | String | - | 照会するポートを使用するリソースの種類 |
+| fixed_ips | Query | array | - | 照会するポートの固定IP情報。<br>IPアドレス(`ip_address`), IPアドレス一部(`ip_address_substr`)、サブネットID(`subnet_id`)でフィルタリング可能 | 
 | mac_address | Query | String | - | 照会するポートのMACアドレス |
-| port_id | Query | UUID | - | 照会するポートのID |
-| security_groups | Query | UUID | - | 照会するポートのセキュリティグループID |
+| device_owner | Query | String | - | 照会するポートを使用するリソースの種類 |
 | device_id | Query | UUID | - | 照会するポートを使用するリソースID |
 | fields | Query | String | - | 照会するポートのフィールド名<br>例) `fields=id&fields=name` |
 
@@ -213,23 +225,23 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | ports | Body | Array | ポート情報オブジェクトリスト |
-| ports.status | Body | Enum | ポート状態<br>**ACTIVE**、**DOWN**のいずれか。 |
+| ports.id | Body | UUID | ポートのID |
 | ports.name | Body | String | ポート名 |
-| ports.allowed_address_pairs | Body | Array | ポートのアドレスペアリスト |
+| ports.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
 | ports.admin_state_up | Body | Boolean | ポートの管理者制御状態 |
 | ports.network_id | Body | UUID | ポートのネットワークID |
 | ports.tenant_id | Body | String | テナントID |
-| ports.extra_dhcp_opts | Body | Array | 追加DHCP設定 |
-| ports.binding:vnic_type | Body | String | ポートタイプ |
+| ports.extra_dhcp_opts | Body | Array | 追加DHCPオプション |
+| ports.binding:vnic_type | Body | String | ポートに接続されたvNICタイプ |
 | ports.device_owner | Body | String | ポートを使用するリソースの種類 |
-| ports.mac_address | Body | String | ポートのMACアドレス |
-| ports.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>アクティブの場合、セキュリティグループを適用可能 |
-| ports.fixed_ips | Body | Array | ポートの固定IPリスト |
-| ports.fixed_ips.subnet_id | Body | UUID | ポートの固定IPのサブネットID |
-| ports.fixed_ips.ip_address | Body | String | ポートの固定IPアドレス |
-| ports.id | Body | UUID | ポートのID |
-| ports.security_groups | Body | Array | ポートのセキュリティグループIDリスト |
 | ports.device_id | Body | UUID | ポートを使用するリソースID |
+| ports.mac_address | Body | String | ポートのMACアドレス |
+| ports.fixed_ips | Body | Array | ポートの固定IPリスト |
+| ports.fixed_ips.subnet_id | Body | UUID | 固定IPが属するサブネットID |
+| ports.fixed_ips.ip_address | Body | String | 固定IPアドレス |
+| ports.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>有効の場合、セキュリティグループ、許可アドレスペアを設定可能 |
+| ports.security_groups | Body | Array | ポートに設定されたセキュリティグループIDリスト |
+| ports.allowed_address_pairs | Body | Array | ポートに設定された許可アドレスのペアリスト |
 
 <details><summary>例</summary>
 <p>
@@ -290,24 +302,25 @@ X-Auth-Token: {tokenId}
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| port | Body | Object | ポート情報オブジェクト |
-| port.status | Body | Enum | ポート状態<br>**ACTIVE**、**DOWN**のいずれか |
+| port | Body | Array | ポート情報オブジェクト |
+| port.id | Body | UUID | ポートのID |
 | port.name | Body | String | ポート名 |
-| port.allowed_address_pairs | Body | Array | ポートのアドレスペアリスト |
+| port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
 | port.admin_state_up | Body | Boolean | ポートの管理者制御状態 |
 | port.network_id | Body | UUID | ポートのネットワークID |
 | port.tenant_id | Body | String | テナントID |
-| port.extra_dhcp_opts | Body | Array | 追加DHCP設定 |
-| port.binding:vnic_type | Body | String | ポートタイプ |
+| port.extra_dhcp_opts | Body | Array | 追加DHCPオプション |
+| port.binding:vnic_type | Body | String | ポートに接続されたvNICタイプ |
 | port.device_owner | Body | String | ポートを使用するリソースの種類 |
-| port.mac_address | Body | String | ポートのMACアドレス |
-| port.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>アクティブの場合、セキュリティグループを適用可能 |
-| port.fixed_ips | Body | Array | ポートの固定IPリスト |
-| port.fixed_ips.subnet_id | Body | UUID | ポートの固定IPのサブネットID |
-| port.fixed_ips.ip_address | Body | String | ポートの固定IPアドレス |
-| port.id | Body | UUID | ポートのID |
-| port.security_groups | Body | Array | ポートのセキュリティグループIDリスト |
 | port.device_id | Body | UUID | ポートを使用するリソースID |
+| port.mac_address | Body | String | ポートのMACアドレス |
+| port.fixed_ips | Body | Array | ポートの固定IPリスト |
+| port.fixed_ips.subnet_id | Body | UUID | 固定IPが属するサブネットID |
+| port.fixed_ips.ip_address | Body | String | 固定IPアドレス |
+| port.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>有効化の場合、セキュリティグループ、許可アドレスのペアを設定可能 |
+| port.security_groups | Body | Array | ポートに設定されたセキュリティグループIDリスト |
+| port.allowed_address_pairs | Body | Array | ポートに設定された許可アドレスのペアリスト |
+
 
 <details><summary>例</summary>
 <p>
@@ -361,19 +374,18 @@ X-Auth-Token: {tokenId}
 | port | Body | Object | O | ポート作成リクエストオブジェクト |
 | port.name | Body | String | - | ポート名 |
 | port.network_id | Body | UUID | O | ポートのネットワークID |
-| port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態 |
-| port.mac_address | Body | String | - | ポートのMACアドレス |
-| port.port_id | Body | UUID | - | Floating IPが接続されたポートID |
+| port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態。デフォルト値`true` |
 | port.fixed_ips | Body | Array | - | ポートの固定IPリスト |
-| port.fixed_ips.subnet_id | Body | UUID | - | ポートの固定IPのサブネットID |
-| port.fixed_ips.ip_address | Body | String | - | ポートの固定IPアドレス |
-| port.security_groups | Body | Array | - | ポートのセキュリティグループIDリスト |
-| port.allowed_address_pairs | Body | Array | - | ポートのアドレスペアリスト |
-| port.allowed_address_pairs.ip_address | Body | String | - | ポートのIPアドレス |
-| port.allowed_address_pairs.mac_address | Body | String | - | ポートのMACアドレス |
-| port.extra_dhcp_opts | Body | Array | - | 追加DHCP設定 |
+| port.fixed_ips.subnet_id | Body | UUID | - | 固定IPを割り当てるサブネットID |
+| port.fixed_ips.ip_address | Body | String | - | 固定IPアドレス |
+| port.port_security_enabled | Body | Boolean | - | ポートセキュリティを使用するかどうか。デフォルト値`true` | 
+| port.security_groups | Body | Array | - | ポートに設定するセキュリティグループIDリスト。デフォルト値`defaultセキュリティグループのID`<br>ポートセキュリティ使用時に設定可能 |
+| port.allowed_address_pairs | Body | Array | - | ポートの許可アドレスのペアリスト<br>ポートセキュリティ使用時に設定可能 |
+| port.allowed_address_pairs.ip_address | Body | String | - | 許可するIPアドレス |
+| port.allowed_address_pairs.mac_address | Body | String | - | 許可するMACアドレス |
+| port.extra_dhcp_opts | Body | Array | - | 追加DHCPオプション |
 | port.device_owner | Body | String | - | ポートを使用するリソースの種類 |
-| port.device_id | Body | UUID | - | ポートを使用するリソースID |
+| port.device_id | Body | UUID | - | ポートを使用するリソースID。仮想IPとして使用する場合は`network:virtual_ip`に指定 |
 
 <details><summary>例</summary>
 <p>
@@ -396,23 +408,23 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | port | Body | Array | ポート情報オブジェクト |
-| port.status | Body | Enum | ポートの状態<br>**ACTIVE**、**DOWN**のいずれか |
+| port.id | Body | UUID | ポートのID |
 | port.name | Body | String | ポート名 |
-| port.allowed_address_pairs | Body | Array | ポートのアドレスペアリスト |
+| port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
 | port.admin_state_up | Body | Boolean | ポートの管理者制御状態 |
 | port.network_id | Body | UUID | ポートのネットワークID |
 | port.tenant_id | Body | String | テナントID |
-| port.extra_dhcp_opts | Body | Array | 追加DHCP設定 |
-| port.binding:vnic_type | Body | String | ポートタイプ |
+| port.extra_dhcp_opts | Body | Array | 追加DHCPオプション |
+| port.binding:vnic_type | Body | String | ポートに接続されたvNICタイプ |
 | port.device_owner | Body | String | ポートを使用するリソースの種類 |
-| port.mac_address | Body | String | ポートのMACアドレス |
-| port.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>アクティブの場合、セキュリティグループを適用可能 |
-| port.fixed_ips | Body | Array | ポートの固定IPリスト |
-| port.fixed_ips.subnet_id | Body | UUID | ポートの固定IPのサブネットID |
-| port.fixed_ips.ip_address | Body | String | ポートの固定IPアドレス |
-| port.id | Body | UUID | ポートのID |
-| port.security_groups | Body | Array | ポートのセキュリティグループIDリスト |
 | port.device_id | Body | UUID | ポートを使用するリソースID |
+| port.mac_address | Body | String | ポートのMACアドレス |
+| port.fixed_ips | Body | Array | ポートの固定IPリスト |
+| port.fixed_ips.subnet_id | Body | UUID | 固定IPが属するサブネットID |
+| port.fixed_ips.ip_address | Body | String | 固定IPアドレス |
+| port.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>有効化の場合、セキュリティグループ、許可アドレスのペアを設定可能 |
+| port.security_groups | Body | Array | ポートに設定されたセキュリティグループIDリスト |
+| port.allowed_address_pairs | Body | Array | ポートに設定された許可アドレスのペアリスト |
 
 <details><summary>例</summary>
 <p>
@@ -447,6 +459,101 @@ X-Auth-Token: {tokenId}
 </details>
 
 ---
+
+### ポートを変更する
+指定したポートのプロパティを変更します。
+```
+PUT /v2.0/ports/{portId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| port | Body | Object | O | ポート作成リクエストオブジェクト |
+| port.name | Body | String | - | ポート名 |
+| port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態 |
+| port.fixed_ips | Body | Array | - | ポートの固定IPリスト |
+| port.fixed_ips.subnet_id | Body | UUID | - | 固定IPを割り当てるサブネットID |
+| port.fixed_ips.ip_address | Body | String | - | 固定IPアドレス |
+| port.port_security_enabled | Body | Boolean | - | ポートセキュリティを使用するかどうか<br>セキュリティグループ及び許可アドレスのペアがすべて除去された後、`false`に変更可能 | 
+| port.security_groups | Body | Array | - | ポートに設定するセキュリティグループIDリスト。空のリストを入力すると全て削除<br>ポートセキュリティ使用時に設定可能 |
+| port.allowed_address_pairs | Body | Array | - | ポートの許可アドレスのペアリスト。空のリストを入力すると全て除去<br>ポートセキュリティ使用時に設定可能 |
+| port.allowed_address_pairs.ip_address | Body | String | - | 許可するIPアドレス |
+| port.allowed_address_pairs.mac_address | Body | String | - | 許可するMACアドレス |
+| port.extra_dhcp_opts | Body | Array | - | 追加DHCPオプション |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+    "port": {
+        "name": "private-port",
+        "admin_state_up": true
+    }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| port | Body | Array | ポート情報オブジェクト |
+| port.id | Body | UUID | ポートのID |
+| port.name | Body | String | ポート名 |
+| port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
+| port.admin_state_up | Body | Boolean | ポートの管理者制御状態 |
+| port.network_id | Body | UUID | ポートのネットワークID |
+| port.tenant_id | Body | String | テナントID |
+| port.extra_dhcp_opts | Body | Array | 追加DHCPオプション |
+| port.binding:vnic_type | Body | String | ポートに接続されたvNICタイプ |
+| port.device_owner | Body | String | ポートを使用するリソースの種類 |
+| port.device_id | Body | UUID | ポートを使用するリソースID |
+| port.mac_address | Body | String | ポートのMACアドレス |
+| port.fixed_ips | Body | Array | ポートの固定IPリスト |
+| port.fixed_ips.subnet_id | Body | UUID | 固定IPが属するサブネットID |
+| port.fixed_ips.ip_address | Body | String | 固定IPアドレス |
+| port.port_security_enabled | Body | Boolean | ポートのセキュリティ状態<br>有効化の場合、セキュリティグループ、許可アドレスのペアを設定可能 |
+| port.security_groups | Body | Array | ポートに設定されたセキュリティグループIDリスト |
+| port.allowed_address_pairs | Body | Array | ポートに設定された許可アドレスのペアリスト |
+
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+    "port": {
+        "status": "DOWN",
+        "name": "private-port",
+        "allowed_address_pairs": [],
+        "admin_state_up": true,
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "device_owner": "",
+        "mac_address": "fa:16:3e:c9:cb:f0",
+        "fixed_ips": [
+            {
+                "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                "ip_address": "10.0.0.2"
+            }
+        ],
+        "id": "65c0ee9f-d634-4522-8954-51021b570b0d",
+        "security_groups": [
+            "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+        ],
+        "device_id": ""
+    }
+}
+```
+
+</p>
+</details>
 
 ### ポートを削除する
 指定したポートを削除します。

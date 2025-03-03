@@ -1658,6 +1658,7 @@ X-Auth-Token: {tokenId}
 | routes.mask | Body | Integer | ルート目的地CIDRのネットマスク |
 | routes.gateway | Body | String | ルートゲートウェイIP。ローカルルートの場合"local" |
 | routes.gateway_id | Body | UUID | ルーティングテーブルにインターネットゲートウェイを接続して自動的に作成されたルートの場合、インターネットゲートウェイのID |
+| route.description | Body | String | ルートの説明 | 
 | routes.tenant_id | Body | String | ルートが属するテナントID |
 
 <details><summary>例</summary>
@@ -1672,7 +1673,8 @@ X-Auth-Token: {tokenId}
       "gateway": "local",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "172.16.0.0/16",
-      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf"
+      "id": "02ab0653-42d4-433f-81d9-776ceb23f3bf",
+      "description": null
     },
     {
       "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
@@ -1680,7 +1682,8 @@ X-Auth-Token: {tokenId}
       "gateway": "172.16.10.19",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "192.168.0.0/24",
-      "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+      "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+      "description": "description text"
     },
     {
       "gateway_id": "ad7f3e7f-35b9-4ff1-b7b9-2451d7fc9982",
@@ -1689,7 +1692,8 @@ X-Auth-Token: {tokenId}
       "gateway": "100.127.64.9",
       "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
       "cidr": "0.0.0.0/0",
-      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7"
+      "id": "a9e4a335-a251-4387-9fef-f98c58281ce7",
+      "description": null
     }
   ]
 }
@@ -1765,6 +1769,7 @@ X-Auth-Token: {tokenId}
 | routingtable_id | Body | UUID | O | ルートを追加するルーティングテーブルID |
 | cidr | Body | String | O | ルート目的地CIDR |
 | gateway| Body | String | O | ルートゲートウェイIP |
+| description | Body | String | O | ルートの説明。最大256bytes | 
 
 <details><summary>例</summary>
 <p>
@@ -1774,7 +1779,8 @@ X-Auth-Token: {tokenId}
   "route": {
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69", 
     "cidr": "192.168.0.0/24", 
-    "gateway": "172.16.10.19"
+    "gateway": "172.16.10.19",
+    "description": "description text"
   }
 }
 ```
@@ -1791,6 +1797,7 @@ X-Auth-Token: {tokenId}
 | route.cidr | Body | String | ルート目的地CIDR | 
 | route.mask | Body | Integer | ルート目的地CIDRのネットマスク |
 | route.gateway | Body | String | ルートゲートウェイIP |
+| route.description | Body | String | ルートの説明 | 
 | route.tenant_id | Body | String | ルートが属するテナントID |
 
 <details><summary>例</summary>
@@ -1804,13 +1811,82 @@ X-Auth-Token: {tokenId}
     "gateway": "172.16.10.19",
     "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
     "cidr": "192.168.0.0/24",
-    "id": "83729f84-90c2-422f-8f08-394e1e4310bb"
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
   }
 }
 ```
 
 </p>
 </details>
+
+### ルートを変更する
+
+指定したルートを変更します。変更可能な項目は`cidr`, `gateway`, `description`で、`gateway`項目が"local"であったり、インターネットゲートウェイ接続により自動的に追加されたルート(`gateway_id`値存在)は変更できません。
+
+```
+PUT /v2.0/routes/{routeId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| routeId | URL | UUID | O | 変更するルートID |
+| tokenId | Header | String | O | トークンID |
+| cidr | Body | String | X | ルートの目的地CIDR |
+| gateway| Body | String | X | ルートゲートウェイIP |
+| description | Body | String | X | ルートの説明。最大256bytes | 
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "route": {
+    "gateway": "172.16.10.19",
+    "cidr": "192.168.0.0/24",
+    "description": "description text"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| route | Body | Array | ルート情報オブジェクト |
+| route.id | Body | UUID | ルートID |
+| route.cidr | Body | String | ルートの目的地CIDR | 
+| route.mask | Body | Integer | ルート目的地CIDRのネットマスク |
+| route.gateway | Body | String | ルートゲートウェイIP |
+| route.description | Body | String | ルートの説明 | 
+| route.tenant_id | Body | String | ルートが属するテナントID |
+
+<details><summary>例</summary>
+<p>
+
+```json
+{
+  "route": {
+    "tenant_id": "8189ec9dc39c4a418359603e2b84a754",
+    "mask": 24,
+    "gateway": "172.16.10.19",
+    "routingtable_id": "0101dbfa-d504-4a1f-ae28-45d721e8cf69",
+    "cidr": "192.168.0.0/24",
+    "id": "83729f84-90c2-422f-8f08-394e1e4310bb",
+    "description": "description text"
+  }
+}
+```
+
+</p>
+</details>
+
 
 ### ルートを削除する
 
