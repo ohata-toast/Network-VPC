@@ -20,7 +20,7 @@ OpenStack 호환 API는 `network` 타입 엔드포인트를 이용합니다. 정
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| network | 한국(판교) 리전 | https://kr4-api-network-infrastructure.ngsc.go.kr  |
+| network | 한국(대구) 리전 | https://kr4-api-network-infrastructure.ngsc.go.kr  |
 
 
 ## 네트워크
