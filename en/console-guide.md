@@ -138,6 +138,17 @@ By using a subnet's **Static Route** setting, it is possible to pass the routing
 
 * A **Static Route** consists of the destination CIDR of the packet to be routed and the gateway information to forward the target packet to.<br>If you create a static route with a CIDR of "0.0.0.0/0", you can change the default gateway of the instance to an IP other than the gateway of the subnet.<br>The gateway is entered as text as opposed to a **Route** in the routing table, and you can also specify an IP that is not yet assigned within the subnet.
 
+> [Note]
+> To ensure reliable operation, static routes are limited to a maximum of 20 per subnet.
+> If you need to create more than 21 static routes within a single subnet, please contact [Customer Center] (https://www.nhncloud.com/kr/support/inquiry).
+> 
+> * Even if the maximum number of static routes is lifted, the number of static routes that can be created is limited due to limitations in the DHCP protocol.
+> * Static route information is conveyed via the DHCP 'classless-static-routes' option (Option 121).
+> * The DHCP protocol limits the maximum length of each option to 255 bytes.
+> * The number of bytes occupied by each route varies depending on the subnet mask length of the route's destination CIDR (/8, /16, /24, /32, etc.), which affects the number of routes that can be added.
+> * System-reserved routes required for cloud operation take up space first, so typically, up to 20 to 30 user-defined routes can be added per subnet.
+> * For technical details of 'classless-static-routes' option, refer to [RFC 3442](https://tools.ietf.org/html/rfc3442).
+
 ### Create Subnet
 Enter the following information to create a subnet
 
