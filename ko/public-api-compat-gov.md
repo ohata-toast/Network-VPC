@@ -359,6 +359,83 @@ X-Auth-Token: {tokenId}
 
 ---
 
+### 포트 보기
+
+```
+GET /v2.0/ports/{portId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| portId | URL | UUID | O | 포트 ID |
+| tokenId | Header | String | O | 토큰 ID |
+| fields | Query | String | - | 조회할 포트의 필드 이름<br>예) `fields=id&fields=name` |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| port | Body | Array | 포트 정보 객체 |
+| port.id | Body | UUID | 포트의 ID |
+| port.name | Body | String | 포트 이름 |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
+| port.network_id | Body | UUID | 포트의 네트워크 ID |
+| port.tenant_id | Body | String | 테넌트 ID |
+| port.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
+| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
+| port.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
+| port.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
+| port.mac_address | Body | String | 포트의 MAC 주소 |
+| port.fixed_ips | Body | Array | 포트의 고정 IP 목록 |
+| port.fixed_ips.subnet_id | Body | UUID | 고정 IP가 속한 서브넷 ID |
+| port.fixed_ips.ip_address | Body | String | 고정 IP 주소 |
+| port.port_security_enabled | Body | Boolean | 포트의 보안 상태<br>활성화된 경우 보안 그룹, 허용 주소 쌍 설정 가능 |
+| port.security_groups | Body | Array | 포트에 설정된 보안 그룹 ID 목록 |
+| port.allowed_address_pairs | Body | Array | 포트에 설정된 허용 주소 쌍 목록 |
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "port": {
+    "status": "ACTIVE",
+    "name": "",
+    "allowed_address_pairs": [],
+    "admin_state_up": true,
+    "network_id": "c46ee4e8-c9fa-462e-8a3b-55b1f11dd8f8",
+    "tenant_id": "19eeb40d58684543aef29cbb5ebfe8f0",
+    "extra_dhcp_opts": [],
+    "binding:vnic_type": "normal",
+    "device_owner": "compute:kr-pub-a",
+    "mac_address": "fa:16:3e:1a:ed:34",
+    "port_security_enabled": true,
+    "fixed_ips": [
+      {
+        "subnet_id": "eb166bdf-dd99-4b02-ac8e-64be21dff2d5",
+        "ip_address": "192.168.0.15"
+      }
+    ],
+    "id": "2a83bc25-ed76-4a2b-83b7-a4408aa99c4a",
+    "security_groups": [
+      "877b092c-2a31-4509-8d23-deeb02d95633"
+    ],
+    "device_id": "10b9643d-9bc8-4b0f-a5dd-cfcb4033d70b"
+  }
+}
+```
+
+</p>
+</details>
+
+---
+
 ### 포트 생성하기
 새로운 포트를 생성합니다. 생성한 포트는 인스턴스 생성 시 활용할 수 있습니다.
 ```
@@ -382,10 +459,15 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 `default 보안 그룹의 ID`<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
 | port.device_owner | Body | String | - | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip`로 지정 |
+
+> [주의]
+> 보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+> * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+> * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+> * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
@@ -481,8 +563,13 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
+
+> [주의]
+> 보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+> * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+> * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+> * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
