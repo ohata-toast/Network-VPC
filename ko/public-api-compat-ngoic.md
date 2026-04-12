@@ -382,10 +382,15 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 `default 보안 그룹의 ID`<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
 | port.device_owner | Body | String | - | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip`로 지정 |
+
+> [주의]
+> 보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+> * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+> * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+> * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
@@ -481,8 +486,13 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
+
+> [주의]
+> 보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+> * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+> * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+> * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
