@@ -1,6 +1,6 @@
 ## Network > VPC > OpenStack 호환 API 가이드
 
-NHN Cloud Network 서비스는 OpenStack neutron API와 호환되는 API를 제공합니다. 
+NHN Cloud Network 서비스는 OpenStack neutron API와 호환되는 API를 제공합니다.
 제공하는 OpenStack 호환 API는 다음과 같습니다.
 
 | OpenStack API 메서드 | 용도 |
@@ -45,14 +45,14 @@ X-Auth-Token: {tokenId}
 | tenant_id | Query | String | - | 조회할 네트워크가 속한 테넌트 ID |
 | sort_dir | Query | Enum | - | 조회할 네트워크의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
 | sort_key | Query | String | - | 조회할 네트워크의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬 |
-| fields | Query | String | - | 조회할 네트워크의 필드 이름<br>예) `fields=id&fields=name` |
+| fields | Query | String | - | 조회할 네트워크의 필드 이름<br>예: `fields=id&fields=name` |
 
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | networks | Body | Array | 네트워크 정보 객체 목록 |
-| networks.status | Body | Enum | 네트워크 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| networks.status | Body | Enum | 네트워크 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | networks.subnets | Body | Array | 네트워크에 속한 서브넷들의 ID 목록 |
 | networks.name | Body | String | 네트워크 이름 |
 | networks.router:external | Body | Boolean | 네트워크 외부 연결 여부 |
@@ -62,7 +62,6 @@ X-Auth-Token: {tokenId}
 | networks.shared | Body | Boolean | 네트워크 공유 여부 |
 | networks.port_security_enabled | Body | Boolean | 네트워크 포트 보안 여부<br>이 네트워크에서 생성되는 포트의 보안 활성화 여부를 결정 |
 | networks.id | Body | String | 네트워크 ID |
-| networks.name | Body | String | 네트워크 이름 |
 | networks_links | Body | Array | 페이지 매김(페이지네이션)을 위한 정보 객체<br>`limit`, `offset`를 추가한 경우 반환<br>다음 목록을 가리키는 경로를 포함 |
 
 <details><summary>예시</summary>
@@ -131,7 +130,7 @@ X-Auth-Token: {tokenId}
 | shared | Query | Boolean | - | 조회할 서브넷의 공유 여부 |
 | sort_dir | Query | Enum | - | 조회할 서브넷의 정렬 방향<br>`sort_key`에서 지정한 필드를 기준으로 정렬<br>**asc**, **desc** 중 하나 |
 | sort_key | Query | String | - | 조회할 서브넷의 정렬 키<br>`sort_dir`에서 지정한 방향대로 정렬 |
-| fields | Query | String | - | 조회할 서브넷의 필드 이름<br>예) `fields=id&fields=name` |
+| fields | Query | String | - | 조회할 서브넷의 필드 이름<br>예: `fields=id&fields=name` |
 
 #### 응답
 
@@ -142,7 +141,7 @@ X-Auth-Token: {tokenId}
 | subnets.enable_dhcp | Body | Boolean | 서브넷의 DHCP 활성화 여부 |
 | subnets.network_id | Body | UUID | 서브넷의 네트워크 ID |
 | subnets.tenant_id | Body | String | 테넌트 ID |
-| subnets.dns_nameservers | Body | Array | 서브넷에 연결괸 DNS 네임서버 목록 |
+| subnets.dns_nameservers | Body | Array | 서브넷에 연결된 DNS 네임서버 목록 |
 | subnets.gateway_ip | Body | String | 서브넷의 게이트웨이 IP |
 | subnets.ipv6_ra_mode | Body | Boolean | IPv6의 Router Advertisement 모드 |
 | subnets.allocation_pools | Body | Array | 서브넷 IP 범위 객체 목록 |
@@ -209,16 +208,16 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | id | Query | UUID | - | 조회할 포트 ID |
-| status | Query | Enum | - | 조회할 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| status | Query | Enum | - | 조회할 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | name | Query | String | - | 조회할 포트 이름 |
 | admin_state | Query | Boolean | - | 조회할 포트의 관리자 제어 상태 |
 | network_id | Query | UUID | - | 조회할 포트의 네트워크 ID |
 | tenant_id | Query | String | - | 조회할 포트의 테넌트 ID |
-| fixed_ips | Query | array | - | 조회할 포트의 고정 IP 정보.<br>IP 주소(`ip_address`), IP 주소 일부(`ip_address_substr`), 서브넷 ID(`subnet_id`)로 필터링 가능 | 
+| fixed_ips | Query | Array | - | 조회할 포트의 고정 IP 정보.<br>IP 주소(`ip_address`), IP 주소 일부(`ip_address_substr`), 서브넷 ID(`subnet_id`)로 필터링 가능 | 
 | mac_address | Query | String | - | 조회할 포트의 MAC 주소 |
 | device_owner | Query | String | - | 조회할 포트를 사용하는 리소스 종류 |
 | device_id | Query | UUID | - | 조회할 포트를 사용하는 리소스 ID |
-| fields | Query | String | - | 조회할 포트의 필드 이름<br>예) `fields=id&fields=name` |
+| fields | Query | String | - | 조회할 포트의 필드 이름<br>예: `fields=id&fields=name` |
 
 #### 응답
 
@@ -227,7 +226,7 @@ X-Auth-Token: {tokenId}
 | ports | Body | Array | 포트 정보 객체 목록 |
 | ports.id | Body | UUID | 포트의 ID |
 | ports.name | Body | String | 포트 이름 |
-| ports.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| ports.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | ports.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | ports.network_id | Body | UUID | 포트의 네트워크 ID |
 | ports.tenant_id | Body | String | 테넌트 ID |
@@ -283,7 +282,7 @@ X-Auth-Token: {tokenId}
 ---
 
 ### 포트 보기
-
+포트를 조회합니다.
 ```
 GET /v2.0/ports/{portId}
 X-Auth-Token: {tokenId}
@@ -296,16 +295,16 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | portId | URL | UUID | O | 포트 ID |
 | tokenId | Header | String | O | 토큰 ID |
-| fields | Query | String | - | 조회할 포트의 필드 이름<br>예) `fields=id&fields=name` |
+| fields | Query | String | - | 조회할 포트의 필드 이름<br>예: `fields=id&fields=name` |
 
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| port | Body | Array | 포트 정보 객체 |
+| port | Body | Object | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
@@ -374,7 +373,7 @@ X-Auth-Token: {tokenId}
 | port | Body | Object | O | 포트 생성 요청 객체 |
 | port.name | Body | String | - | 포트 이름 |
 | port.network_id | Body | UUID | O | 포트의 네트워크 ID |
-| port.admin_state_up | Body | Boolean | - | 포트의 관리자 제어 상태. 기본값 `true` |
+| port.admin_state_up | Body | Boolean | - | 포트의 관리자 제어 상태 기본값 `true` |
 | port.fixed_ips | Body | Array | - | 포트의 고정 IP 목록 |
 | port.fixed_ips.subnet_id | Body | UUID | - | 고정 IP를 할당할 서브넷 ID |
 | port.fixed_ips.ip_address | Body | String | - | 고정 IP 주소 |
@@ -382,10 +381,15 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 기본값 `default 보안 그룹의 ID`<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
 | port.device_owner | Body | String | - | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | - | 포트를 사용하는 리소스 ID. 가상 IP로 사용할 경우 `network:virtual_ip`로 지정 |
+
+!!! tip "알아두기"
+    보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+    * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+    * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+    * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
@@ -407,10 +411,10 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| port | Body | Array | 포트 정보 객체 |
+| port | Body | Object | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
@@ -470,8 +474,9 @@ X-Auth-Token: {tokenId}
 #### 요청
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
+| portId | URL | UUID | O | 포트 ID |
 | tokenId | Header | String | O | 토큰 ID |
-| port | Body | Object | O | 포트 생성 요청 객체 |
+| port | Body | Object | O | 포트 변경 요청 객체 |
 | port.name | Body | String | - | 포트 이름 |
 | port.admin_state_up | Body | Boolean | - | 포트의 관리자 제어 상태 |
 | port.fixed_ips | Body | Array | - | 포트의 고정 IP 목록 |
@@ -481,8 +486,13 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | 포트에 설정할 보안 그룹 ID 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs | Body | Array | - | 포트의 허용 주소 쌍 목록. 빈 목록 입력 시 전체 제거<br>포트 보안 사용 시 설정 가능 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 허용할 IP 주소 |
-| port.allowed_address_pairs.mac_address | Body | String | - | 허용할 MAC 주소 |
 | port.extra_dhcp_opts | Body | Array | - | 추가 DHCP 옵션 |
+
+!!! tip "알아두기"
+    보안 및 운영 정책에 따라 다음 설정이 제한됩니다.
+    * **fixed_ips**: 단일 포트에 여러 `subnet_id`를 중복 포함할 수 없습니다.
+    * **allowed_address_pairs(IP)**: `ip_address` 설정 시 `/0` prefix(예: 0.0.0.0/0)를 포함한 CIDR은 입력이 제한됩니다.
+    * **allowed_address_pairs(MAC)**: `mac_address` 필드 입력은 지원되지 않습니다.
 
 <details><summary>예시</summary>
 <p>
@@ -503,15 +513,15 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| port | Body | Array | 포트 정보 객체 |
+| port | Body | Object | 포트 정보 객체 |
 | port.id | Body | UUID | 포트의 ID |
 | port.name | Body | String | 포트 이름 |
-| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나. |
+| port.status | Body | Enum | 포트 상태<br>`ACTIVE`, `BUILD`, `DOWN` 중 하나 |
 | port.admin_state_up | Body | Boolean | 포트의 관리자 제어 상태 |
 | port.network_id | Body | UUID | 포트의 네트워크 ID |
 | port.tenant_id | Body | String | 테넌트 ID |
 | port.extra_dhcp_opts | Body | Array | 추가 DHCP 옵션 |
-| port.binding:vnic_type | Body | String | 포트에 연결된  타입 |
+| port.binding:vnic_type | Body | String | 포트에 연결된 vNIC 타입 |
 | port.device_owner | Body | String | 포트를 사용하는 리소스 종류 |
 | port.device_id | Body | UUID | 포트를 사용하는 리소스 ID |
 | port.mac_address | Body | String | 포트의 MAC 주소 |
@@ -554,6 +564,8 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
+---
 
 ### 포트 삭제하기
 지정한 포트를 삭제합니다.
