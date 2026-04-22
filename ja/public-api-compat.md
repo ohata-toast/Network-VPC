@@ -14,7 +14,7 @@ NHN Cloud NetworkサービスはOpenStack neutron APIと互換性のあるAPIを
 
 OpenStack互換APIのリクエスト及びレスポンスに含まれるフィールドはOpenStack neutron APIが提供する項目のうち、NHN Cloudのポリシーに基づき、文書に明示された項目に制限されます。
 
-APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](https://docs.toast.com/ja/Compute/Compute/ja/identity-api/)を参照してAPIを使用するのに必要な情報を準備します。
+NHN Cloud Networkサービスは、API呼び出し時の認証・認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行と使用に関する詳細は、[IaaSトークン](/nhncloud/ja/public-api/iaas-token)をご参照ください。
 
 Openstack互換APIは`network`タイプエンドポイントを利用します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
 
@@ -45,14 +45,14 @@ X-Auth-Token: {tokenId}
 | tenant_id | Query | String | - | 照会するネットワークが属しているテナントID |
 | sort_dir | Query | Enum | - | 照会するネットワークのソート方向<br>`sort_key`で指定したフィールドを基準にソート<br>**asc**、**desc**のどちらか |
 | sort_key | Query | String | - | 照会するネットワークのソートキー<br>`sort_dir`で指定した方向通りにソート |
-| fields | Query | String | - | 照会するネットワークのフィールド名<br>例) `fields=id&fields=name` |
+| fields | Query | String | - | 照会するネットワークのフィールド名<br>例: `fields=id&fields=name` |
 
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | networks | Body | Array | ネットワーク情報オブジェクトリスト |
-| networks.status | Body | Enum | ネットワークの状態<br>**ACTIVE**、**DOWN**、**BUILD**、**ERROR**のいずれか。 |
+| networks.status | Body | Enum | ネットワークの状態<br>**ACTIVE**、**DOWN**、**BUILD**、**ERROR**のいずれか |
 | networks.subnets | Body | Array | ネットワークに属しているサブネットのIDリスト |
 | networks.name | Body | String | ネットワーク名 |
 | networks.router:external | Body | Boolean | ネットワーク外部接続有無 |
@@ -62,7 +62,6 @@ X-Auth-Token: {tokenId}
 | networks.shared | Body | Boolean | ネットワーク共有有無 |
 | networks.port_security_enabled | Body | Boolean | ネットワークポートのセキュリティ有無<br>このネットワークで作成されるポートのセキュリティ有無を決定 |
 | networks.id | Body | String | ネットワークID |
-| networks.name | Body | String | ネットワーク名 |
 | networks_links | Body | Array | ページネーション用の情報オブジェクト<br>`limit`、`offset`を追加した場合に返す<br>次のリストを指すパスを含む |
 
 <details><summary>例</summary>
@@ -131,7 +130,7 @@ X-Auth-Token: {tokenId}
 | shared | Query | Boolean | - | 照会するサブネットの共有有無 |
 | sort_dir | Query | Enum | - | 照会するサブネットのソート方向<br>`sort_key`で指定したフィールドを基準にソート<br>**asc**、**desc**のいずれか |
 | sort_key | Query | String | - | 照会するサブネットのソートキー<br>`sort_dir`で指定した方向通りにソート |
-| fields | Query | String | - | 照会するサブネットのフィールド名<br>例) `fields=id&fields=name` |
+| fields | Query | String | - | 照会するサブネットのフィールド名<br>例: `fields=id&fields=name` |
 
 #### レスポンス
 
@@ -214,11 +213,11 @@ X-Auth-Token: {tokenId}
 | admin_state | Query | Boolean | - | 照会するポートの管理者制御状態 |
 | network_id | Query | UUID | - | 照会するポートのネットワークID |
 | tenant_id | Query | String | - | 照会するポートのテナントID |
-| fixed_ips | Query | array | - | 照会するポートの固定IP情報。<br>IPアドレス(`ip_address`), IPアドレス一部(`ip_address_substr`)、サブネットID(`subnet_id`)でフィルタリング可能 | 
+| fixed_ips | Query | Array | - | 照会するポートの固定IP情報。<br>IPアドレス(`ip_address`), IPアドレス一部(`ip_address_substr`)、サブネットID(`subnet_id`)でフィルタリング可能 | 
 | mac_address | Query | String | - | 照会するポートのMACアドレス |
 | device_owner | Query | String | - | 照会するポートを使用するリソースの種類 |
 | device_id | Query | UUID | - | 照会するポートを使用するリソースID |
-| fields | Query | String | - | 照会するポートのフィールド名<br>例) `fields=id&fields=name` |
+| fields | Query | String | - | 照会するポートのフィールド名<br>例: `fields=id&fields=name` |
 
 #### レスポンス
 
@@ -283,7 +282,7 @@ X-Auth-Token: {tokenId}
 ---
 
 ### ポート表示
-
+ポートを照会します。
 ```
 GET /v2.0/ports/{portId}
 X-Auth-Token: {tokenId}
@@ -296,13 +295,13 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | portId | URL | UUID | O | ポートID |
 | tokenId | Header | String | O | トークンID |
-| fields | Query | String | - | 照会するポートのフィールド名<br>例) `fields=id&fields=name` |
+| fields | Query | String | - | 照会するポートのフィールド名<br>例: `fields=id&fields=name` |
 
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| port | Body | Array | ポート情報オブジェクト |
+| port | Body | Object | ポート情報オブジェクト |
 | port.id | Body | UUID | ポートのID |
 | port.name | Body | String | ポート名 |
 | port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
@@ -374,7 +373,7 @@ X-Auth-Token: {tokenId}
 | port | Body | Object | O | ポート作成リクエストオブジェクト |
 | port.name | Body | String | - | ポート名 |
 | port.network_id | Body | UUID | O | ポートのネットワークID |
-| port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態。デフォルト値`true` |
+| port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態 基本値 `true` |
 | port.fixed_ips | Body | Array | - | ポートの固定IPリスト |
 | port.fixed_ips.subnet_id | Body | UUID | - | 固定IPを割り当てるサブネットID |
 | port.fixed_ips.ip_address | Body | String | - | 固定IPアドレス |
@@ -382,10 +381,15 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | ポートに設定するセキュリティグループIDリスト。デフォルト値`defaultセキュリティグループのID`<br>ポートセキュリティ使用時に設定可能 |
 | port.allowed_address_pairs | Body | Array | - | ポートの許可アドレスのペアリスト<br>ポートセキュリティ使用時に設定可能 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 許可するIPアドレス |
-| port.allowed_address_pairs.mac_address | Body | String | - | 許可するMACアドレス |
 | port.extra_dhcp_opts | Body | Array | - | 追加DHCPオプション |
 | port.device_owner | Body | String | - | ポートを使用するリソースの種類 |
 | port.device_id | Body | UUID | - | ポートを使用するリソースID。仮想IPとして使用する場合は`network:virtual_ip`に指定 |
+
+!!! tip 「ポイント」
+    セキュリティ及び運用ポリシーにより、以下の設定が制限されます。
+    * **fixed_ips**: 単一ポートに複数の`subnet_id`を重複して含めることはできません。
+    * **allowed_address_pairs(IP)**: `ip_address`設定時、`/0`プレフィックス(例: 0.0.0.0/0)を含むCIDRの入力は制限されます。
+    * **allowed_address_pairs(MAC)**: `mac_address`フィールドの入力はサポートされていません。
 
 <details><summary>例</summary>
 <p>
@@ -407,7 +411,7 @@ X-Auth-Token: {tokenId}
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| port | Body | Array | ポート情報オブジェクト |
+| port | Body | Object | ポート情報オブジェクト |
 | port.id | Body | UUID | ポートのID |
 | port.name | Body | String | ポート名 |
 | port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
@@ -470,8 +474,9 @@ X-Auth-Token: {tokenId}
 #### リクエスト
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
+| portId | URL | UUID | O | ポートID |
 | tokenId | Header | String | O | トークンID |
-| port | Body | Object | O | ポート作成リクエストオブジェクト |
+| port | Body | Object | O | ポート変更リクエストオブジェクト |
 | port.name | Body | String | - | ポート名 |
 | port.admin_state_up | Body | Boolean | - | ポートの管理者制御状態 |
 | port.fixed_ips | Body | Array | - | ポートの固定IPリスト |
@@ -481,8 +486,13 @@ X-Auth-Token: {tokenId}
 | port.security_groups | Body | Array | - | ポートに設定するセキュリティグループIDリスト。空のリストを入力すると全て削除<br>ポートセキュリティ使用時に設定可能 |
 | port.allowed_address_pairs | Body | Array | - | ポートの許可アドレスのペアリスト。空のリストを入力すると全て除去<br>ポートセキュリティ使用時に設定可能 |
 | port.allowed_address_pairs.ip_address | Body | String | - | 許可するIPアドレス |
-| port.allowed_address_pairs.mac_address | Body | String | - | 許可するMACアドレス |
 | port.extra_dhcp_opts | Body | Array | - | 追加DHCPオプション |
+
+!!! tip 「ポイント」
+    セキュリティ及び運用ポリシーにより、以下の設定が制限されます。
+    * **fixed_ips**: 単一ポートに複数の`subnet_id`を重複して含めることはできません。
+    * **allowed_address_pairs(IP)**: `ip_address`設定時、`/0`プレフィックス(例: 0.0.0.0/0)を含むCIDRの入力は制限されます。
+    * **allowed_address_pairs(MAC)**: `mac_address`フィールドの入力はサポートされていません。
 
 <details><summary>例</summary>
 <p>
@@ -503,7 +513,7 @@ X-Auth-Token: {tokenId}
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| port | Body | Array | ポート情報オブジェクト |
+| port | Body | Object | ポート情報オブジェクト |
 | port.id | Body | UUID | ポートのID |
 | port.name | Body | String | ポート名 |
 | port.status | Body | Enum | ポート状態<br>`ACTIVE`, `BUILD`, `DOWN`のいずれか |
@@ -554,6 +564,8 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
+
+---
 
 ### ポートを削除する
 指定したポートを削除します。
